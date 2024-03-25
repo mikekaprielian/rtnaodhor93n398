@@ -23,11 +23,43 @@ jobs:
 
       - name: Run Script and Generate M3U8 for rotana_Cinema
         run: |
-          id="rotana_Cinema"
+          id="rotana_CinemaKSA"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
           echo "#EXTM3U" > rotanacinema.m3u
           echo "#EXTINF:-1, Rotana Cinema" >> rotanacinema.m3u
           echo "$curl_output" >> rotanacinema.m3u
+
+      - name: Run Script and Generate M3U8 for rotana_Classic
+        run: |
+          id="rotana_Classic"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanaclassic.m3u
+          echo "#EXTINF:-1, Rotana Classic" >> rotanaclassic.m3u
+          echo "$curl_output" >> rotanaclassic.m3u
+
+      - name: Run Script and Generate M3U8 for rotana_Drama
+        run: |
+          id="rotana_Drama"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanadrama.m3u
+          echo "#EXTINF:-1, Rotana Drama" >> rotanadrama.m3u
+          echo "$curl_output" >> rotanadrama.m3u   
+
+      - name: Run Script and Generate M3U8 for rotana_Comedy
+        run: |
+          id="rotana_Comedy"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanacomedy.m3u
+          echo "#EXTINF:-1, Rotana Comedy" >> rotanacomedy.m3u
+          echo "$curl_output" >> rotanacomedy.m3u 
+
+      - name: Run Script and Generate M3U8 for rotana_LBC
+        run: |
+          id="rotana_Comedy"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanalbc.m3u
+          echo "#EXTINF:-1, Rotana LBC" >> rotanalbc.m3u
+          echo "$curl_output" >> rotanalbc.m3u         
 
       - name: Commit and Push Changes
         env:
@@ -35,6 +67,6 @@ jobs:
         run: |
           git config --local user.email "mikekaprielian@vif.com"
           git config --local user.name "Mikekaprielian"
-          git add rotanaclip.m3u rotanacinema.m3u
-          git commit -m "Update rotanaclip.m3u and rotanacinema.m3u"
+          git add rotanaclip.m3u rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u
+          git commit -m "Update rotanaclip.m3u and rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u"
           git push
