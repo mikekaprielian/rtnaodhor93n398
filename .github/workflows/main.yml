@@ -3,6 +3,7 @@ name: Run Script Every 6 Hours
 on:
   schedule:
     - cron: '0 */6 * * *'  # Run every 6 hours
+  workflow_dispatch:      # Enable manual triggering
 
 jobs:
   run_script:
@@ -18,6 +19,7 @@ jobs:
           curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/clip_720p\/chunks.m3u8/g' > rotanaclip.m3u8
 
       - name: Commit and Push Changes
+        if: github.event_name != 'workflow_dispatch'   # Only run this step if not triggered manually
         run: |
           git config --global user.name "Your Name"
           git config --global user.email "youremail@example.com"
