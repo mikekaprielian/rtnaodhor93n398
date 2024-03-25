@@ -21,13 +21,29 @@ jobs:
           echo "#EXTINF:-1, Rotana Clip" >> rotanaclip.m3u
           echo "$curl_output" >> rotanaclip.m3u
 
-      - name: Run Script and Generate M3U8 for rotana_Cinema
+      - name: Run Script and Generate M3U8 for rotana_CinemaKSA
         run: |
           id="rotana_CinemaKSA"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
           echo "#EXTM3U" > rotanacinema.m3u
-          echo "#EXTINF:-1, Rotana Cinema" >> rotanacinema.m3u
+          echo "#EXTINF:-1, Rotana Cinema KSA" >> rotanacinema.m3u
           echo "$curl_output" >> rotanacinema.m3u
+
+      - name: Run Script and Generate M3U8 for rotana_CinemaMASR
+        run: |
+          id="rotana_CinemaMASR"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanacinemamasr.m3u
+          echo "#EXTINF:-1, Rotana Cinema MASR" >> rotanacinemamasr.m3u
+          echo "$curl_output" >> rotanacinemamasr.m3u   
+
+      - name: Run Script and Generate M3U8 for rotana_KhaleejiyaKSA
+        run: |
+          id="rotana_KhaleejiyaKSA"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanakhaleejiyaksa.m3u
+          echo "#EXTINF:-1, Rotana Khaleejiya KSA" >> rotanakhaleejiyaksa.m3u
+          echo "$curl_output" >> rotanakhaleejiyaksa.m3u    
 
       - name: Run Script and Generate M3U8 for rotana_Classic
         run: |
@@ -67,6 +83,6 @@ jobs:
         run: |
           git config --local user.email "mikekaprielian@vif.com"
           git config --local user.name "Mikekaprielian"
-          git add rotanaclip.m3u rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u
-          git commit -m "Update rotanaclip.m3u and rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u"
+          git add rotanaclip.m3u rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u rotanacinemamasr.m3u rotanakhaleejiyaksa.m3u
+          git commit -m "Update rotanaclip.m3u and rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u rotanacinemamasr.m3u rotanakhaleejiyaksa.m3u"
           git push
