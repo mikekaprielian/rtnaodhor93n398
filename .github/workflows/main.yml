@@ -13,10 +13,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Run Script
+      - name: Run Script and Generate M3U8
         run: |
           id="rotana_Clip"
-          curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/clip_720p\/chunks.m3u8/g' > rotanaclip.m3u8
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/clip_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanaclip.m3u8
+          echo "#EXT-X-VERSION:3" >> rotanaclip.m3u8
+          echo "INF:BANDWIDTH=1984342,RESOLUTION=1280x720,CODECS=\"avc1.640029,mp4a.40.2\"" >> rotanaclip.m3u8
+          echo "$curl_output" >> rotanaclip.m3u8
 
       - name: Commit and Push Changes
         if: github.event_name != 'workflow_dispatch'   # Only run this step if not triggered manually
