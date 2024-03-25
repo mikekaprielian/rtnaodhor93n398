@@ -77,12 +77,20 @@ jobs:
           echo "#EXTINF:-1, Rotana LBC" >> rotanalbc.m3u
           echo "$curl_output" >> rotanalbc.m3u         
 
+      - name: Run Script and Generate M3U8 for rotana_Kids
+        run: |
+          id="rotana_CinemaMasr"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | sed 's/CinemaMasr/Kids/g; s/439/441/g; s/Cinema Masr/Kids/g; s/cinemamasr/kids/g' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/kids_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanakids.m3u
+          echo "#EXTINF:-1, Rotana Kids" >> rotanakids.m3u
+          echo "$curl_output" >> rotanakids.m3u   
+
       - name: Commit and Push Changes
         env:
          GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}  # Use the stored PAT secret
         run: |
           git config --local user.email "mikekaprielian@vif.com"
           git config --local user.name "Mikekaprielian"
-          git add rotanaclip.m3u rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u rotanacinemamasr.m3u rotanakhaleejiyaksa.m3u
-          git commit -m "Update rotanaclip.m3u and rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u rotanacinemamasr.m3u rotanakhaleejiyaksa.m3u"
+          git add rotanaclip.m3u rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u rotanacinemamasr.m3u rotanakhaleejiyaksa.m3u rotanakids.m3u
+          git commit -m "Update rotanaclip.m3u and rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u rotanacinemamasr.m3u rotanakhaleejiyaksa.m3u rotanakids.m3u"
           git push
