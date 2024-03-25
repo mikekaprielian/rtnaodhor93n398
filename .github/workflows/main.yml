@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Run Script and Generate M3U8
+      - name: Run Script and Generate M3U8 for rotana_Clip
         run: |
           id="rotana_Clip"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/clip_720p\/chunks.m3u8/g')
@@ -21,12 +21,20 @@ jobs:
           echo "#EXTINF:-1, Rotana Clip" >> rotanaclip.m3u
           echo "$curl_output" >> rotanaclip.m3u
 
+      - name: Run Script and Generate M3U8 for rotana_Cinema
+        run: |
+          id="rotana_Cinema"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanacinema.m3u
+          echo "#EXTINF:-1, Rotana Cinema" >> rotanacinema.m3u
+          echo "$curl_output" >> rotanacinema.m3u
+
       - name: Commit and Push Changes
         env:
          GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}  # Use the stored PAT secret
         run: |
           git config --local user.email "mikekaprielian@vif.com"
           git config --local user.name "Mikekaprielian"
-          git add rotanaclip.m3u
-          git commit -m "Update rotanaclip.m3u"
+          git add rotanaclip.m3u rotanacinema.m3u
+          git commit -m "Update rotanaclip.m3u and rotanacinema.m3u"
           git push
