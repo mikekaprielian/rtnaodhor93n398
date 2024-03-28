@@ -38,7 +38,13 @@ jobs:
         run: |
           curl_output=$(curl -s http://www.callofliberty.fr/tv/11-TFX/11-TFX.php | grep -oP "source:\s*'\K[^']+(?=',)")
           curl_output2=$(curl -e "http://www.callofliberty.fr/" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
-          echo "$curl_output2" > fr/videotfx.m3u8  # Use single > to overwrite existing content          
+          echo "$curl_output2" > fr/videotfx.m3u8  # Use single > to overwrite existing content
+
+      - name: Run Script and Generate M3U8 for VideoCP
+        run: |
+          curl_output=$(curl -s http://www.callofliberty.fr/tv/4-CANALPLUS/4-CANALPLUS.php | grep -oP "source:\s*'\K[^']+(?=',)")
+          curl_output2=$(curl -e "http://www.callofliberty.fr/" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
+          echo "$curl_output2" > fr/videocp.m3u8  # Use single > to overwrite existing content                  
 
       - name: Commit and Push Changes
         env:
@@ -46,6 +52,6 @@ jobs:
         run: |
           git config --local user.email "mikekaprielian@vif.com"
           git config --local user.name "Mikekaprielian"
-          git add fr/videotf1.m3u8 fr/videotf1fs.m3u8 fr/videotmc.m3u8 fr/videotfx.m3u8
+          git add fr/videotf1.m3u8 fr/videotf1fs.m3u8 fr/videotmc.m3u8 fr/videotfx.m3u8 fr/videocp.m3u8 
           git commit -m "latest updates"
           git push
