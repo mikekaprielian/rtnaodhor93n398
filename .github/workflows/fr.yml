@@ -20,7 +20,7 @@ jobs:
         run: |
           curl_output=$(curl -s http://www.callofliberty.fr/tv/1-TF1/1-TF1.php | grep -oP "source:\s*'\K[^']+(?=',)")
           curl_output2=$(curl -e "http://www.callofliberty.fr/" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
-          echo "$curl_output" >> fr/videotf1.m3u8
+          echo "$curl_output0" >> fr/videotf1.m3u8
 
       - name: Commit and Push Changes
         env:
