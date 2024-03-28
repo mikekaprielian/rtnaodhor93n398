@@ -13,6 +13,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Create fr Folder
+        run: mkdir -p fr
+
       - name: Run Script and Generate M3U8 for rotana_Clip
         run: |
           curl_output=$(curl -s http://www.callofliberty.fr/tv/1-TF1/1-TF1.php | grep -oP "source:\s*'\K[^']+(?=',)")
