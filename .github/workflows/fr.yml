@@ -1,0 +1,96 @@
+name: Run Script Every 6 Hours
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Run every 6 hours
+  workflow_dispatch:      # Enable manual triggering
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run Script and Generate M3U8 for rotana_Clip
+        run: |
+          id="rotana_Clip"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/clip_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanaclip.m3u
+          echo "#EXTINF:-1, Rotana Clip" >> rotanaclip.m3u
+          echo "$curl_output" >> rotanaclip.m3u
+
+      - name: Run Script and Generate M3U8 for rotana_CinemaKSA
+        run: |
+          id="rotana_CinemaKSA"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanacinema.m3u
+          echo "#EXTINF:-1, Rotana Cinema KSA" >> rotanacinema.m3u
+          echo "$curl_output" >> rotanacinema.m3u
+
+      - name: Run Script and Generate M3U8 for rotana_CinemaMasr
+        run: |
+          id="rotana_CinemaMasr"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinemamasr_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanacinemamasr.m3u
+          echo "#EXTINF:-1, Rotana Cinema MASR" >> rotanacinemamasr.m3u
+          echo "$curl_output" >> rotanacinemamasr.m3u   
+
+      - name: Run Script and Generate M3U8 for rotana_KhaleejiyaKSA
+        run: |
+          id="rotana_KhaleejiyaKSA"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/khaleejiya_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanakhaleejiyaksa.m3u
+          echo "#EXTINF:-1, Rotana Khaleejiya KSA" >> rotanakhaleejiyaksa.m3u
+          echo "$curl_output" >> rotanakhaleejiyaksa.m3u    
+
+      - name: Run Script and Generate M3U8 for rotana_Classic
+        run: |
+          id="rotana_Classic"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/classical_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanaclassic.m3u
+          echo "#EXTINF:-1, Rotana Classic" >> rotanaclassic.m3u
+          echo "$curl_output" >> rotanaclassic.m3u
+
+      - name: Run Script and Generate M3U8 for rotana_Drama
+        run: |
+          id="rotana_Drama"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/drama_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanadrama.m3u
+          echo "#EXTINF:-1, Rotana Drama" >> rotanadrama.m3u
+          echo "$curl_output" >> rotanadrama.m3u   
+
+      - name: Run Script and Generate M3U8 for rotana_Comedy
+        run: |
+          id="rotana_Comedy"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/comedy_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanacomedy.m3u
+          echo "#EXTINF:-1, Rotana Comedy" >> rotanacomedy.m3u
+          echo "$curl_output" >> rotanacomedy.m3u 
+
+      - name: Run Script and Generate M3U8 for rotana_LBC
+        run: |
+          id="rotana_LBC"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/lbc_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanalbc.m3u
+          echo "#EXTINF:-1, Rotana LBC" >> rotanalbc.m3u
+          echo "$curl_output" >> rotanalbc.m3u         
+
+      - name: Run Script and Generate M3U8 for rotana_Kids
+        run: |
+          id="rotana_CinemaMasr"
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | sed 's/CinemaMasr/Kids/g; s/439/441/g; s/Cinema Masr/Kids/g; s/cinemamasr/kids/g' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/kids_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > rotanakids.m3u
+          echo "#EXTINF:-1, Rotana Kids" >> rotanakids.m3u
+          echo "$curl_output" >> rotanakids.m3u   
+
+      - name: Commit and Push Changes
+        env:
+         GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}  # Use the stored PAT secret
+        run: |
+          git config --local user.email "mikekaprielian@vif.com"
+          git config --local user.name "Mikekaprielian"
+          git add rotanaclip.m3u rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u rotanacinemamasr.m3u rotanakhaleejiyaksa.m3u rotanakids.m3u
+          git commit -m "Update rotanaclip.m3u and rotanacinema.m3u rotanaclassic.m3u rotanacomedy.m3u rotanadrama.m3u rotanalbc.m3u rotanacinemamasr.m3u rotanakhaleejiyaksa.m3u rotanakids.m3u"
+          git push
