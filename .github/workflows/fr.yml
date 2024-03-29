@@ -2,7 +2,7 @@ name: Run Script Every 6 Hours FR
 
 on:
   schedule:
-    - cron: '0 */3 * * *'  # Run every 6 hours
+    - cron: '0 */3 * * *'  # Run every 3 hours
   workflow_dispatch:      # Enable manual triggering
 
 jobs:
@@ -58,6 +58,29 @@ jobs:
           curl_output2=$(curl -e "http://www.callofliberty.fr/" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
           echo "$curl_output2" > fr/video6ter.m3u8  # Use single > to overwrite existing content   
 
+      - name: Run Script and Generate M3U8 for F2
+        run: |
+          curl_output=$(curl -s http://www.callofliberty.fr/tv/2-france.2/2-france.2.php | grep -oP "source:\s*'\K[^']+(?=',)")
+          curl_output2=$(curl -e "http://www.callofliberty.fr/" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
+          echo "$curl_output2" > fr/videof2.m3u8  # Use single > to overwrite existing content   
+
+      - name: Run Script and Generate M3U8 for F3
+        run: |
+          curl_output=$(curl -s http://www.callofliberty.fr/tv/3-france.3/3-france.3.php | grep -oP "source:\s*'\K[^']+(?=',)")
+          curl_output2=$(curl -e "http://www.callofliberty.fr/" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
+          echo "$curl_output2" > fr/videof3.m3u8  # Use single > to overwrite existing content   
+
+      - name: Run Script and Generate M3U8 for F4
+        run: |
+          curl_output=$(curl -s http://www.callofliberty.fr/tv/14-france.4/14-france.4.php | grep -oP "source:\s*'\K[^']+(?=',)")
+          curl_output2=$(curl -e "http://www.callofliberty.fr/" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
+          echo "$curl_output2" > fr/videof4.m3u8  # Use single > to overwrite existing content   
+
+      - name: Run Script and Generate M3U8 for F5
+        run: |
+          curl_output=$(curl -s http://www.callofliberty.fr/tv/5-france.5/5-france.5.php | grep -oP "source:\s*'\K[^']+(?=',)")
+          curl_output2=$(curl -e "http://www.callofliberty.fr/" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
+          echo "$curl_output2" > fr/videof5.m3u8  # Use single > to overwrite existing content            
 
       - name: Commit and Push Changes
         env:
