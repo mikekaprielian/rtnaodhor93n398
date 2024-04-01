@@ -1,4 +1,4 @@
-  import requests
+import requests
 import re
 
 url = "https://www.qub.ca/tvaplus/tva/en-direct?silent_auth=true"
