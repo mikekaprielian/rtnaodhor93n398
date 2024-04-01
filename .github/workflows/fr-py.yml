@@ -32,6 +32,7 @@ jobs:
           input_url=$(cat fr/videotva.m3u8)
           full_url=$(echo $input_url | awk -F'index.m3u8' '{print $1}')
           curl -s "$input_url" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | sed "s/\\.m3u8/\\/$full_url&/g" > fr/videotvafull.m3u8
+
       - name: Run Python Script videoqub
         run: python py/videoqub.py > fr/videoqub.m3u8     
 
