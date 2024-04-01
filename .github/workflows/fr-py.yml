@@ -28,12 +28,12 @@ jobs:
         run: python py/videotva.py > fr/videotva.m3u8
 
       - name: Run Python Script videoqub
-        run: python py/videotva.py > fr/videotva.m3u8        
+        run: python py/videoqub.py > fr/videoqub.m3u8        
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Generate M3U8 file"
+          commit_message: "Update token"
           branch: main
           files: |
             fr/videotva.m3u8 fr/videoqub.m3u8
