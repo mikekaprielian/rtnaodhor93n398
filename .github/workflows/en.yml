@@ -27,3 +27,13 @@ jobs:
         run: |
           cd py  # Change directory to where the script is located
           python videohgtv.py > mtvurl.txt  # Run the script and redirect output
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update token"
+          branch: main
+          files: |
+            py/mtvurl.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}    
