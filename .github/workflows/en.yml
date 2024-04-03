@@ -6,22 +6,20 @@ on:
       - main
   workflow_dispatch:      # Enable manual triggering
 
-
 jobs:
-  run_selenium_script:
+  get_mtv_url:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install selenium
 
-      - name: Install Dependencies
-        run: pip install selenium
-
-      - name: Run Script
-        run: python py/videohgtv.py
+      - name: Run Python script
+        run: |
+          python py/videohgtv.py > mtvurl.txt
