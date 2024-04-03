@@ -1,10 +1,11 @@
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 url = "https://thetvapp.to/tv/mtv-live-stream/"
-
+output_file = "mtvurl.txt"  # Path to the output file
 
 def extract_desired_url(requests):
     # Search for the desired URL in the requests
@@ -13,8 +14,7 @@ def extract_desired_url(requests):
             return request
     return None
 
-
-def get_get_requests():
+def get_get_requests(driver):
     try:
         # Execute JavaScript to capture network requests
         requests = driver.execute_script("""
@@ -36,7 +36,6 @@ def get_get_requests():
     finally:
         driver.quit()
 
-
 # Set Chrome options
 options = webdriver.ChromeOptions()
 options.add_argument("--headless")  # To run Chrome in headless mode
@@ -54,19 +53,19 @@ try:
 except:
     pass  # Do nothing if the video player is not found, the message will not be printed
 
-
 # Call the function to get GET requests
-get_requests = get_get_requests()
+get_requests = get_get_requests(driver)
 
 # Extract the desired URL
 if get_requests:
     desired_url = extract_desired_url(get_requests)
     if desired_url:
         print("Desired URL found:", desired_url)
-        # Write the desired URL to the file
-        with open("mtvurl.txt", "w") as file:
+        # Write the desired URL to the file in the repository directory
+        output_path = os.path.join(os.getcwd(), output_file)
+        with open(output_path, "w") as file:
             file.write(desired_url)
-            print("Desired URL written to mtvurl.txt")
+            print(f"Desired URL written to {output_file}")
     else:
         print("No desired URL found in the requests.")
 else:
