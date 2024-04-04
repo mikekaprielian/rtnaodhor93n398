@@ -1,72 +1,76 @@
-import os
 from selenium import webdriver
+from selenium_stealth import stealth
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+import time
+import random
 
-url = "https://thetvapp.to/tv/mtv-live-stream/"
-output_file = "mtvurl.txt"  # Path to the output file
 
-def extract_desired_url(requests):
-    # Search for the desired URL in the requests
-    for request in requests:
-        if "MTVEast.m3u8?token=" in request:
-            return request
-    return None
+user_agents = [
+    #add your list of user agents here
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+]
 
-def get_get_requests(driver):
-    try:
-        # Execute JavaScript to capture network requests
-        requests = driver.execute_script("""
-            var performance = window.performance || window.webkitPerformance || window.msPerformance || window.mozPerformance;
-            if (!performance) {
-                return [];
-            }
-            var entries = performance.getEntriesByType("resource");
-            var urls = [];
-            for (var i = 0; i < entries.length; i++) {
-                urls.push(entries[i].name);
-            }
-            return urls;
-        """)
-        return requests
-    except Exception as e:
-        print("An error occurred:", e)
-        return None
-    finally:
-        driver.quit()
+
+
+
+# Path to the ChromeDriver executable
+chromedriver_path = '/usr/local/bin/chromedriver'
 
 # Set Chrome options
-options = webdriver.ChromeOptions()
-options.add_argument("--headless")  # To run Chrome in headless mode
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("start-maximized")
+chrome_options.add_argument("disable-infobars")
+chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--crash-dumps-dir=/tmp")
 
-# Initialize Selenium WebDriver with the service and Chrome options
-driver = webdriver.Chrome(options=options)
 
-# Navigate to the URL
+
+
+
+user_agent = random.choice(user_agents)
+chrome_options.add_argument(f"user-agent={user_agent}")
+
+
+# Initialize the Chrome WebDriver with the specified options
+driver = webdriver.Chrome(executable_path=chromedriver_path, options=chrome_options)
+
+
+stealth(
+    driver,
+    languages=["en-US", "en"],
+    vendor="Google Inc.",
+    platform="Win32",
+    webgl_vendor="Intel Inc.",
+    renderer="Intel Iris OpenGL Engine",
+    fix_hairline=True,
+)
+
+# Navigate to the webpage
+url = "https://thetvapp.to/tv/hgtv-live-stream/"  # Corrected URL
 driver.get(url)
 
-# Wait for the video player element to be present
-try:
-    video_player = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, "video-player")))
-    print("Video player loaded successfully.")
-except:
-    pass  # Do nothing if the video player is not found, the message will not be printed
+# Wait for a brief period to allow the page to load and network requests to be made
+time.sleep(1)
 
-# Call the function to get GET requests
-get_requests = get_get_requests(driver)
+# Get all network requests
+network_requests = driver.execute_script("return performance.getEntries();")
 
-# Extract the desired URL
-if get_requests:
-    desired_url = extract_desired_url(get_requests)
-    if desired_url:
-        print("Desired URL found:", desired_url)
-        # Write the desired URL to the file in the repository directory
-        output_path = os.path.join(os.getcwd(), output_file)
-        with open(output_path, "w") as file:
-            file.write(desired_url)
-            print(f"Desired URL written to {output_file}")
-    else:
-        print("No desired URL found in the requests.")
-else:
-    print("No GET requests found.")
+# Filter out only the URLs containing ".m3u8"
+m3u8_urls = [request["name"] for request in network_requests if ".m3u8" in request["name"]]
+
+# Write URLs to a text file
+#with open("network_responses.txt", "w") as file:
+#   for url in m3u8_urls:
+#        file.write(url + "\n")
+
+# Print the first URL if there is at least one
+if m3u8_urls:
+    print(m3u8_urls[0])
+
+# Quit the WebDriver
+driver.quit()
