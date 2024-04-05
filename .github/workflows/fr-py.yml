@@ -38,7 +38,13 @@ jobs:
 
 
       - name: Run Python Script videoqub
-        run: python py/videoqub.py > fr/videoqub.m3u8 
+        run: |
+         python_output=$(python py/videoqub.py)
+         echo "#EXTM3U" > fr/videoqub.m3u8
+         echo "#EXT-X-VERSION:7" >> fr/videoqub.m3u8
+         echo "#EXT-X-INDEPENDENT-SEGMENTS" >> fr/videoqub.m3u8
+         echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> fr/videoqub.m3u8
+         echo "$python_output" >> fr/videoqub.m3u8        
 
       - name: Run Python Script videolci
         run: |
