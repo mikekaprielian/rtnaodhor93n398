@@ -24,8 +24,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
+#      - name: Run Python Script videotva
+#        run: python py/videotva.py > fr/videotva.m3u8
+
       - name: Run Python Script videotva
-        run: python py/videotva.py > fr/videotva.m3u8
+        run: |
+         python_output=$(python py/videotva.py)
+         echo "#EXTM3U" > fr/videotva.m3u8
+         echo "#EXT-X-VERSION:7" >> fr/videotva.m3u8
+         echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/videolbc.m3u8
+         echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> fr/videotva.m3u8
+         echo "$python_output" >> fr/videotva.m3u8
+
 
       - name: Run Python Script videoqub
         run: python py/videoqub.py > fr/videoqub.m3u8     
