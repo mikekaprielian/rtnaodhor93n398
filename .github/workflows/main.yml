@@ -33,6 +33,7 @@ jobs:
         run: |
           id="rotana_CinemaKSA"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > ar/rotanacinema.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanacinema.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanacinema.m3u8
           echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanacinema.m3u8
@@ -42,6 +43,7 @@ jobs:
         run: |
           id="rotana_CinemaMasr"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinemamasr_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > ar/rotanacinemamasr.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanacinemamasr.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanacinemamasr.m3u8
           echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanacinemamasr.m3u8
@@ -51,6 +53,7 @@ jobs:
         run: |
           id="rotana_KhaleejiyaKSA"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/khaleejiya_720p\/chunks.m3u8/g') 
+          echo "#EXTM3U" > ar/rotanakhaleejiyaksa.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanakhaleejiyaksa.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanakhaleejiyaksa.m3u8
           echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanakhaleejiyaksa.m3u8
@@ -60,6 +63,7 @@ jobs:
         run: |
           id="rotana_Classic"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/classical_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > ar/rotanaclassic.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanaclassic.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanaclassic.m3u8
           echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanaclassic.m3u8
@@ -69,6 +73,7 @@ jobs:
         run: |
           id="rotana_Drama"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/drama_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > ar/rotanadrama.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanadrama.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanadrama.m3u8
           echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanadrama.m3u8
@@ -78,6 +83,7 @@ jobs:
         run: |
           id="rotana_Comedy"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/comedy_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > ar/rotanacomedy.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanacomedy.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanacomedy.m3u8
           echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanacomedy.m3u8
@@ -87,6 +93,7 @@ jobs:
         run: |
           id="rotana_LBC"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/lbc_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > ar/rotanalbc.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanalbc.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanalbc.m3u8
           echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanalbc.m3u8
@@ -96,6 +103,7 @@ jobs:
         run: |
           id="rotana_CinemaMasr"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oE "<[^>]* id=\"$id\"[^>]*https?://[^'\'']*" | sed 's/CinemaMasr/Kids/g; s/439/441/g; s/Cinema Masr/Kids/g; s/cinemamasr/kids/g' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/kids_720p\/chunks.m3u8/g')
+          echo "#EXTM3U" > ar/rotanakids.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanakids.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanakids.m3u8
           echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanakids.m3u8
