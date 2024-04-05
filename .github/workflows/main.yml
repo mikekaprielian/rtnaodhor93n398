@@ -85,14 +85,14 @@ jobs:
           echo "#EXTINF:-1, Rotana Kids" >> rotanakids.m3u
           echo "$curl_output" >> rotanakids.m3u   
 
-      - name: Run Script and Generate M3U8 for LBCI 
-        run: |
-         python_output=$(python py/videolbc.py)
-         echo "#EXTM3U" > ar/videolbc.m3u8
-         echo "#EXT-X-VERSION:7" >> ar/videolbc.m3u8
-         echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/videolbc.m3u8
-         echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/videolbc.m3u8
-         echo "$python_output" >> ar/videolbc.m3u8
+#      - name: Run Script and Generate M3U8 for LBCI 
+#        run: |
+#         python_output=$(python py/videolbc.py)
+#         echo "#EXTM3U" > ar/videolbc.m3u8
+#         echo "#EXT-X-VERSION:7" >> ar/videolbc.m3u8
+#         echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/videolbc.m3u8
+#         echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/videolbc.m3u8
+#         echo "$python_output" >> ar/videolbc.m3u8
           
 
       - name: Commit and Push Changes
