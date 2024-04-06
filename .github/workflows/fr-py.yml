@@ -30,7 +30,7 @@ jobs:
       - name: Run Python Script videotva
         run: |
          python_output=$(python py/videotva.py)
-         echo "#EXTM3U" > fr/videotva.m3u8
+         echo "#EXTM3U" > fr/videotva.m3u
          echo "#EXTINF:-1, TVA" >> fr/videotva.m3u
          echo "$python_output" >> fr/videotva.m3u
 
