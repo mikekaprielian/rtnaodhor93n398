@@ -31,8 +31,10 @@ user_agent = random.choice(user_agents)
 chrome_options.add_argument(f"user-agent={user_agent}")
 
 
+chrome_service = Service(ChromeDriverManager().install())
+
 # Create the Chrome WebDriver instance
-driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
 stealth(
     driver,
