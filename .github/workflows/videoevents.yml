@@ -9,6 +9,9 @@ jobs:
   generate_m3u:
     runs-on: ubuntu-latest
 
+    env:
+     CHROMIUM_VERSION: '90.0.4430.212'  # Set the desired Chromium version
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -27,11 +30,6 @@ jobs:
           sudo apt-get install -y unzip wget
           sudo apt-get install -y libgconf-2-4
           sudo apt-get install -y chromium-browser
-
-      - name: Get specific Chromium version
-        id: chromium_version
-        run: |
-          echo ::set-env name=CHROMIUM_VERSION::90.0.4430.212  # Set the desired Chromium version          
 
       - name: Install Python dependencies
         run: |
@@ -52,5 +50,4 @@ jobs:
             en/videoevents.m3u
         env:
           GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}
-          CHROMIUM_VERSION: ${{ steps.chromium_version.outputs.CHROMIUM_VERSION }}
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+          CHROMIUM_VERSION: ${{ env.CHROMIUM_VERSION }}
