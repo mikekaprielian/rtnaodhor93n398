@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium_stealth import stealth
 from webdriver_manager.chrome import ChromeDriverManager
 #from webdriver_manager.core.os_manager import ChromeType
+from selenium.webdriver.chrome.service import Service as ChromeService
 import random
 import time
 
@@ -31,10 +32,13 @@ user_agent = random.choice(user_agents)
 chrome_options.add_argument(f"user-agent={user_agent}")
 
 
-chrome_service = Service(ChromeDriverManager().install())
+#service = ChromeService(executable_path=ChromeDriverManager().install())
+#service = ChromeService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+
+service = ChromeService(ChromeDriverManager().install())
 
 # Create the Chrome WebDriver instance
-driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
 stealth(
     driver,
