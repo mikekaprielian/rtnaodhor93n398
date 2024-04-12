@@ -28,12 +28,6 @@ jobs:
           sudo apt-get install -y libgconf-2-4
           sudo apt-get install -y chromium-browser
 
-      - name: Install Chromium
-      - run: |
-          VERSION_STRING="90.0.4430.212"
-          wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${VERSION_STRING}_amd64.deb"
-          sudo dpkg -i "google-chrome-stable_${VERSION_STRING}_amd64.deb"          
-
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
