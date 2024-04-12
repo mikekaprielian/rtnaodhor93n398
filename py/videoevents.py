@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium_stealth import stealth
 from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.os_manager import ChromeType
+#from webdriver_manager.core.os_manager import ChromeType
 import random
 import time
 
@@ -30,11 +30,9 @@ chrome_options.add_argument("--crash-dumps-dir=/tmp")
 user_agent = random.choice(user_agents)
 chrome_options.add_argument(f"user-agent={user_agent}")
 
-# Get the path to the Chrome WebDriver binary
-driver_path = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
 
 # Create the Chrome WebDriver instance
-driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 
 stealth(
     driver,
