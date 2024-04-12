@@ -119,7 +119,7 @@ for group, name, link in all_links:
     # Print the collected m3u8 URLs
     if m3u8_urls:
      name_fixed = name.replace(',', '')
-     name_fixed = name_fixed.replace(': ', ' -')
+     name_fixed = name_fixed.replace(': ', ' - ')
      est_time_str = utc_to_est(name_fixed)
      print(f"#EXTINF:-1 group-title=\"{group}\", {est_time_str}")
      print(m3u8_urls[0])  # Print only the first m3u8 URL
