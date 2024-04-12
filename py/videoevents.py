@@ -14,13 +14,16 @@ from datetime import datetime
 
 # Function to convert UTC time to Eastern Time Zone (EST)
 def utc_to_est(utc_time_str):
-    # Parse the UTC time string
-    utc_time = datetime.strptime(utc_time_str, "%I:%M:%S %p UTC")
+    # Extract the time portion from the input string
+    time_str = utc_time_str.split(" - ")[-1]
+    # Parse the time string as a UTC timezone
+    utc_time = datetime.strptime(time_str, "%m/%d/%y %I:%M:%S %p UTC")
     # Convert UTC time to Eastern Time Zone (EST/EDT)
     est_time = utc_time.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('US/Eastern'))
     # Format the EST time string
-    est_time_str = est_time.strftime("%I:%M:%S %p EST")
+    est_time_str = est_time.strftime("%m/%d/%y %I:%M:%S %p EST")
     return est_time_str
+
 
 user_agents = [
     #add your list of user agents here
@@ -118,14 +121,16 @@ for group, name, link in all_links:
 
     # Print the collected m3u8 URLs
     if m3u8_urls:
-        name_fixed = name.replace(',', '')
-        name_fixed = name_fixed.replace(': ', ' - ')
-        name_parts = name_fixed.split(' - ')
-        title = name_parts[0]
-        rest_of_title = ' - '.join(name_parts[1:])
-        est_time_str = utc_to_est(rest_of_title)
-        print(f"#EXTINF:-1 group-title=\"{group}\", {title} - {est_time_str}")
-        print(m3u8_urls[0])  # Print only the first m3u8 URL
+     name_fixed = name.replace(',', '')
+     name_fixed = name_fixed.replace(': ', ' - ')
+     name_parts = name_fixed.split(' - ')
+     title = name_parts[0]
+     rest_of_title = ' - '.join(name_parts[1:])
+     est_time_str = utc_to_est(rest_of_title)
+     print(f"#EXTINF:-1 group-title=\"{group}\", {title} - {est_time_str}")
+     print(m3u8_urls[0])  # Print only the first m3u8 URL
+
 
 # Close the WebDriver
 driver.quit()
+
