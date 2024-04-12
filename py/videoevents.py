@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium_stealth import stealth
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.utils import ChromeType
 import random
 import time
 
@@ -13,8 +15,9 @@ user_agents = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
 ]
 
-# Path to the ChromeDriver executable
-chromedriver_path = '/usr/local/bin/chromedriver'
+
+chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+
 
 # Set Chrome options
 chrome_options = webdriver.ChromeOptions()
@@ -32,7 +35,7 @@ user_agent = random.choice(user_agents)
 chrome_options.add_argument(f"user-agent={user_agent}")
 
 # Initialize the Chrome WebDriver with the specified options
-driver = webdriver.Chrome(executable_path=chromedriver_path, options=chrome_options)
+driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
 stealth(
     driver,
