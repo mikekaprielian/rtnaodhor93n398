@@ -17,7 +17,7 @@ def utc_to_est(utc_time_str):
     # Extract the time portion from the input string
     time_str = utc_time_str.split(" - ")[-1]
     # Parse the time string as a UTC timezone
-    utc_time = datetime.strptime(time_str, "%m/%d/%y %I:%M:%S %p")
+    utc_time = datetime.strptime(time_str, "%m/%d/%y %I:%M:%S %p UTC")
     # Convert UTC time to Eastern Time Zone (EST/EDT)
     est_time = utc_time.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('US/Eastern'))
     # Format the EST time string
