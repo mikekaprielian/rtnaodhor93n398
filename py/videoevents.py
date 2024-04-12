@@ -92,7 +92,7 @@ for group, name, link in all_links:
     driver.get(link)
 
     # Wait for a brief period to allow the page to load and network requests to be made
-    time.sleep(1)
+    time.sleep(10)
 
     # Get all network requests
     network_requests = driver.execute_script("return performance.getEntries();")
