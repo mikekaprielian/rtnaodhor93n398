@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.firefox.service import Service
 from selenium_stealth import stealth
 import random
 import os
@@ -24,7 +25,7 @@ user_agent = random.choice(user_agents)
 firefox_options.add_argument(f"user-agent={user_agent}")
 
 # Create the Firefox WebDriver instance
-driver = webdriver.Firefox(options=firefox_options)
+driver = webdriver.Firefox(service=Service(), options=firefox_options)
 
 # Apply stealth features
 stealth(driver,
