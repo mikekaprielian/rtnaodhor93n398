@@ -106,7 +106,9 @@ for group, name, link in all_links:
 
     # Print the collected m3u8 URLs
     if m3u8_urls:
-        print(f"#EXTINF:-1 group-title=\"{group}\", {name}")
+        name_fixed = name.replace(',', '')
+        name_fixed = name.replace(':', ' -')
+        print(f"#EXTINF:-1 group-title=\"{group}\", {name_fixed}")
         print(m3u8_urls[0])  # Print only the first m3u8 URL
 
 # Close the WebDriver
