@@ -8,6 +8,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 #from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.service import Service as ChromeService
 import random
+
 import time
 
 user_agents = [
@@ -35,7 +36,9 @@ chrome_options.add_argument(f"user-agent={user_agent}")
 #service = ChromeService(executable_path=ChromeDriverManager().install())
 #service = ChromeService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
-service = ChromeService(ChromeDriverManager().install())
+chromium_version = os.getenv("CHROMIUM_VERSION")
+
+service = ChromeService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM, version=chromium_version).install())
 
 # Create the Chrome WebDriver instance
 driver = webdriver.Chrome(service=service, options=chrome_options)
