@@ -33,6 +33,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4 pandas webdriver-manager selenium selenium_stealth
 
+      - name: Download and Install Chromium 90.0.4430.212
+        run: |
+          VERSION_STRING="90.0.4430.212"
+          wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${VERSION_STRING}_amd64.deb"
+          sudo dpkg -i "google-chrome-stable_${VERSION_STRING}_amd64.deb"          
+
       - name: Run Python Script videoevents
         run: |
           python_output=$(python py/videoevents.py)
