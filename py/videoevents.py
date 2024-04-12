@@ -1,40 +1,50 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.firefox.service import Service
 from selenium_stealth import stealth
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
 import random
-import os
 import time
 
-# Set Firefox options
-firefox_options = webdriver.FirefoxOptions()
-firefox_options.add_argument("--headless")
-firefox_options.add_argument("--disable-gpu")
-firefox_options.add_argument("--no-sandbox")
-firefox_options.add_argument("--disable-dev-shm-usage")
+user_agents = [
+    #add your list of user agents here
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+]
+
+
+chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+
+
+# Set Chrome options
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("start-maximized")
+chrome_options.add_argument("disable-infobars")
+chrome_options.add_argument("--disable-extensions")
+chrome_options.add_argument("--crash-dumps-dir=/tmp")
 
 # Randomly select a user agent
-user_agents = [
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Firefox/97.0',
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0',
-    # Add more user agents as needed
-]
 user_agent = random.choice(user_agents)
-firefox_options.add_argument(f"user-agent={user_agent}")
+chrome_options.add_argument(f"user-agent={user_agent}")
 
-# Create the Firefox WebDriver instance
-driver = webdriver.Firefox(service=Service(), options=firefox_options)
+# Initialize the Chrome WebDriver with the specified options
+driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-# Apply stealth features
-stealth(driver,
+stealth(
+    driver,
     languages=["en-US", "en"],
     vendor="Google Inc.",
     platform="Win32",
     webgl_vendor="Intel Inc.",
     renderer="Intel Iris OpenGL Engine",
-    fix_hairline=True
+    fix_hairline=True,
 )
 
 # Open the webpage
@@ -79,7 +89,7 @@ for group, name, link in all_links:
     driver.get(link)
 
     # Wait for a brief period to allow the page to load and network requests to be made
-    time.sleep(10)
+    time.sleep(1)
 
     # Get all network requests
     network_requests = driver.execute_script("return performance.getEntries();")
