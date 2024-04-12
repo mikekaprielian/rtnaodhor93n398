@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium_stealth import stealth
 from webdriver_manager.chrome import ChromeDriverManager
-#from webdriver_manager.core.os_manager import ChromeType
+from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.service import Service as ChromeService
 import random
 import os
@@ -34,8 +34,8 @@ user_agent = random.choice(user_agents)
 chrome_options.add_argument(f"user-agent={user_agent}")
 
 
-#service = ChromeService(executable_path=ChromeDriverManager().install())
-#service = ChromeService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+# service = ChromeService(executable_path=ChromeDriverManager().install())
+# service = ChromeService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
 chromium_version = os.getenv("CHROMIUM_VERSION")
 
