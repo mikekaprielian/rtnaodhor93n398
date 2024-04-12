@@ -127,7 +127,7 @@ for group, name, link in all_links:
      title = name_parts[0]
      rest_of_title = ' - '.join(name_parts[1:])
      est_time_str = utc_to_est(rest_of_title)
-     print(f"#EXTINF:-1 group-title=\"{group}\", {title} - {est_time_str}")
+     print(f"#EXTINF:-1 group-title=\"{group}\", {title} {est_time_str}")
      print(m3u8_urls[0])  # Print only the first m3u8 URL
 
 
