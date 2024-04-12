@@ -15,6 +15,7 @@ user_agents = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
 ]
 
+chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
 # Set Chrome options
 chrome_options = webdriver.ChromeOptions()
@@ -32,7 +33,7 @@ user_agent = random.choice(user_agents)
 chrome_options.add_argument(f"user-agent={user_agent}")
 
 # Initialize the Chrome WebDriver with the specified options
-driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(), options=chrome_options)
+driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
 stealth(
     driver,
