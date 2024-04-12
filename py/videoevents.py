@@ -92,7 +92,13 @@ for group, name, link in all_links:
     time.sleep(1)
 
     # Get all network requests
-    network_requests = driver.execute_script("return performance.getEntries();")
+    network_requests = driver.execute_script("return JSON.stringify(performance.getEntries());")
+
+    # Convert the string back to a list of dictionaries in Python
+    network_requests = json.loads(network_requests)
+
+    # Get all network requests
+    #network_requests = driver.execute_script("return performance.getEntries();")
 
     # Filter out only the URLs containing ".m3u8"
     m3u8_urls = [request["name"] for request in network_requests if ".m3u8" in request["name"]]
