@@ -39,7 +39,7 @@ chrome_options.add_argument(f"user-agent={user_agent}")
 
 chromium_version = os.getenv("CHROMIUM_VERSION")
 
-service = ChromeService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM, version=chromium_version).install())
+service = ChromeService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
 # Create the Chrome WebDriver instance
 driver = webdriver.Chrome(service=service, options=chrome_options)
