@@ -29,8 +29,11 @@ chrome_options.add_argument("--crash-dumps-dir=/tmp")
 user_agent = random.choice(user_agents)
 chrome_options.add_argument(f"user-agent={user_agent}")
 
-# Initialize the Chrome WebDriver with the specified options
-driver = webdriver.Chrome(ChromeDriverManager(chrome_type='chromium').install(), options=chrome_options)
+# Get the path to the Chrome WebDriver binary
+driver_path = ChromeDriverManager(chrome_type='chromium').install()
+
+# Create the Chrome WebDriver instance
+driver = webdriver.Chrome(driver_path, options=chrome_options)
 
 stealth(
     driver,
