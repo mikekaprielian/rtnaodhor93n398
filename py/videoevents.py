@@ -15,14 +15,15 @@ from datetime import datetime
 # Function to convert UTC time to Eastern Time Zone (EST)
 def utc_to_est(utc_time_str):
     # Extract the time portion from the input string
-    time_str = utc_time_str.split(" - %m/%d/%y ")[-1]
+    time_str = utc_time_str.split(" - ")[-1]
     # Parse the time string as a UTC timezone
-    utc_time = datetime.strptime(time_str, "%I:%M:%S %p %Z")
+    utc_time = datetime.strptime(time_str, "%m/%d/%y %I:%M:%S %p")
     # Convert UTC time to Eastern Time Zone (EST/EDT)
     est_time = utc_time.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('US/Eastern'))
     # Format the EST time string
     est_time_str = est_time.strftime("%I:%M:%S %p EST")
     return est_time_str
+
 
 user_agents = [
     #add your list of user agents here
