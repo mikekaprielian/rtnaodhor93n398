@@ -33,7 +33,7 @@ chrome_options.add_argument(f"user-agent={user_agent}")
 driver_path = ChromeDriverManager(chrome_type='chromium').install()
 
 # Create the Chrome WebDriver instance
-driver = webdriver.Chrome(driver_path, options=chrome_options)
+driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
 
 stealth(
     driver,
@@ -102,3 +102,6 @@ for group, name, link in all_links:
 
 # Close the WebDriver
 driver.quit()
+
+
+
