@@ -8,6 +8,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 import random
 import time
+import json
 
 user_agents = [
     #add your list of user agents here
