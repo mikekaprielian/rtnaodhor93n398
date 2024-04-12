@@ -1,8 +1,8 @@
-name: VideoEvents M3u
+name: VideoEvents and VideoLive M3u
 
 on:
   schedule:
-    - cron: '0 */1 * * *'  # Run every 6 hours
+    - cron: '0 */4 * * *'  # Run every 6 hours
   workflow_dispatch:      # Enable manual triggering
 
 jobs:
@@ -38,6 +38,11 @@ jobs:
           python_output=$(python py/videoevents.py)
           echo "$python_output" > en/videoevents.m3u
 
+      - name: Run Python Script videoevents
+        run: |
+          python_output=$(python py/videolivetv.py)
+          echo "$python_output" > en/videolivetv.m3u
+
       - name: Pull changes from remote
         run: git pull origin main
 
@@ -47,6 +52,6 @@ jobs:
           commit_message: "Update token"
           branch: main
           files: |
-            en/videoevents.m3u
+            en/videoevents.m3u en/videolivetv.m3u
         env:
           GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}
