@@ -118,7 +118,9 @@ for group, name, link in all_links:
 
     # Print the collected m3u8 URLs
     if m3u8_urls:
-        name_parts = name.split(' - ')
+        name_fixed = name.replace(',', '')
+        name_fixed = name_fixed.replace(': ', ' - ')
+        name_parts = name_fixed.split(' - ')
         title = name_parts[0]
         rest_of_title = ' - '.join(name_parts[1:])
         est_time_str = utc_to_est(rest_of_title)
