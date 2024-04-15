@@ -238,7 +238,7 @@ def format_timezone_aware_datetime(dt):
         return dt.strftime("%Y%m%d%H%M%S %z")
 
 
-def create_xml(programs):
+def create_xml(programs, filename):
     root = ET.Element("tv")
 
     # Add channel information for each channel
@@ -430,5 +430,5 @@ if all_programs:
 
     #create_xml(channel_programs, "tv_programming.xml")  # Pass all programs and a single filename
     #print("XML file created successfully.")
-    xml_content = create_xml(channel_programs)  # Generate XML content
+    xml_content = create_xml(channel_programs, "videoall.xml")  # Generate XML content
     print(xml_content)  # Print the XML content
