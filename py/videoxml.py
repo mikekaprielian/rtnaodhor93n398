@@ -240,7 +240,7 @@ def format_timezone_aware_datetime(dt):
 
 def create_xml(programs):
     root = ET.Element("tv")
-
+    
     # Add channel information for each channel
     for channel_id, channel_programs in programs.items():
         channel_elem = ET.SubElement(root, "channel")
@@ -248,7 +248,7 @@ def create_xml(programs):
         display_name_elem = ET.SubElement(channel_elem, "display-name")
         display_name_elem.set("lang", "en")
         display_name_elem.text = channel_names[channel_id]
-
+    
     # Add program information under each channel
     for channel_id, channel_programs in programs.items():
         for program in channel_programs:
@@ -258,21 +258,23 @@ def create_xml(programs):
             program_elem.set("start", start_time)
             program_elem.set("stop", end_time)
             program_elem.set("channel", channel_names.get(channel_id, "Unknown"))
-
+    
             title_elem = ET.SubElement(program_elem, "title")
             title_elem.text = program["title"]
-
+    
             desc_elem = ET.SubElement(program_elem, "desc")
             desc_elem.text = program["description"]
-
+    
             # Add other elements as needed
-
+    
     # Apply indentation
     prettify(root)
+    
+    # Convert tree to XML string
+    xml_string = ET.tostring(root, encoding="utf-8", xml_declaration=True).decode()
+    
+    return xml_string
 
-    # Convert XML tree to string
-    xml_content = ET.tostring(root, encoding="utf-8")
-    return xml_content.decode("utf-8")  # Convert bytes to string
 
 # Example usage
 channel_ids = [
@@ -429,5 +431,5 @@ if all_programs:
         ]
 
     # Print the XML content
-    xml_content = create_xml(channel_programs)
-    print(xml_content)
+    xml_content = create_xml(channel_programs)  # Generate XML content
+    print(xml_content)  # Print the XML content
