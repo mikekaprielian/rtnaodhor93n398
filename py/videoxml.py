@@ -428,5 +428,6 @@ if all_programs:
             } for program in all_programs[channel_id]
         ]
 
-    create_xml(channel_programs, "tv_programming.xml")  # Pass all programs and a single filename
-    print("XML file created successfully.")
+    #create_xml(channel_programs, "tv_programming.xml")  # Pass all programs and a single filename
+    #print("XML file created successfully.")
+    print(channel_programs)
