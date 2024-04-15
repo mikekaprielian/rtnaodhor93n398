@@ -1,0 +1,31 @@
+name: VideoXML
+
+on:
+  schedule:
+    - cron: '0 3 */2 * *'  # Run at 3am every 48 hours
+workflow-dispatch
+
+jobs:
+  scrape_and_generate_epg:
+    name: Scrape TV Programming and Generate EPG
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pytz
+
+      - name: Run EPG Script
+        run: |
+          python py/videoxml.py > en/videoall.xml
+        env:
+          TZ: America/New_York  # Set the timezone
+
