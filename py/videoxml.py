@@ -430,4 +430,5 @@ if all_programs:
 
     #create_xml(channel_programs, "tv_programming.xml")  # Pass all programs and a single filename
     #print("XML file created successfully.")
-    print(channel_programs)
+    xml_content = create_xml(channel_programs)  # Generate XML content
+    print(xml_content)  # Print the XML content
