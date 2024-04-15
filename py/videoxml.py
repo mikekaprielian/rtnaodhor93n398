@@ -238,7 +238,7 @@ def format_timezone_aware_datetime(dt):
         return dt.strftime("%Y%m%d%H%M%S %z")
 
 
-def create_xml(programs, filename):
+def create_xml(programs):
     root = ET.Element("tv")
 
     # Add channel information for each channel
@@ -270,9 +270,9 @@ def create_xml(programs, filename):
     # Apply indentation
     prettify(root)
 
-    # Write tree to file
-    tree = ET.ElementTree(root)
-    tree.write(filename, encoding="utf-8", xml_declaration=True)
+    # Convert XML tree to string
+    xml_content = ET.tostring(root, encoding="utf-8")
+    return xml_content.decode("utf-8")  # Convert bytes to string
 
 # Example usage
 channel_ids = [
@@ -428,7 +428,6 @@ if all_programs:
             } for program in all_programs[channel_id]
         ]
 
-    #create_xml(channel_programs, "tv_programming.xml")  # Pass all programs and a single filename
-    #print("XML file created successfully.")
-    xml_content = create_xml(channel_programs, "videoall.xml")  # Generate XML content
-    print(xml_content)  # Print the XML content
+    # Print the XML content
+    xml_content = create_xml(channel_programs)
+    print(xml_content)
