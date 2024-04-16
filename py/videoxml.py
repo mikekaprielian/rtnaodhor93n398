@@ -125,7 +125,13 @@ channel_names = {
 
 def scrape_tv_programming(channel_id, date):
     url = f"https://www.tvpassport.com/tv-listings/stations/{channel_id}/{date}"
-    response = requests.get(url)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
+    }
+    cookies = {
+        "cisession": "d86212bfc9056dc4f9b43c43e4139a5f11f2f719"
+    }
+    response = requests.get(url, headers=headers, cookies=cookies)
     
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
@@ -166,6 +172,7 @@ def scrape_tv_programming(channel_id, date):
     else:
         print("Failed to retrieve programming data. Status code:", response.status_code)
         return None
+
 
 def parse_description(item):
     return item.get("data-description")
