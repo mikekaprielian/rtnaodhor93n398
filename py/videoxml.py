@@ -416,7 +416,6 @@ for channel_id in channel_ids:
         all_programs[channel_id] = program_data
 
 if all_programs:
-    print("<?xml version='1.0' encoding='utf-8'?>")
     channel_names_list = list(channel_names.keys())  # Get the channel IDs in the correct order
     channel_programs = {}
     for channel_id in channel_names_list:
