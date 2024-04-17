@@ -27,7 +27,7 @@ channel_logos = {
     "BBC America": "https://cdn.tvpassport.com/image/station/960x540/v2/s18332_h15_aa.png",
     "BBC World News HD": "https://cdn.tvpassport.com/image/station/960x540/v2/s89542_h15_ab.png",
     "BET": "https://cdn.tvpassport.com/image/station/960x540/v2/s10051_h15_ad.png",
-    ""BET Her": "https://cdn.tvpassport.com/image/station/960x540/v2/s14897_h15_ac.png",
+    "BET Her": "https://cdn.tvpassport.com/image/station/960x540/v2/s14897_h15_ac.png",
     "Bloomberg TV": "https://cdn.tvpassport.com/image/station/960x540/v2/s71799_h15_ab.png",
     "Boomerang": "https://cdn.tvpassport.com/image/station/960x540/v2/s21883_h15_ab.png",
     "Bravo": "https://cdn.tvpassport.com/image/station/960x540/v2/s10057_h15_ab.png",
