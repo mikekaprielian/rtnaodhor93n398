@@ -43,9 +43,7 @@ jobs:
 
       - name: Run Script and Generate M3U8 for rotana_CinemaMasr
         run: |
-          id="rotana_CinemaMasr"
-          id2="rotana_cinemamasr"
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/$id" | grep -oP 'id=\"$id2\"[^>]*onclick="[^"]*'\''\Khttps?://[^'\'']*' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinemamasr_720p\/chunks.m3u8/g' | head -n 1)
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaMasr" | grep -oP 'id="rotana-cinemamasr"[^>]*onclick="[^"]*'\''\Khttps?://[^'\'']*' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinemamasr_720p\/chunks.m3u8/g' | head -n 1)
           echo "#EXTM3U" > ar/rotanacinemamasr.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanacinemamasr.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanacinemamasr.m3u8
