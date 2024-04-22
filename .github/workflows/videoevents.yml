@@ -27,12 +27,10 @@ jobs:
           sudo apt-get install -y unzip wget
           sudo apt-get install -y libgconf-2-4 
           sudo apt-get install -y chromium-browser
-          #wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.122/linux64/chrome-linux64.zip
-          wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.122/linux64/chromedriver-linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/bin/chromedriver
-          sudo chmod +x /usr/bin/chromedriver
-
+          wget -q -O /tmp/chrome.deb https://mirror.cs.uchicago.edu/google-chrome/pool/main/g/google-chrome-stable/google-chrome-stable_123.0.6312.122-1_amd64.deb \
+          && sudo apt install -y /tmp/chrome.deb \
+          && rm /tmp/chrome.deb
+          
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
