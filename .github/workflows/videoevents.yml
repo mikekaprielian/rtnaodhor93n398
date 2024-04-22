@@ -23,15 +23,14 @@ jobs:
 
       - name: Install necessary packages
         run: |
-          sudo systemctl stop snapd
-          sudo systemctl disable snapd
           sudo apt-get update      
           sudo apt-get install -y unzip wget
           sudo apt-get install -y libgconf-2-4
           #sudo apt-get install -y chromium-browser
           wget http://archive.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/chromium-browser_85.0.4183.83-0ubuntu2_amd64.deb
           sudo dpkg -i chromium-browser_85.0.4183.83-0ubuntu2_amd64.deb
-          sudo apt-get install -f
+          sudo systemctl stop snapd
+          sudo systemctl disable snapd
 
       - name: Install Python dependencies
         run: |
