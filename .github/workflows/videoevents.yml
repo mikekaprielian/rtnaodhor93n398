@@ -23,13 +23,20 @@ jobs:
 
       - name: Install necessary packages
         run: |
-          sudo apt-get update
+          sudo apt-get update      
           sudo apt-get install -y unzip wget
           sudo apt-get install -y libgconf-2-4
           #sudo apt-get install -y chromium-browser
           wget http://archive.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/chromium-browser_85.0.4183.83-0ubuntu2_amd64.deb
           sudo dpkg -i chromium-browser_85.0.4183.83-0ubuntu2_amd64.deb
           sudo apt-get install -f
+          # Download and install the matching ChromeDriver
+          CHROME_VERSION=$(google-chrome --version | cut -d ' ' -f 3 | cut -d '.' -f 1-3)
+          CHROMEDRIVER_VERSION=$(wget -qO- "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+          wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/bin/chromedriver
+          sudo chmod +x /usr/bin/chromedriver
 
       - name: Install Python dependencies
         run: |
