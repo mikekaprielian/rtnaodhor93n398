@@ -80,7 +80,14 @@ jobs:
         run: |
           curl_output=$(curl -s -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" http://www.callofliberty.fr/tv/5-france.5/5-france.5.php | grep -oP "source:\s*'\K[^']+(?=',)")
           curl_output2=$(curl -e "http://www.callofliberty.fr/" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
-          echo "$curl_output2" > fr/videof5.m3u8  # Use single > to overwrite existing content            
+          echo "$curl_output2" > fr/videof5.m3u8  # Use single > to overwrite existing content
+
+      - name: Run Script and Generate M3U8 for m6
+        run: |
+          curl_output=$(curl -s -H "Referer: https://www.livehdtv.net" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" https://www.livehdtv.net/token.php?stream=m6 | | grep -oP 'file: "\K[^"]+')
+          curl_output2=$(curl -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
+          curl_output3=$(echo "$curl_output2" | sed 's|tracks-v1a1/mono.m3u8|https://livetvde.net/m6/tracks-v1a1/mono.m3u8|g')
+          echo "$curl_output3" > fr/videom6.m3u8  # Use single > to overwrite existing content
 
       - name: Commit and Push Changes
         env:
@@ -88,6 +95,6 @@ jobs:
         run: |
           git config --local user.email "mikekaprielian@vif.com"
           git config --local user.name "Mikekaprielian"
-          git add fr/videotf1.m3u8 fr/videotf1fs.m3u8 fr/videotmc.m3u8 fr/videotfx.m3u8 fr/videocp.m3u8 fr/videow9.m3u8 fr/video6ter.m3u8 fr/videof2.m3u8 fr/videof3.m3u8 fr/videof4.m3u8 fr/videof5.m3u8
+          git add fr/videotf1.m3u8 fr/videotf1fs.m3u8 fr/videotmc.m3u8 fr/videotfx.m3u8 fr/videocp.m3u8 fr/videow9.m3u8 fr/video6ter.m3u8 fr/videof2.m3u8 fr/videof3.m3u8 fr/videof4.m3u8 fr/videof5.m3u8 fr/videom6.m3u8
           git commit -m "latest updates"
           git push
