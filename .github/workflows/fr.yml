@@ -84,17 +84,10 @@ jobs:
 
       - name: Run Script and Generate M3U8 for m6
         run: |
-          # Fetch the URL content with the file information
-          curl_output=$(curl -s -H "Referer: https://www.livehdtv.net" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" "https://www.livehdtv.net/token.php?stream=m6" | grep -oP 'file: "\K[^"]+')
-
-          # Fetch the final M3U8 using the URL from the first curl
-          full_m3u8_content=$(curl -s -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" "$curl_output")
-
-          # Replace relative URL with full URL
-          modified_m3u8_content=$(echo "$full_m3u8_content" | sed 's|tracks-v1a1/mono.m3u8|https://livetvde.net/m6/tracks-v1a1/mono.m3u8|g')
-
-          # Write the modified content to a file
-          echo "$modified_m3u8_content" > fr/videom6.m3u8  # Use single > to overwrite existing content
+          curl_output=$(curl -s -H "Referer: https://www.livehdtv.net" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" https://www.livehdtv.net/token.php?stream=m6 | grep -oP 'file: "\K[^"]+')
+          curl_output2=$(curl -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
+          curl_output3=$(echo "$curl_output2" | sed 's|tracks-v1a1/mono.m3u8|https://livetvde.net/m6/tracks-v1a1/mono.m3u8|g')
+          echo "$curl_output3" > fr/videom6.m3u8  # Use single > to overwrite existing content
 
       - name: Commit and Push Changes
         env:
