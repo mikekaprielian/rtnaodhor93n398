@@ -84,18 +84,12 @@ jobs:
 
       - name: Run Script and Generate M3U8 for m6
         run: |
-          curl_output=$(curl -s -H "Referer: https://www.livehdtv.net" https://www.livehdtv.net/token.php?stream=m6 | awk -F'"' '/file:/{print $(NF-1)}')
-          echo "First curl output: $curl_output"
+          curl_output=$(curl -s -H "Referer: https://www.livehdtv.net" https://www.livehdtv.net/token.php?stream=m6)
+          echo "$curl_output"
 
-          # Proceed only if curl_output is not empty
-          if [ -z "$curl_output" ]; then
-                  echo "No URL extracted. Exiting..."
-            exit 1
-          fi
-
-          curl_output2=$(curl -s -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" "$curl_output")
-          curl_output3=$(echo "$curl_output2" | sed 's|tracks-v1a1/mono.m3u8|https://livetvde.net/m6/tracks-v1a1/mono.m3u8|g')
-          echo "$curl_output3" > fr/videom6.m3u8  # Use single > to overwrite existing content
+         # curl_output2=$(curl -s -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" "$curl_output")
+         # curl_output3=$(echo "$curl_output2" | sed 's|tracks-v1a1/mono.m3u8|https://livetvde.net/m6/tracks-v1a1/mono.m3u8|g')
+         # echo "$curl_output3" > fr/videom6.m3u8  # Use single > to overwrite existing content
 
       - name: Commit and Push Changes
         env:
