@@ -60,7 +60,7 @@ jobs:
         run: |
          python_output=$(python py/videow9.py)
          curl_output2=$(curl -s -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" "$python_output")
-         curl_output3=$(echo "$curl_output2" | sed 's|tracks-v1a1/mono.m3u8|https://livetvde.net/w9/tracks-v1a1/mono.m3u8|g')
+         curl_output3=$(echo "$curl_output2" | sed 's|tracks-v1/mono.m3u8|https://livetvde.net/w9/tracks-v1/mono.m3u8|g')
          echo "$curl_output3" > fr/videow9.m3u8  # Use single > to overwrite existing content         
 
       - name: Run Python Script video6ter
@@ -81,7 +81,7 @@ jobs:
         run: |
          python_output=$(python py/videocstar.py)
          curl_output2=$(curl -s -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" "$python_output")
-         curl_output3=$(echo "$curl_output2" | sed 's|tracks-v1a1/mono.m3u8|https://livetvde.net/cstar/tracks-v1a1/mono.m3u8|g')
+         curl_output3=$(echo "$curl_output2" | sed 's|tracks-v1/mono.m3u8|https://livetvde.net/cstar/tracks-v1/mono.m3u8|g')
          echo "$curl_output3" > fr/videocstar.m3u8  # Use single > to overwrite existing content
 
       - name: Pull changes from remote
