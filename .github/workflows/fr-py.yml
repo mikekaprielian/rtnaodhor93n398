@@ -24,8 +24,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run Python Script videotva m3u8
-        run: python py/videotvam3u8.py > fr/videotva.m3u8
+      #- name: Run Python Script videotva m3u8
+      #  run: python py/videotvam3u8.py > fr/videotva.m3u8
 
       - name: Run Python Script videotva
         run: |
@@ -33,7 +33,7 @@ jobs:
          echo "#EXTM3U" > fr/videotva.m3u
          echo "#EXTINF:-1, TVA" >> fr/videotva.m3u
          echo "$python_output" >> fr/videotva.m3u
-
+         echo "$python_output" > txt/videotva.txt
 
       - name: Run Python Script videoqub
         run: |
