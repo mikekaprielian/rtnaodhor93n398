@@ -82,6 +82,9 @@ jobs:
           curl_output2=$(curl -e "http://www.callofliberty.fr/" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" $curl_output)
           echo "$curl_output2" > fr/videof5.m3u8  # Use single > to overwrite existing content
 
+      - name: Pull changes from remote
+        run: git pull origin main          
+
       - name: Commit and Push Changes
         env:
          GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}  # Use the stored PAT secret
