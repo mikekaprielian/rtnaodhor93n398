@@ -6,9 +6,11 @@ on:
   workflow_dispatch:      # Enable manual triggering
 
 
+
 jobs:
   generate_m3u8:
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     steps:
       - name: Checkout Repository
