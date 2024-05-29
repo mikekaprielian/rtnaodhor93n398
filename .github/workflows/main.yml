@@ -24,6 +24,8 @@ jobs:
           id="rotana_Clip"
           id2="rotana-clip"
           curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Clip" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-clip" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}?_=$(date +%s)" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/clip_720p\/chunks.m3u8/g' | head -n 1)
+          #backup just in case main one fails overtime
+          #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Clip" | grep -oP 'data-channel-id="rotana-clip"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}' | grep -oE 'https?://[^'\''"]+' | xargs -I{} curl -s {} | sed 's/%2f/\//g' | awk '/\.m3u8$/ {print "https://live.kwikmotion.com/" $0}' | head -n 1)
           echo "#EXTM3U" > ar/rotanaclip.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanaclip.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanaclip.m3u8
