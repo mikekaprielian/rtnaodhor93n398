@@ -25,7 +25,7 @@ jobs:
           id2="rotana-clip"
           #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Clip" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-clip" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/clip_720p\/chunks.m3u8/g' | head -n 1)
           #backup just in case main one fails overtime
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Clip" | grep -oP 'data-channel-id="rotana-clip"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}' | grep -oE 'https?://[^'\''"]+' | xargs -I{} curl -s {} | sed 's/%2f/\//g' | awk '/\.m3u8$/ {print "https://live.kwikmotion.com/" $0}' | head -n 1)
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Clip" | grep -oP 'data-channel-id="rotana-clip"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
           echo "#EXTM3U" > ar/rotanaclip.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanaclip.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanaclip.m3u8
@@ -37,7 +37,7 @@ jobs:
           id="rotana_CinemaKSA"
           id2="rotana-cinema"
           #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaKSA" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-cinema" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaKSA" | grep -oP 'data-channel-id="rotana-cinema"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}' | grep -oE 'https?://[^'\''"]+' | xargs -I{} curl -s {} | sed 's/%2f/\//g' | awk '/\.m3u8$/ {print "https://live.kwikmotion.com/" $0}' | head -n 1)
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaKSA" | grep -oP 'data-channel-id="rotana-cinema"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
           echo "#EXTM3U" > ar/rotanacinema.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanacinema.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanacinema.m3u8
@@ -49,7 +49,7 @@ jobs:
           id="rotana_CinemaMasr"
           id2="rotana-cinemamasr"
           #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaMasr" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-cinemamasr" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinemamasr_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaMasr" | grep -oP 'data-channel-id="rotana-cinemamasr"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}' | grep -oE 'https?://[^'\''"]+' | xargs -I{} curl -s {} | sed 's/%2f/\//g' | awk '/\.m3u8$/ {print "https://live.kwikmotion.com/" $0}' | head -n 1)
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaMasr" | grep -oP 'data-channel-id="rotana-cinemamasr"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
           echo "#EXTM3U" > ar/rotanacinemamasr.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanacinemamasr.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanacinemamasr.m3u8
@@ -61,7 +61,7 @@ jobs:
           id="rotana_KhaleejiyaKSA"
           id2="rotana-khaleejiyaksa"
           #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_KhaleejiyaKSA" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-khaleejiya" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/khaleejiya_720p\/chunks.m3u8/g' | head -n 1) 
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_KhaleejiyaKSA" | grep -oP 'data-channel-id="rotana-khaleejiya"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}' | grep -oE 'https?://[^'\''"]+' | xargs -I{} curl -s {} | sed 's/%2f/\//g' | awk '/\.m3u8$/ {print "https://live.kwikmotion.com/" $0}' | head -n 1)
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_KhaleejiyaKSA" | grep -oP 'data-channel-id="rotana-khaleejiya"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
           echo "#EXTM3U" > ar/rotanakhaleejiyaksa.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanakhaleejiyaksa.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanakhaleejiyaksa.m3u8
@@ -73,7 +73,7 @@ jobs:
           id="rotana_Classic"
           id2="rotana-classical"
           #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Classic" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-classical" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/classical_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Classic" | grep -oP 'data-channel-id="rotana-classical"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}' | grep -oE 'https?://[^'\''"]+' | xargs -I{} curl -s {} | sed 's/%2f/\//g' | awk '/\.m3u8$/ {print "https://live.kwikmotion.com/" $0}' | head -n 1)
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Classic" | grep -oP 'data-channel-id="rotana-classical"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
           echo "#EXTM3U" > ar/rotanaclassic.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanaclassic.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanaclassic.m3u8
@@ -85,7 +85,7 @@ jobs:
           id="rotana_Drama"
           id2="rotana-drama"
           #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Drama" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-drama" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/drama_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Drama" | grep -oP 'data-channel-id="rotana-drama"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}' | grep -oE 'https?://[^'\''"]+' | xargs -I{} curl -s {} | sed 's/%2f/\//g' | awk '/\.m3u8$/ {print "https://live.kwikmotion.com/" $0}' | head -n 1)
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Drama" | grep -oP 'data-channel-id="rotana-drama"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
           echo "#EXTM3U" > ar/rotanadrama.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanadrama.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanadrama.m3u8
@@ -97,7 +97,7 @@ jobs:
           id="rotana_Comedy"
           id2="rotana-comedy"
           #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Comedy" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-comedy" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/comedy_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Comedy" | grep -oP 'data-channel-id="rotana-comedy"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}' | grep -oE 'https?://[^'\''"]+' | xargs -I{} curl -s {} | sed 's/%2f/\//g' | awk '/\.m3u8$/ {print "https://live.kwikmotion.com/" $0}' | head -n 1)
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Comedy" | grep -oP 'data-channel-id="rotana-comedy"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
           echo "#EXTM3U" > ar/rotanacomedy.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanacomedy.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanacomedy.m3u8
@@ -109,7 +109,7 @@ jobs:
           id="rotana-lbc"
           id2="rotana-lbc"
           #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana-lbc" |grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-lbc" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/lbc_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana-lbc" | grep -oP 'data-channel-id="rotana-lbc"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}' | grep -oE 'https?://[^'\''"]+' | xargs -I{} curl -s {} | sed 's/%2f/\//g' | awk '/\.m3u8$/ {print "https://live.kwikmotion.com/" $0}' | head -n 1)
+          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana-lbc" | grep -oP 'data-channel-id="rotana-lbc"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
           echo "#EXTM3U" > ar/rotanalbc.m3u8
           echo "#EXT-X-VERSION:7" >> ar/rotanalbc.m3u8
           echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanalbc.m3u8
