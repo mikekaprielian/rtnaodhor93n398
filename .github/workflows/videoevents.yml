@@ -40,10 +40,10 @@ jobs:
           echo "$python_output" > en/videoevents.m3u
           echo "$python_output" > en/videoall.m3u
 
-      #- name: Run Python Script videoevents
-      #  run: |
-      #    python_output=$(python py/videolivetv.py)
-      #    echo "$python_output" > en/videolivetv.m3u
+      - name: Run Python Script videoevents
+        run: |
+          python_output=$(python py/videolivetv.py)
+          echo "$python_output" > en/videolivetv.m3u
       #    echo "$python_output" >> en/videoall.m3u
 
       - name: Pull changes from remote
