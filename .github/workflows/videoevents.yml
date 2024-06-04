@@ -44,11 +44,11 @@ jobs:
         run: |
           python_output=$(python py/videolivetv.py)
           echo "$python_output" > en/videolivetv.m3u
-          
+          echo "$python_output" >> en/videoall.m3u
+
           # Remove the line #EXTM3U from python_output
-          cleaned_output=$(echo "$python_output" | sed '/#EXTM3U/d')
-          echo "$cleaned_output" >> en/videoall.m3u
-          #echo "$python_output" >> en/videoall.m3u
+          #cleaned_output=$(echo "$python_output" | sed '/#EXTM3U/d')
+          #echo "$cleaned_output" >> en/videoall.m3u
 
       - name: Pull changes from remote
         run: git pull origin main
