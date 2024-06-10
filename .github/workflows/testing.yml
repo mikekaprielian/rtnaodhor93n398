@@ -32,7 +32,7 @@ jobs:
       - name: Run Python Script videotva
         run: |
          python_output=$(python py/testdrission.py)
-         echo "$python_output" > txt/videotva.txt
+         echo "$python_output" > txt/testdrission.txt
 
       
       - name: Pull changes from remote
@@ -44,6 +44,6 @@ jobs:
           commit_message: "Update token"
           branch: main
           files: |
-            txt/drission.txt
+            txt/testdrission.txt
         env:
           GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}
