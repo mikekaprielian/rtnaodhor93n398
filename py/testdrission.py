@@ -1,7 +1,6 @@
 import time
 from DrissionPage import ChromiumPage, ChromiumOptions
 
-
 def pass_cycle(_driver: ChromiumPage):
     """Function to pass the Cloudflare challenge."""
     try:
@@ -12,7 +11,6 @@ def pass_cycle(_driver: ChromiumPage):
     except Exception as e:
         print(f"Exception in pass_cycle: {e}")
         pass
-
 
 if __name__ == '__main__':
     # Chromium Browser Path
@@ -41,10 +39,8 @@ if __name__ == '__main__':
         "--disable-dev-shm-usage",
         "--disable-gpu",
         "--user-data-dir=/home/xtreamcodes/m3u8/~/.config/google-chrome/Default",
-        "--remote-debugging-port=9222"  # Changed remote debugging port to 9223
+        "--remote-debugging-port=9222"  # Changed remote debugging port to 9222
     ]
-
-
 
     for argument in arguments:
         options.set_argument(argument)
@@ -75,6 +71,8 @@ if __name__ == '__main__':
 
     finally:
         if driver:
+            # Print the entire HTML content of the page
+            page_source = driver.page_source
+            print(page_source)
             driver.quit()
 
-    print("Done")
