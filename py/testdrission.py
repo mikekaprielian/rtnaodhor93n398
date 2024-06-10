@@ -14,7 +14,7 @@ def pass_cycle(_driver: ChromiumPage):
 
 if __name__ == '__main__':
     # Chromium Browser Path
-    browser_path = r"/usr/local/bin/chromedriver"
+    browser_path = r"/usr/bin/google-chrome"
 
     options = ChromiumOptions()
     #options.set_paths(browser_path=browser_path)
