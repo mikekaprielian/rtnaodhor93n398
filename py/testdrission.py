@@ -17,7 +17,7 @@ if __name__ == '__main__':
     browser_path = r"/usr/local/bin/chromedriver"
 
     options = ChromiumOptions()
-    options.set_paths(browser_path=browser_path)
+    #options.set_paths(browser_path=browser_path)
 
     arguments = [
         "--no-first-run",
