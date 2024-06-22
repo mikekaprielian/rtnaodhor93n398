@@ -86,6 +86,14 @@ jobs:
           curl_output2=$(curl -k -e "https://www.callofliberty.fr/" -A "Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Mobile/15E148 Safari/604.1" $curl_output)
           echo "$curl_output2" > fr/videof5.m3u8  # Use single > to overwrite existing content
 
+      - name: Run Script and Generate M3U8 for CTurk
+        run: |
+         python_output=$(python py/videocnnturk.py)
+         echo "#EXTM3U" > ar/videocnnturk.m3u8
+         echo "#EXT-X-VERSION:2" >> ar/videocnnturk.m3u8
+         echo "#EXT-X-STREAM-INF:BANDWIDTH=412571,FRAME-RATE=25.00,CODECS="avc1.42001e,mp4a.40.2"" >> ar/videocnnturk.m3u8
+         echo "$python_output" >> ar/videocnnturk.m3u8       
+
       - name: Pull changes from remote
         run: git pull origin main          
 
@@ -95,6 +103,6 @@ jobs:
         run: |
           git config --local user.email "mikekaprielian@vif.com"
           git config --local user.name "Mikekaprielian"
-          git add fr/videotf1.m3u8 fr/videotf1fs.m3u8 fr/videotmc.m3u8 fr/videotfx.m3u8 fr/videocp.m3u8 fr/videow9.m3u8 fr/video6ter.m3u8 fr/videof2.m3u8 fr/videof3.m3u8 fr/videof4.m3u8 fr/videof5.m3u8 fr/videom6.m3u8
+          git add fr/videotf1.m3u8 fr/videotf1fs.m3u8 fr/videotmc.m3u8 fr/videotfx.m3u8 fr/videocp.m3u8 fr/videow9.m3u8 fr/video6ter.m3u8 fr/videof2.m3u8 fr/videof3.m3u8 fr/videof4.m3u8 fr/videof5.m3u8 fr/videom6.m3u8 ar/videocnnturk.m3u8
           git commit -m "latest updates"
           git push
