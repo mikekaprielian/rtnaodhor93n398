@@ -21,12 +21,18 @@ def get_m3u8_link(api_url, x_forwarded_for):
     # Construct the final M3U8 link
     final_m3u8_link = f"{service_url}{secure_path}"
 
+    final_m3u8_link = final_m3u8_link.replace("/cnnturknp/playlist.m3u8?", "/cnnturknp/track_4_1000/playlist.m3u8?")
+
     return final_m3u8_link
+
+
+    
+
 
 # URL provided in the request
 api_url = "https://www.cnnturk.com/api/cnnvideo/media?id=62d6814670380e2cdc7c124c&isMobile=true"
 # Example IP address to use in the X-Forwarded-For header
-x_forwarded_for = "216.239.71.133"
+x_forwarded_for = "216.239.80.141"
 
 # Get the final M3U8 link
 try:
