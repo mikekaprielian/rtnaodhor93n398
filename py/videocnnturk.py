@@ -21,7 +21,7 @@ def get_m3u8_link(api_url, x_forwarded_for):
     # Construct the final M3U8 link
     final_m3u8_link = f"{service_url}{secure_path}"
 
-    final_m3u8_link = final_m3u8_link.replace("/cnnturknp/playlist.m3u8?", "/cnnturknp/track_4_1000/playlist.m3u8?")
+    #final_m3u8_link = final_m3u8_link.replace("/cnnturknp/playlist.m3u8?", "/cnnturknp/track_4_1000/playlist.m3u8?")
 
     return final_m3u8_link
 
