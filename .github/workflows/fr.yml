@@ -90,8 +90,7 @@ jobs:
         run: |
          python_output=$(python py/videocnnturk.py)
          echo "#EXTM3U" > ar/videocnnturk.m3u8
-         echo "#EXT-X-VERSION:2" >> ar/videocnnturk.m3u8
-         echo "#EXT-X-STREAM-INF:BANDWIDTH=412571,FRAME-RATE=25.00,CODECS="avc1.42001e,mp4a.40.2"" >> ar/videocnnturk.m3u8
+         echo "#EXTINF:-1, CNN Turk" >> ar/videocnnturk.m3u8
          echo "$python_output" >> ar/videocnnturk.m3u8       
 
       - name: Pull changes from remote
