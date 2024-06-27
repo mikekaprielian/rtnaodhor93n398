@@ -21,111 +21,70 @@ jobs:
 
       - name: Run Script and Generate M3U8 for rotana_Clip
         run: |
-          id="rotana_Clip"
-          id2="rotana-clip"
-          #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Clip" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-clip" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/clip_720p\/chunks.m3u8/g' | head -n 1)
-          #backup just in case main one fails overtime
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Clip" | grep -oP 'data-channel-id="rotana-clip"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
-          echo "#EXTM3U" > ar/rotanaclip.m3u8
-          echo "#EXT-X-VERSION:7" >> ar/rotanaclip.m3u8
-          echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanaclip.m3u8
-          echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanaclip.m3u8
-          echo "$curl_output" >> ar/rotanaclip.m3u8
+         python_output=$(python py/videorclip.py)
+         echo "#EXTM3U" > ar/rotanaclip.m3u
+         echo "#EXTINF:-1, Rotana Clip" >> ar/rotanaclip.m3u
+         echo "$python_output" >> ar/rotanaclip.m3u
 
       - name: Run Script and Generate M3U8 for rotana_CinemaKSA
         run: |
-          id="rotana_CinemaKSA"
-          id2="rotana-cinema"
-          #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaKSA" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-cinema" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinema_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaKSA" | grep -oP 'data-channel-id="rotana-cinema"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
-          echo "#EXTM3U" > ar/rotanacinema.m3u8
-          echo "#EXT-X-VERSION:7" >> ar/rotanacinema.m3u8
-          echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanacinema.m3u8
-          echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanacinema.m3u8
-          echo "$curl_output" >> ar/rotanacinema.m3u8          
+         python_output=$(python py/videorcinemaksa.py)
+         echo "#EXTM3U" > ar/rotanacinema.m3u
+         echo "#EXTINF:-1, Rotana Cinema" >> ar/rotanacinema.m3u
+         echo "$python_output" >> ar/rotanacinema.m3u           
 
       - name: Run Script and Generate M3U8 for rotana_CinemaMasr
         run: |
-          id="rotana_CinemaMasr"
-          id2="rotana-cinemamasr"
-          #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaMasr" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-cinemamasr" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/cinemamasr_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaMasr" | grep -oP 'data-channel-id="rotana-cinemamasr"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
-          echo "#EXTM3U" > ar/rotanacinemamasr.m3u8
-          echo "#EXT-X-VERSION:7" >> ar/rotanacinemamasr.m3u8
-          echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanacinemamasr.m3u8
-          echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanacinemamasr.m3u8
-          echo "$curl_output" >> ar/rotanacinemamasr.m3u8                    
+         python_output=$(python py/videorcinema.py)
+         echo "#EXTM3U" > ar/rotanacinemamasr.m3u
+         echo "#EXTINF:-1, Rotana Cinema Masr" >> ar/rotanacinemamasr.m3u
+         echo "$python_output" >> ar/rotanacinemamasr.m3u                      
 
       - name: Run Script and Generate M3U8 for rotana_KhaleejiyaKSA
         run: |
-          id="rotana_KhaleejiyaKSA"
-          id2="rotana-khaleejiyaksa"
-          #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_KhaleejiyaKSA" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-khaleejiya" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/khaleejiya_720p\/chunks.m3u8/g' | head -n 1) 
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_KhaleejiyaKSA" | grep -oP 'data-channel-id="rotana-khaleejiya"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
-          echo "#EXTM3U" > ar/rotanakhaleejiyaksa.m3u8
-          echo "#EXT-X-VERSION:7" >> ar/rotanakhaleejiyaksa.m3u8
-          echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanakhaleejiyaksa.m3u8
-          echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanakhaleejiyaksa.m3u8
-          echo "$curl_output" >> ar/rotanakhaleejiyaksa.m3u8               
+         python_output=$(python py/videorkhaleejiya.py)
+         echo "#EXTM3U" > ar/rotanakhaleejiya.m3u
+         echo "#EXTINF:-1, Rotana Khaleejiya" >> ar/rotanakhaleejiya.m3u
+         echo "$python_output" >> ar/rotanakhaleejiya.m3u                
 
       - name: Run Script and Generate M3U8 for rotana_Classic
         run: |
-          id="rotana_Classic"
-          id2="rotana-classical"
-          #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Classic" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-classical" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/classical_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Classic" | grep -oP 'data-channel-id="rotana-classical"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
-          echo "#EXTM3U" > ar/rotanaclassic.m3u8
-          echo "#EXT-X-VERSION:7" >> ar/rotanaclassic.m3u8
-          echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanaclassic.m3u8
-          echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanaclassic.m3u8
-          echo "$curl_output" >> ar/rotanaclassic.m3u8               
+         python_output=$(python py/videorclassic.py)
+         echo "#EXTM3U" > ar/rotanaclassic.m3u
+         echo "#EXTINF:-1, Rotana Classic" >> ar/rotanaclassic.m3u
+         echo "$python_output" >> ar/rotanaclassic.m3u        
 
       - name: Run Script and Generate M3U8 for rotana_Drama
         run: |
-          id="rotana_Drama"
-          id2="rotana-drama"
-          #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Drama" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-drama" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/drama_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Drama" | grep -oP 'data-channel-id="rotana-drama"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
-          echo "#EXTM3U" > ar/rotanadrama.m3u8
-          echo "#EXT-X-VERSION:7" >> ar/rotanadrama.m3u8
-          echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanadrama.m3u8
-          echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanadrama.m3u8
-          echo "$curl_output" >> ar/rotanadrama.m3u8                
+         python_output=$(python py/videordrama.py)
+         echo "#EXTM3U" > ar/rotanadrama.m3u
+         echo "#EXTINF:-1, Rotana Drama" >> ar/rotanadrama.m3u
+         echo "$python_output" >> ar/rotanadrama.m3u                  
 
       - name: Run Script and Generate M3U8 for rotana_Comedy
         run: |
-          id="rotana_Comedy"
-          id2="rotana-comedy"
-          #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Comedy" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-comedy" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/comedy_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_Comedy" | grep -oP 'data-channel-id="rotana-comedy"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
-          echo "#EXTM3U" > ar/rotanacomedy.m3u8
-          echo "#EXT-X-VERSION:7" >> ar/rotanacomedy.m3u8
-          echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanacomedy.m3u8
-          echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanacomedy.m3u8
-          echo "$curl_output" >> ar/rotanacomedy.m3u8               
+         python_output=$(python py/videorcomedy.py)
+         echo "#EXTM3U" > ar/rotanacomedy.m3u
+         echo "#EXTINF:-1, Rotana Comedy" >> ar/rotanacomedy.m3u
+         echo "$python_output" >> ar/rotanacomedy.m3u               
 
       - name: Run Script and Generate M3U8 for rotana_LBC
         run: |
-          id="rotana-lbc"
-          id2="rotana-lbc"
-          #curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana-lbc" |grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-lbc" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/lbc_720p\/chunks.m3u8/g' | head -n 1)
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana-lbc" | grep -oP 'data-channel-id="rotana-lbc"[^>]*onclick="[^"]*'\''\Kexp=[^'\'']*' | head -n 1 | awk '{match($0, /acl=\/[^*]*\*/); acl=substr($0, RSTART+4, RLENGTH-5); print "https://live.kwikmotion.com" acl "playlist.m3u8?hdnts=" $0}')
-          echo "#EXTM3U" > ar/rotanalbc.m3u8
-          echo "#EXT-X-VERSION:7" >> ar/rotanalbc.m3u8
-          echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanalbc.m3u8
-          echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanalbc.m3u8
-          echo "$curl_output" >> ar/rotanalbc.m3u8                
+         python_output=$(python py/videorlbc.py)
+         echo "#EXTM3U" > ar/rotanalbc.m3u
+         echo "#EXTINF:-1, Rotana LBC" >> ar/rotanalbc.m3u
+         echo "$python_output" >> ar/rotanalbc.m3u             
 
-      - name: Run Script and Generate M3U8 for rotana_Kids
-        run: |
-          id="rotana_CinemaMasr"
-          id2="rotana-cinemamasr"
-          curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaMasr" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-cinemamasr" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | sed 's/CinemaMasr/Kids/g; s/439/441/g; s/Cinema Masr/Kids/g; s/cinemamasr/kids/g' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/kids_720p\/chunks.m3u8/g' | head -n 1)
-          echo "#EXTM3U" > ar/rotanakids.m3u8
-          echo "#EXT-X-VERSION:7" >> ar/rotanakids.m3u8
-          echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanakids.m3u8
-          echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanakids.m3u8
-          echo "$curl_output" >> ar/rotanakids.m3u8
+      #- name: Run Script and Generate M3U8 for rotana_Kids
+      #  run: |
+      #    id="rotana_CinemaMasr"
+      #    id2="rotana-cinemamasr"
+      #    curl_output=$(curl -s "https://rotana.net/en/channels#/live/rotana_CinemaMasr" | grep -oE "https:\\\/\\\/hiplayer.hibridcdn.net\\\/l\\\/rotana-cinemamasr" | sed 's/\\\//\//g' | grep -oE 'https?://[^'\''"]+' | sed 's/CinemaMasr/Kids/g; s/439/441/g; s/Cinema Masr/Kids/g; s/cinemamasr/kids/g' | grep -oE 'https?://[^'\''"]+' | xargs -I {} curl -s "{}" | grep -oP "(?<=o=\[)[^\]]+(?=])" | tr -d "'," | base64 -d | grep -o '"streamUrl":\s*"[^"]*"' | awk -F '"' '{print $4}' | sed 's/playlist\.m3u8/rotana\/kids_720p\/chunks.m3u8/g' | head -n 1)
+      #    echo "#EXTM3U" > ar/rotanakids.m3u8
+      #    echo "#EXT-X-VERSION:7" >> ar/rotanakids.m3u8
+      #    echo "#EXT-X-INDEPENDENT-SEGMENTS" >> ar/rotanakids.m3u8
+      #    echo "#EXT-X-STREAM-INF:BANDWIDTH=8000000,CODECS=\"avc1.4d402a,mp4a.40.2\",RESOLUTION=1920x1080,FRAME-RATE=50,AUDIO=\"audio-mp4a.40.2\",CLOSED-CAPTIONS=NONE" >> ar/rotanakids.m3u8
+      #    echo "$curl_output" >> ar/rotanakids.m3u8
 
       - name: Pull changes from remote
         run: git pull origin main
@@ -136,6 +95,6 @@ jobs:
         run: |
           git config --local user.email "mikekaprielian@vif.com"
           git config --local user.name "Mikekaprielian"
-          git add ar/rotanaclip.m3u8 ar/rotanacinema.m3u8 ar/rotanaclassic.m3u8 ar/rotanacomedy.m3u8 ar/rotanadrama.m3u8 ar/rotanalbc.m3u8 ar/rotanacinemamasr.m3u8 ar/rotanakhaleejiyaksa.m3u8 ar/rotanakids.m3u8
+          git add ar/rotanaclip.m3u8 ar/rotanacinema.m3u ar/rotanaclassic.m3u ar/rotanacomedy.m3u ar/rotanadrama.m3u ar/rotanalbc.m3u ar/rotanacinemamasr.m3u ar/rotanakhaleejiyaksa.m3u
           git commit -m "Update tokens"
           git push
