@@ -45,7 +45,7 @@ jobs:
 
       - name: Run Script and Generate M3U8 for rotana_CinemaMasr
         run: |
-         python_output=$(python py/videorcinema.py)
+         python_output=$(python py/videorcinemamasr.py)
          echo "#EXTM3U" > ar/rotanacinemamasr.m3u
          echo "#EXTINF:-1, Rotana Cinema Masr" >> ar/rotanacinemamasr.m3u
          echo "$python_output" >> ar/rotanacinemamasr.m3u                      
