@@ -334,7 +334,7 @@ channel_ids = [
     "bloomberg-tv-usa-hd/6790",
     "boomerang/2268",
     "bravo-usa-eastern-feed/646",
-    "buzzr-tv-wwortv3-new-york-ny/10750,"
+    "buzzr-tv-wwortv3-new-york-ny/10750",
     "cartoon-network-usa-hd-eastern/6917",
     "cbs-sports-network-usa/3115",
     "stadium-wlnytv3-riverhead-ny/34537",
