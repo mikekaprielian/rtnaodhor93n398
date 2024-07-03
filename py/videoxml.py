@@ -154,7 +154,7 @@ channel_names = {
     "wild-tv/2976": "Wild TV",
     "nbc-wnbc-new-york-ny/1767": "WNBC (New York) NBC East",
     "fox-wnyw-new-york-ny-hd/4557": "WNYW (New York) FOX East",
-    "wild-tv/2976": "WSBK"
+    "wsbk-tv38-boston/58": "WSBK"
 
     # Add more channel IDs and names as needed
 }
@@ -469,7 +469,8 @@ channel_ids = [
     "wild-tv/2976",
     "nbc-wnbc-new-york-ny/1767",
     "fox-wnyw-new-york-ny-hd/4557",
-    "wild-tv/2976"
+    "wild-tv/2976",
+    "wsbk-tv38-boston/58"
 ]
 
 
