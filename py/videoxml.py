@@ -469,7 +469,6 @@ channel_ids = [
     "wild-tv/2976",
     "nbc-wnbc-new-york-ny/1767",
     "fox-wnyw-new-york-ny-hd/4557",
-    "wild-tv/2976",
     "wsbk-tv38-boston/58"
 ]
 
