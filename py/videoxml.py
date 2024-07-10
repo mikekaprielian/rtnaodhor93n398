@@ -474,7 +474,7 @@ channel_ids = [
 
 
 # Calculate today's date and the dates for the next two days
-dates = [(datetime.now() + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(3)]
+dates = [(datetime.now() + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(4)]
 
 all_programs = {}
 for channel_id in channel_ids:
