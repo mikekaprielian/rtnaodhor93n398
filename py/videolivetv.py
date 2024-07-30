@@ -219,8 +219,7 @@ for name, link in live_tv_links:
     video_button.click()    
 
     # Wait for a brief period to allow the page to load and network requests to be made
-    time.sleep(1)
-
+    time.sleep(5)
 
     # Get all network requests
     network_requests = driver.execute_script("return JSON.stringify(performance.getEntries());")
