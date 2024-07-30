@@ -182,6 +182,12 @@ stealth(
 url = "https://thetvapp.to/"
 driver.get(url)
 
+# Wait for the button to be clickable
+wait = WebDriverWait(driver, 2)
+video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtnOne')))
+video_button.click()
+
+
 # Wait for the page to load
 wait = WebDriverWait(driver, 10)
 wait.until(EC.presence_of_element_located((By.CLASS_NAME, "row")))
