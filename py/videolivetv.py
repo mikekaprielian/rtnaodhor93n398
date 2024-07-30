@@ -61,6 +61,8 @@ channel_logos = {
     "Disney Junior": "https://cdn.tvpassport.com/image/station/240x135/v2/s74885_h15_ab.png",
     "Disney XD": "https://cdn.tvpassport.com/image/station/240x135/v2/s18279_h15_aa.png",
     "E!": "https://cdn.tvpassport.com/image/station/240x135/v2/s10989_h15_aa.png",
+    "ESPN": "https://cdn.tvpassport.com/image/station/240x135/v2/s10179_h15_aa.png",
+    "ESPN2": "https://cdn.tvpassport.com/image/station/240x135/v2/s12444_h15_ab.png",
     "ESPNews": "https://cdn.tvpassport.com/image/station/240x135/v2/s16485_h15_aa.png",
     "ESPNU": "https://cdn.tvpassport.com/image/station/240x135/v2/s45654_h15_aa.png",
     "Food Network": "https://cdn.tvpassport.com/image/station/240x135/v2/s12574_h15_ab.png",
