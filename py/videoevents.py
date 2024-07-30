@@ -116,6 +116,11 @@ for group, name, link in all_links:
     # Navigate to the link URL
     driver.get(link)
 
+    # Wait for the button to be clickable
+    wait = WebDriverWait(driver, 2)
+    video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtnOne')))
+    video_button.click()
+
     # Wait for a brief period to allow the page to load and network requests to be made
     time.sleep(1)
 
