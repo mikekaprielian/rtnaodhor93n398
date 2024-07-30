@@ -169,7 +169,7 @@ for group, name, link in all_links:
     est_time_str = utc_to_est(rest_of_title)
     
     # Print the channel information in the M3U format
-    print(f"#EXTINF:-1 group-title=\"{group}\",{title} = {est_time_str}")
+    print(f"#EXTINF:-1 group-title=\"{group}\",{est_time_str} = {title}")
     print(m3u8_url)  # Print only the first m3u8 URL
 
 # Close the WebDriver
