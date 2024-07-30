@@ -12,17 +12,34 @@ import json
 import pytz
 from datetime import datetime
 
-# Function to convert UTC time to Eastern Time Zone (EST)
-def utc_to_est(utc_time_str):
-    # Extract the time portion from the input string
-    time_str = utc_time_str.split(" - ")[-1]
-    # Parse the time string as a UTC timezone
-    utc_time = datetime.strptime(time_str, "%m/%d/%y %I:%M:%S %p UTC")
-    # Convert UTC time to Eastern Time Zone (EST/EDT)
-    est_time = utc_time.replace(tzinfo=pytz.utc).astimezone(pytz.timezone('US/Eastern'))
+# Function to convert UTC/EDT time to Eastern Time Zone (EST)
+def utc_to_est(time_str):
+    # Determine the timezone from the input string
+    if 'UTC' in time_str:
+        time_zone = 'UTC'
+        time_format = '%m/%d/%y %I:%M:%S %p UTC'
+    elif 'EDT' in time_str:
+        time_zone = 'EDT'
+        time_format = '%m/%d/%y %I:%M:%S %p EDT'
+    else:
+        raise ValueError("Unsupported timezone in time string")
+
+    # Parse the time string with the determined format
+    time = datetime.strptime(time_str, time_format)
+
+    # Set the timezone
+    if time_zone == 'UTC':
+        time = time.replace(tzinfo=pytz.utc)
+    elif time_zone == 'EDT':
+        time = time.replace(tzinfo=pytz.timezone('US/Eastern'))
+
+    # Convert the time to EST
+    est_time = time.astimezone(pytz.timezone('US/Eastern'))
+
     # Format the EST time string
-    est_time_str = est_time.strftime("%m/%d/%y %I:%M:%S %p EST")
+    est_time_str = est_time.strftime('%m/%d/%y %I:%M:%S %p EST')
     return est_time_str
+
 
 
 user_agents = [
@@ -116,38 +133,46 @@ for group, name, link in all_links:
     # Navigate to the link URL
     driver.get(link)
 
-    # Wait for the button to be clickable
-    wait = WebDriverWait(driver, 5)
-    video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtnOne')))
-    video_button.click()
+    try:
+        # Wait for the button to be clickable
+        wait = WebDriverWait(driver, 5)
+        video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtnOne')))
+        video_button.click()
 
-    # Wait for a brief period to allow the page to load and network requests to be made
-    time.sleep(5)
+        # Wait for a brief period to allow the page to load and network requests to be made
+        time.sleep(5)
 
-    # Get all network requests
-    network_requests = driver.execute_script("return JSON.stringify(performance.getEntries());")
+        # Get all network requests
+        network_requests = driver.execute_script("return JSON.stringify(performance.getEntries());")
 
-    # Convert the string back to a list of dictionaries in Python
-    network_requests = json.loads(network_requests)
+        # Convert the string back to a list of dictionaries in Python
+        network_requests = json.loads(network_requests)
 
-    # Get all network requests
-    #network_requests = driver.execute_script("return performance.getEntries();")
+        # Filter out only the URLs containing ".m3u8"
+        m3u8_urls = [request["name"] for request in network_requests if ".m3u8" in request["name"]]
 
-    # Filter out only the URLs containing ".m3u8"
-    m3u8_urls = [request["name"] for request in network_requests if ".m3u8" in request["name"]]
+        # Print the collected m3u8 URLs
+        if m3u8_urls:
+            m3u8_url = m3u8_urls[0]
+        else:
+            m3u8_url = "https://github.com/mikekaprielian/rtnaodhor93n398/raw/main/en/offline.mp4"
+    except Exception as e:
+        # If an exception occurs (e.g., button not found), use the default link
+        m3u8_url = "https://github.com/mikekaprielian/rtnaodhor93n398/raw/main/en/offline.mp4"
 
-    # Print the collected m3u8 URLs
-    if m3u8_urls:
-     name_fixed = name.replace(',', '')
-     name_fixed = name_fixed.replace(': ', ' - ')
-     name_parts = name_fixed.split(' - ')
-     title = name_parts[0]
-     rest_of_title = ' - '.join(name_parts[1:])
-     est_time_str = utc_to_est(rest_of_title)
-     print(f"#EXTINF:-1 group-title=\"{group}\", {title} = {est_time_str}")
-     print(m3u8_urls[0])  # Print only the first m3u8 URL
-
+    # Replace invalid characters in the name
+    name_fixed = name.replace(',', '')
+    name_fixed = name_fixed.replace(': ', ' - ')
+    name_parts = name_fixed.split(' - ')
+    title = name_parts[0]
+    rest_of_title = ' - '.join(name_parts[1:])
+    est_time_str = utc_to_est(rest_of_title)
+    
+    # Print the channel information in the M3U format
+    print(f"#EXTINF:-1 group-title=\"{group}\",{title} = {est_time_str}")
+    print(m3u8_url)  # Print only the first m3u8 URL
 
 # Close the WebDriver
 driver.quit()
+
 
