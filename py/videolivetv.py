@@ -213,31 +213,44 @@ for name, link in live_tv_links:
     # Navigate to the link URL
     driver.get(link)
 
-    # Wait for the button to be clickable
-    wait = WebDriverWait(driver, 5)
-    video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtnOne')))
-    video_button.click()    
+    try:
+        # Wait for the button to be clickable
+        wait = WebDriverWait(driver, 5)
+        video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtnOne')))
+        video_button.click()
 
-    # Wait for a brief period to allow the page to load and network requests to be made
-    time.sleep(5)
+        # Wait for a brief period to allow the page to load and network requests to be made
+        time.sleep(5)
 
-    # Get all network requests
-    network_requests = driver.execute_script("return JSON.stringify(performance.getEntries());")
+        # Get all network requests
+        network_requests = driver.execute_script("return JSON.stringify(performance.getEntries());")
 
-    # Convert the string back to a list of dictionaries in Python
-    network_requests = json.loads(network_requests)
+        # Convert the string back to a list of dictionaries in Python
+        network_requests = json.loads(network_requests)
 
-    # Get the logo URL for the current channel
-    logo_url = channel_logos.get(name)
-    
-    # Filter out only the URLs containing ".m3u8"
-    m3u8_urls = [request["name"] for request in network_requests if ".m3u8" in request["name"]]
+        # Get the logo URL for the current channel
+        logo_url = channel_logos.get(name)
+
+
+        # Filter out only the URLs containing ".m3u8"
+        m3u8_urls = [request["name"] for request in network_requests if ".m3u8" in request["name"]]
+
+        # Print the collected m3u8 URLs
+        if m3u8_urls:
+            m3u8_url = m3u8_urls[0]
+        else:
+            m3u8_url = "https://github.com/mikekaprielian/rtnaodhor93n398/raw/main/en/offline.mp4"
+    except Exception as e:
+        # If an exception occurs (e.g., button not found), use the default link
+        m3u8_url = "https://github.com/mikekaprielian/rtnaodhor93n398/raw/main/en/offline.mp4"
 
     # Print the collected m3u8 URL
     if m3u8_urls:
         print(f"#EXTINF:-1 group-title=\"USA TV\" tvg-ID=\"{name}\" tvg-name=\"{name}\" tvg-logo=\"{logo_url}\", {name}")
-        print(m3u8_urls[0])  # Print only the first m3u8 URL
+        print(m3u8_url)  # Print only the first m3u8 URL
+
 
 # Close the WebDriver
-driver.quit() 
+driver.quit()
+
 
