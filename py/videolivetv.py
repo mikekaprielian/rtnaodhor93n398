@@ -214,7 +214,7 @@ for name, link in live_tv_links:
     driver.get(link)
 
     # Wait for the button to be clickable
-    wait = WebDriverWait(driver, 2)
+    wait = WebDriverWait(driver, 5)
     video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtnOne')))
     video_button.click()    
 
