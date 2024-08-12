@@ -49,6 +49,16 @@ jobs:
           #echo "$python_output" > en/videolivetv.m3u
           #echo "$python_output" >> en/videoall.m3u
 
+      # Extract the token from one of the other links
+      - name: Extract Token and Update ESPN Links
+        run: |
+          # Extract the token from the first channel in videoall.m3u
+          token=$(grep -oP '(?<=token=)[^"]*' en/videoall.m3u | tail -1)
+
+          # Update the ESPN and ESPN2 links with the extracted token
+          sed -i "/tvg-name=\"ESPN\"/{n;s|https://github.com/mikekaprielian/rtnaodhor93n398/raw/main/en/offline.mp4|https://v6.thetvapp.to/hls/ESPN/index.m3u8?token=$token|g}" en/videoall.m3u
+          sed -i "/tvg-name=\"ESPN2\"/{n;s|https://github.com/mikekaprielian/rtnaodhor93n398/raw/main/en/offline.mp4|https://v6.thetvapp.to/hls/ESPN2/index.m3u8?token=$token|g}" en/videoall.m3u
+
       - name: Run Python Script videolivetv
         run: |
           python py/videolivetv.py | sed '/#EXTM3U/d' >> en/videoall.m3u
