@@ -1,7 +1,7 @@
 import requests
 import re
 
-url = "https://www.livehdtv.net/token.php?stream=m6"
+url = "https://www.livehdtv.com/token.php?stream=m6"
 headers = {
     "Referer": "https://www.livehdtv.com",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
