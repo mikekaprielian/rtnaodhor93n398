@@ -93,6 +93,13 @@ jobs:
          echo "#EXTINF:-1, CNN Turk" >> ar/videocnnturk.m3u
          echo "$python_output" >> ar/videocnnturk.m3u    
 
+      - name: Run Script and Generate M3U8 for M6
+        run: |
+         python_output=$(python py/videom6.py)
+         echo "#EXTM3U" > fr/videom6.m3u8
+         echo "#EXT-X-STREAM-INF:AVERAGE-BANDWIDTH=5340000,BANDWIDTH=6680000,RESOLUTION=1280x720,FRAME-RATE=50.000,CODECS="avc1.640020,mp4a.40.2",CLOSED-CAPTIONS=NONE" >> fr/videom6.m3u8
+         echo "$python_output" >> fr/videom6.m3u8
+
       - name: Pull changes from remote
         run: git pull origin main          
 
