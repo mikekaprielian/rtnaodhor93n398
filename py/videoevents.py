@@ -14,19 +14,25 @@ from datetime import datetime
 
 # Function to convert UTC/EDT time to Eastern Time Zone (EST)
 def utc_to_est(time_str):
-    # Determine the timezone from the input string
-    if 'UTC' in time_str:
+    # Determine if the time string has the extra `.000Z` format
+    if '.000Z' in time_str:
+        # Handle ISO format with milliseconds
+        time_format = '%Y-%m-%dT%H:%M:%S.%fZ'
         time_zone = 'UTC'
+    elif 'Z' in time_str:
+        # Handle ISO format without milliseconds
+        time_format = '%Y-%m-%dT%H:%M:%SZ'
+        time_zone = 'UTC'
+    elif 'UTC' in time_str:
+        # Handle custom format provided
         time_format = '%m/%d/%y %I:%M:%S %p UTC'
-    elif 'EDT' in time_str:
-        time_zone = 'EDT'
-        time_format = '%m/%d/%y %I:%M:%S %p EDT'
-    elif '.000Z' in time_str:
-        # Adjust the format string to match the extra milliseconds
         time_zone = 'UTC'
-        time_format = '%Y-%m-%dT%H:%M:%S.%fZ'  # Format for ISO with milliseconds
+    elif 'EDT' in time_str:
+        # Handle custom format for EDT
+        time_format = '%m/%d/%y %I:%M:%S %p EDT'
+        time_zone = 'EDT'
     else:
-        raise ValueError("Unsupported timezone in time string")
+        raise ValueError("Unsupported timezone or format in time string")
 
     # Parse the time string with the determined format
     time = datetime.strptime(time_str, time_format)
