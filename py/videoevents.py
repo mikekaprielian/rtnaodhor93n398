@@ -50,6 +50,23 @@ def utc_to_est(time_str):
     est_time_str = est_time.strftime('%m/%d/%y %I:%M:%S %p EST')
     return est_time_str
 
+# Function to extract date and time from a string
+def extract_datetime(input_str):
+    # Regex pattern to match date and time formats
+    patterns = [
+        r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z',  # ISO format with milliseconds
+        r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z',          # ISO format without milliseconds
+        r'\d{1,2}/\d{1,2}/\d{2} \d{1,2}:\d{2}:\d{2} (AM|PM) UTC'  # Custom format with UTC
+    ]
+    
+    for pattern in patterns:
+        match = re.search(pattern, input_str)
+        if match:
+            return match.group(0)
+    
+    # If no matching date format found, raise an error
+    raise ValueError(f"Date and time not found in string: {input_str}")
+
 
 
 user_agents = [
@@ -138,7 +155,7 @@ for row in rows:
 # Print the M3U header
 print("#EXTM3U")
 
-# Iterate over each link
+# Example usage of extracting and converting time:
 for group, name, link in all_links:
     # Navigate to the link URL
     driver.get(link)
@@ -181,8 +198,16 @@ for group, name, link in all_links:
     name_parts = name_fixed.split(' - ')
     title = name_parts[0]
     rest_of_title = ' - '.join(name_parts[1:])
-    est_time_str = utc_to_est(rest_of_title)
-    
+    try:
+        # Extract the date and time portion from the rest_of_title
+        date_time_part = extract_datetime(rest_of_title)
+        # Convert to EST
+        est_time_str = utc_to_est(date_time_part)
+    except ValueError as e:
+        # Handle cases where the date extraction fails
+        print(f"Error converting time: {e}")
+        est_time_str = rest_of_title  # Fall back to displaying the original text
+
     # Print the channel information in the M3U format
     print(f"#EXTINF:-1 group-title=\"{group}\",{est_time_str} = {title}")
     print(m3u8_url)  # Print only the first m3u8 URL
