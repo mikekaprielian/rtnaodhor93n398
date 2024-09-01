@@ -182,7 +182,7 @@ for group, name, link in all_links:
         network_requests = json.loads(network_requests)
 
         # Filter out only the URLs containing ".m3u8"
-        m3u8_urls = [request["name"] for request in network_requests if ".m3u8" in request["name"]]
+        m3u8_urls = [request["name"] for request in network_requests if "index.m3u8?token=" in request["name"]]
 
         # Print the collected m3u8 URLs
         if m3u8_urls:
