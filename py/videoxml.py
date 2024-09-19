@@ -121,6 +121,7 @@ channel_names = {
     "retro-tv-wxnyld4-new-york-ny/16446": "Retro TV",
     "science-hd/5828": "Science",
     "scripps-news-wpxntv7-new-york-ny/37059": "Scripps",
+    "sec-network/13711": "SEC Network",
     "paramount-with-showtime-eastern-feed/665": "Showtime (E)",
     "showtime-2-eastern/1387": "SHOWTIME 2",
     "sportsnet-360/336": "Sportsnet 360",
