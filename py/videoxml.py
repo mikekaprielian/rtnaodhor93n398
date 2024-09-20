@@ -613,7 +613,7 @@ channel_ids = [
     "bet-soul/3229",
     "bounce-network/14312",
     "cspan/648",
-    "cbs-wbz-boston-ma/134"",
+    "cbs-wbz-boston-ma/134",
     "cheddar-news/33695",
     "cmt-music/2288",
     "fox-wfxt-boston-ma-hd/3657",
