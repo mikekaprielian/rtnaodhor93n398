@@ -91,7 +91,7 @@ channel_names = {
     "ion-eastern-feed-hd/8534": "ION Television East HD",
     "law-crime-network/32823": "Law and Crime",
     "lifetime-network-us-eastern-feed/654": "Lifetime",
-    "lifetime-tv-canada/1148": "Lifetime",
+    "lifetime-tv-canada/1148": "Lifetime Canada",
     "lifetime-movies-hd-east/4723": "LMN",
     "logo-east/2091": "Logo",
     "love-nature-4k/33687": "Love Nature",
