@@ -35,6 +35,7 @@ channel_names = {
     "comet-tv-wphltv4-philadelphiapa/10279": "Comet",
     "court-tv-network/33650": "Court TV",
     "the-cooking-channel/4226": "Cooking Channel",
+    "cp24-cablepulse-24/321": "CP24",
     "crime-investigation-network-usa-hd/6216": "Crime & Investigation HD",
     "cspan/648": "CSPAN",
     "cspan-2/1050": "CSPAN 2",
@@ -87,6 +88,7 @@ channel_names = {
     "history-channel-us-hd-east/4660": "History",
     "hln/425": "HLN",
     "home-network/167": "Home Network",
+    "rdi-news/8": "ICI RDI",
     "independent-film-channel-us/1966": "IFC",
     "investigation-discovery-usa-eastern/2090": "Investigation Discovery",
     "ion-eastern-feed-hd/8534": "ION Television East HD",
@@ -257,6 +259,7 @@ channel_names = {
     "tsn4/279": "TSN4",
     "tsn5/278": "TSN5",
     "tv-land-eastern/1252": "TV Land",
+    "tva-sports/9823": "TVA Sports",
     "wgn-chicago-local/1915": "WGN 9",
     "yes-network/1953": "Yes Network"
 
@@ -454,6 +457,7 @@ channel_ids = [
     "comet-tv-wphltv4-philadelphiapa/10279",
     "court-tv-network/33650",
     "the-cooking-channel/4226",
+    "cp24-cablepulse-24/321",
     "crime-investigation-network-usa-hd/6216",
     "cspan/648",
     "cspan-2/1050",
@@ -506,6 +510,7 @@ channel_ids = [
     "history-channel-us-hd-east/4660",
     "hln/425",
     "home-network/167",
+    "rdi-news/8",
     "independent-film-channel-us/1966",
     "investigation-discovery-usa-eastern/2090",
     "ion-eastern-feed-hd/8534",
@@ -676,6 +681,7 @@ channel_ids = [
     "tsn4/279",
     "tsn5/278",
     "tv-land-eastern/1252",
+    "tva-sports/9823",
     "wgn-chicago-local/1915",
     "yes-network/1953"
 ]
