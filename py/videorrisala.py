@@ -1,46 +1,53 @@
 import subprocess
+import re
+import base64
 import json
 
-def get_channel_token(kwik_key, media_url):
-    # Construct the cURL command
+def get_page_content(target_url):
+    """Function to fetch the page content using cURL."""
     curl_command = [
-        "curl",
-        "-X", "POST",
-        "https://rotana.net/channels/generateAclToken",
+        "/snap/bin/curl",  # Full path to curl
+        "-s",  # Silent mode (no progress bar)
+        "-X", "GET",  # GET method
+        target_url,  # URL passed to the function
         "-H", "Referer: https://rotana.net/",
         "-H", "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
         "-H", "Content-Type: application/x-www-form-urlencoded; charset=UTF-8",
-        "-H", "X-Forwarded-For: 216.239.80.141",
-        "--data-urlencode", f"kwik_key={kwik_key}",
-        "--data-urlencode", f"mediaUrl={media_url}"
+        "-H", "X-Forwarded-For: 216.239.80.141"
     ]
-
-    # Execute the cURL command
+    
     try:
-        result = subprocess.run(curl_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
-        result.check_returncode()  # Raises an error if curl fails
-        response_json = json.loads(result.stdout)  # Parse JSON response
-        return response_json.get('data')  # Extract token
+        # Execute cURL command
+        result = subprocess.run(curl_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, encoding='utf-8')
+        result.check_returncode()  # Ensure cURL ran successfully
+        return result.stdout  # Return the page content
     except subprocess.CalledProcessError as e:
         print(f"cURL command failed with error:\n{e.stderr}")
-        return None
-    except json.JSONDecodeError:
-        print("Failed to parse JSON response")
-        return None
+        return None  # Return None if an error occurs
 
-def construct_m3u8_link(media_url, acl_token):
-    return f"https://live.kwikmotion.com/{media_url}live/{media_url}.smil/playlist.m3u8?hdnts={acl_token}"
+# Target webpage URL
+target_url = "https://rotana.net/live/risala"
 
-# Fetch the kwik_key and media_url
-kwik_key = "e72e95dd21a18d89b696a7737efaebdb"
-media_url = "alressalah"
+# Fetch the page content using the function
+page_content = get_page_content(target_url)
 
-if kwik_key:
-    acl_token = get_channel_token(kwik_key, media_url)
-    if acl_token:
-        m3u8_link = construct_m3u8_link(media_url, acl_token)
-        print("M3U8 Link:", m3u8_link)
-    else:
-        print("Failed to retrieve ACL token")
+if not page_content:
+    print("Failed to retrieve page content.")
+    exit()
+
+# Extract the Base64 config string from JavaScript
+match = re.search(r"var config = '([^']+)'", page_content)
+if not match:
+    print("Failed to extract Base64 config string.")
+    exit()
+
+# Decode Base64 string
+config_json = base64.b64decode(match.group(1)).decode("utf-8")
+config_data = json.loads(config_json)
+
+# Extract M3U8 URL
+m3u8_url = config_data.get("stream", {}).get("url")
+if m3u8_url:
+    print(m3u8_url)
 else:
-    print("Failed to retrieve kwik_key from the page")
+    print("Failed to extract M3U8 URL.")
