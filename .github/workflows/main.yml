@@ -104,10 +104,15 @@ jobs:
 
       - name: Commit and Push Changes
         env:
-         GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}  # Use the stored PAT secret
+          GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}  # Use the stored PAT secret
         run: |
           git config --local user.email "mikekaprielian@vif.com"
           git config --local user.name "Mikekaprielian"
           git add ar/rotanaclip.m3u ar/rotanacinema.m3u ar/rotanaclassic.m3u ar/rotanacomedy.m3u ar/rotanadrama.m3u ar/rotanalbc.m3u ar/rotanacinemamasr.m3u ar/rotanakhaleejiya.m3u
-          git commit -m "Update tokens"
-          git push
+    
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update tokens"
+            git push
+          fi
