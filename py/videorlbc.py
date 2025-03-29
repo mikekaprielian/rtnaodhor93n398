@@ -6,7 +6,7 @@ import json
 def get_page_content(target_url):
     """Function to fetch the page content using cURL."""
     curl_command = [
-        "/snap/bin/curl",  # Full path to curl
+        "curl",  # Full path to curl
         "-s",  # Silent mode (no progress bar)
         "-X", "GET",  # GET method
         target_url,  # URL passed to the function
