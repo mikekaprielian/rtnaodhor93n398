@@ -26,7 +26,7 @@ def get_page_content(target_url):
         return None  # Return None if an error occurs
 
 # Target webpage URL
-target_url = "https://rotana.net/live/cinemamasr"
+target_url = "https://rotana.net/live/cinema"
 
 # Fetch the page content using the function
 page_content = get_page_content(target_url)
