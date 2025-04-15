@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Bedrock rewrited -->
-<MPD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:mpeg:dash:schema:mpd:2011" xmlns:mspr="urn:microsoft:playready" xsi:schemaLocation="urn:mpeg:dash:schema:mpd:2011 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd" id="201" type="dynamic" publishTime="2025-04-15T15:15:43+00:00" minimumUpdatePeriod="PT2S" availabilityStartTime="2024-04-04T12:24:23+00:00" minBufferTime="PT2S" suggestedPresentationDelay="PT12.000S" timeShiftBufferDepth="PT598.720S" profiles="urn:mpeg:dash:profile:isoff-live:2011">
+<MPD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:mpeg:dash:schema:mpd:2011" xmlns:mspr="urn:microsoft:playready" xsi:schemaLocation="urn:mpeg:dash:schema:mpd:2011 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd" id="201" type="dynamic" publishTime="2025-04-15T18:18:40+00:00" minimumUpdatePeriod="PT2S" availabilityStartTime="2024-04-04T12:24:23+00:00" minBufferTime="PT2S" suggestedPresentationDelay="PT12.000S" timeShiftBufferDepth="PT598.720S" profiles="urn:mpeg:dash:profile:isoff-live:2011">
   <Period start="PT0.000S" id="1">
     <AdaptationSet id="2046017903" mimeType="video/mp4" segmentAlignment="true" startWithSAP="1" subsegmentAlignment="true" subsegmentStartsWithSAP="1" bitstreamSwitching="true">
       <InbandEventStream schemeIdUri="https://aomedia.org/emsg/ID3" value="0"/>
@@ -12,83 +12,57 @@
         <cenc:pssh xmlns:cenc="urn:mpeg:cenc:2013">AAADSHBzc2gAAAAAmgTweZhAQoarkuZb4IhflQAAAygoAwAAAQABAB4DPABXAFIATQBIAEUAQQBEAEUAUgAgAHgAbQBsAG4AcwA9ACIAaAB0AHQAcAA6AC8ALwBzAGMAaABlAG0AYQBzAC4AbQBpAGMAcgBvAHMAbwBmAHQALgBjAG8AbQAvAEQAUgBNAC8AMgAwADAANwAvADAAMwAvAFAAbABhAHkAUgBlAGEAZAB5AEgAZQBhAGQAZQByACIAIAB2AGUAcgBzAGkAbwBuAD0AIgA0AC4AMAAuADAALgAwACIAPgA8AEQAQQBUAEEAPgA8AFAAUgBPAFQARQBDAFQASQBOAEYATwA+ADwASwBFAFkATABFAE4APgAxADYAPAAvAEsARQBZAEwARQBOAD4APABBAEwARwBJAEQAPgBBAEUAUwBDAFQAUgA8AC8AQQBMAEcASQBEAD4APAAvAFAAUgBPAFQARQBDAFQASQBOAEYATwA+ADwASwBJAEQAPgBXADkAdABDAHYAaQBIAFAAZgBqAGkARABqAHkATABRADIAbAB1AEEAdwB3AD0APQA8AC8ASwBJAEQAPgA8AEwAQQBfAFUAUgBMAD4AaAB0AHQAcABzADoALwAvAGwAaQBjAC4AZAByAG0AdABvAGQAYQB5AC4AYwBvAG0ALwBsAGkAYwBlAG4AcwBlAC0AcAByAG8AeAB5AC0AaABlAGEAZABlAHIAYQB1AHQAaAAvAGQAcgBtAHQAbwBkAGEAeQAvAFIAaQBnAGgAdABzAE0AYQBuAGEAZwBlAHIALgBhAHMAbQB4ADwALwBMAEEAXwBVAFIATAA+ADwATABVAEkAXwBVAFIATAA+AGgAdAB0AHAAcwA6AC8ALwBwAGwAYQB5AHIAZQBhAGQAeQAtAHUAaQAuAGUAeABhAG0AcABsAGUALgBjAG8AbQA8AC8ATABVAEkAXwBVAFIATAA+ADwAQwBIAEUAQwBLAFMAVQBNAD4AUwBYAFUAbwAvAFEAMwBQAGgARAAwAD0APAAvAEMASABFAEMASwBTAFUATQA+ADwALwBEAEEAVABBAD4APAAvAFcAUgBNAEgARQBBAEQARQBSAD4A</cenc:pssh>
         <mspr:pro>KAMAAAEAAQAeAzwAVwBSAE0ASABFAEEARABFAFIAIAB4AG0AbABuAHMAPQAiAGgAdAB0AHAAOgAvAC8AcwBjAGgAZQBtAGEAcwAuAG0AaQBjAHIAbwBzAG8AZgB0AC4AYwBvAG0ALwBEAFIATQAvADIAMAAwADcALwAwADMALwBQAGwAYQB5AFIAZQBhAGQAeQBIAGUAYQBkAGUAcgAiACAAdgBlAHIAcwBpAG8AbgA9ACIANAAuADAALgAwAC4AMAAiAD4APABEAEEAVABBAD4APABQAFIATwBUAEUAQwBUAEkATgBGAE8APgA8AEsARQBZAEwARQBOAD4AMQA2ADwALwBLAEUAWQBMAEUATgA+ADwAQQBMAEcASQBEAD4AQQBFAFMAQwBUAFIAPAAvAEEATABHAEkARAA+ADwALwBQAFIATwBUAEUAQwBUAEkATgBGAE8APgA8AEsASQBEAD4AVwA5AHQAQwB2AGkASABQAGYAagBpAEQAagB5AEwAUQAyAGwAdQBBAHcAdwA9AD0APAAvAEsASQBEAD4APABMAEEAXwBVAFIATAA+AGgAdAB0AHAAcwA6AC8ALwBsAGkAYwAuAGQAcgBtAHQAbwBkAGEAeQAuAGMAbwBtAC8AbABpAGMAZQBuAHMAZQAtAHAAcgBvAHgAeQAtAGgAZQBhAGQAZQByAGEAdQB0AGgALwBkAHIAbQB0AG8AZABhAHkALwBSAGkAZwBoAHQAcwBNAGEAbgBhAGcAZQByAC4AYQBzAG0AeAA8AC8ATABBAF8AVQBSAEwAPgA8AEwAVQBJAF8AVQBSAEwAPgBoAHQAdABwAHMAOgAvAC8AcABsAGEAeQByAGUAYQBkAHkALQB1AGkALgBlAHgAYQBtAHAAbABlAC4AYwBvAG0APAAvAEwAVQBJAF8AVQBSAEwAPgA8AEMASABFAEMASwBTAFUATQA+AFMAWABVAG8ALwBRADMAUABoAEQAMAA9ADwALwBDAEgARQBDAEsAUwBVAE0APgA8AC8ARABBAFQAQQA+ADwALwBXAFIATQBIAEUAQQBEAEUAUgA+AA==</mspr:pro>
       </ContentProtection>
-      <SegmentTemplate timescale="50000" media="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_video_$RepresentationID$_0_$Number$.mp4?m=1721047965" initialization="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_video_$RepresentationID$_0_init.mp4?m=1721047965" startNumber="13200970">
+      <SegmentTemplate timescale="50000" media="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_video_$RepresentationID$_0_$Number$.mp4?m=1721047965" initialization="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_video_$RepresentationID$_0_init.mp4?m=1721047965" startNumber="13205493">
         <SegmentTimeline>
-          <S t="1624804143533" d="46000"/>
-          <S t="1624804189533" d="82000"/>
-          <S t="1624804271533" d="128000" r="21"/>
-          <S t="1624807087533" d="102000"/>
-          <S t="1624807189533" d="26000"/>
-          <S t="1624807215533" d="128000" r="22"/>
-          <S t="1624810159533" d="30000"/>
-          <S t="1624810189533" d="98000"/>
-          <S t="1624810287533" d="128000"/>
-          <S t="1624810415533" d="74000"/>
-          <S t="1624810489533" d="54000"/>
-          <S t="1624810543533" d="128000" r="6"/>
-          <S t="1624811439533" d="74000"/>
-          <S t="1624811513533" d="54000"/>
-          <S t="1624811567533" d="128000" r="2"/>
-          <S t="1624811951533" d="86000"/>
-          <S t="1624812037533" d="42000"/>
-          <S t="1624812079533" d="128000" r="6"/>
-          <S t="1624812975533" d="36000"/>
-          <S t="1624813011533" d="92000"/>
-          <S t="1624813103533" d="128000" r="10"/>
-          <S t="1624814511533" d="24000"/>
-          <S t="1624814535533" d="104000"/>
-          <S t="1624814639533" d="128000" r="10"/>
-          <S t="1624816047533" d="12000"/>
-          <S t="1624816059533" d="116000"/>
-          <S t="1624816175533" d="128000" r="2"/>
-          <S t="1624816559533" d="24000"/>
-          <S t="1624816583533" d="104000"/>
-          <S t="1624816687533" d="128000" r="2"/>
-          <S t="1624817071533" d="36000"/>
-          <S t="1624817107533" d="92000"/>
-          <S t="1624817199533" d="128000" r="2"/>
-          <S t="1624817583533" d="48000"/>
-          <S t="1624817631533" d="80000"/>
-          <S t="1624817711533" d="128000" r="4"/>
-          <S t="1624818351533" d="54000"/>
-          <S t="1624818405533" d="74000"/>
-          <S t="1624818479533" d="128000"/>
-          <S t="1624818607533" d="122000"/>
-          <S t="1624818729533" d="6000"/>
-          <S t="1624818735533" d="128000" r="4"/>
-          <S t="1624819375533" d="28000"/>
-          <S t="1624819403533" d="100000"/>
-          <S t="1624819503533" d="128000" r="1"/>
-          <S t="1624819759533" d="68000"/>
-          <S t="1624819827533" d="60000"/>
-          <S t="1624819887533" d="128000" r="6"/>
-          <S t="1624820783533" d="68000"/>
-          <S t="1624820851533" d="60000"/>
-          <S t="1624820911533" d="128000" r="4"/>
-          <S t="1624821551533" d="74000"/>
-          <S t="1624821625533" d="54000"/>
-          <S t="1624821679533" d="128000" r="4"/>
-          <S t="1624822319533" d="80000"/>
-          <S t="1624822399533" d="48000"/>
-          <S t="1624822447533" d="128000" r="6"/>
-          <S t="1624823343533" d="80000"/>
-          <S t="1624823423533" d="48000"/>
-          <S t="1624823471533" d="128000" r="6"/>
-          <S t="1624824367533" d="80000"/>
-          <S t="1624824447533" d="48000"/>
-          <S t="1624824495533" d="128000" r="10"/>
-          <S t="1624825903533" d="18000"/>
-          <S t="1624825921533" d="110000"/>
-          <S t="1624826031533" d="128000" r="10"/>
-          <S t="1624827439533" d="6000"/>
-          <S t="1624827445533" d="122000"/>
-          <S t="1624827567533" d="128000" r="9"/>
-          <S t="1624828847533" d="98000"/>
-          <S t="1624828945533" d="30000"/>
-          <S t="1624828975533" d="128000" r="1"/>
-          <S t="1624829231533" d="14000"/>
-          <S t="1624829245533" d="114000"/>
-          <S t="1624829359533" d="128000" r="36"/>
+          <S t="1625353007533" d="80000"/>
+          <S t="1625353087533" d="48000"/>
+          <S t="1625353135533" d="128000" r="22"/>
+          <S t="1625356079533" d="8000"/>
+          <S t="1625356087533" d="120000"/>
+          <S t="1625356207533" d="128000"/>
+          <S t="1625356335533" d="52000"/>
+          <S t="1625356387533" d="76000"/>
+          <S t="1625356463533" d="128000" r="2"/>
+          <S t="1625356847533" d="64000" r="1"/>
+          <S t="1625356975533" d="128000" r="10"/>
+          <S t="1625358383533" d="52000"/>
+          <S t="1625358435533" d="76000"/>
+          <S t="1625358511533" d="128000" r="4"/>
+          <S t="1625359151533" d="58000"/>
+          <S t="1625359209533" d="70000"/>
+          <S t="1625359279533" d="128000" r="6"/>
+          <S t="1625360175533" d="58000"/>
+          <S t="1625360233533" d="70000"/>
+          <S t="1625360303533" d="128000" r="10"/>
+          <S t="1625361711533" d="46000"/>
+          <S t="1625361757533" d="82000"/>
+          <S t="1625361839533" d="128000" r="2"/>
+          <S t="1625362223533" d="58000"/>
+          <S t="1625362281533" d="70000"/>
+          <S t="1625362351533" d="128000" r="4"/>
+          <S t="1625362991533" d="64000" r="1"/>
+          <S t="1625363119533" d="128000" r="2"/>
+          <S t="1625363503533" d="126000"/>
+          <S t="1625363629533" d="130000"/>
+          <S t="1625363759533" d="128000" r="5"/>
+          <S t="1625364527533" d="126000"/>
+          <S t="1625364653533" d="130000"/>
+          <S t="1625364783533" d="128000" r="4"/>
+          <S t="1625365423533" d="4000"/>
+          <S t="1625365427533" d="124000"/>
+          <S t="1625365551533" d="128000" r="9"/>
+          <S t="1625366831533" d="120000"/>
+          <S t="1625366951533" d="8000"/>
+          <S t="1625366959533" d="128000" r="6"/>
+          <S t="1625367855533" d="120000"/>
+          <S t="1625367975533" d="8000"/>
+          <S t="1625367983533" d="128000" r="6"/>
+          <S t="1625368879533" d="96000"/>
+          <S t="1625368975533" d="32000"/>
+          <S t="1625369007533" d="128000" r="1"/>
+          <S t="1625369263533" d="12000"/>
+          <S t="1625369275533" d="116000"/>
+          <S t="1625369391533" d="128000" r="105"/>
         </SegmentTimeline>
       </SegmentTemplate>
       <Representation id="10" width="1920" height="1080" frameRate="25/1" bandwidth="5000000" codecs="avc1.640028"/>
@@ -100,83 +74,57 @@
     <AdaptationSet id="1696741850" mimeType="audio/mp4" segmentAlignment="true" startWithSAP="1" lang="fra" bitstreamSwitching="true">
       <Role schemeIdUri="urn:mpeg:dash:role:2011" value="main"/>
       <Label>LV</Label>
-      <SegmentTemplate timescale="48000" media="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_$Number$.mp4?m=1721047965" initialization="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_init.mp4?m=1721047965" startNumber="13200970">
+      <SegmentTemplate timescale="48000" media="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_$Number$.mp4?m=1721047965" initialization="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_init.mp4?m=1721047965" startNumber="13205493">
         <SegmentTimeline>
-          <S t="1559811978240" d="44032"/>
-          <S t="1559812022272" d="78848"/>
-          <S t="1559812101120" d="122880" r="21"/>
-          <S t="1559814804480" d="98304"/>
-          <S t="1559814902784" d="24576"/>
-          <S t="1559814927360" d="122880" r="22"/>
-          <S t="1559817753600" d="28672"/>
-          <S t="1559817782272" d="94208"/>
-          <S t="1559817876480" d="122880"/>
-          <S t="1559817999360" d="70656"/>
-          <S t="1559818070016" d="52224"/>
-          <S t="1559818122240" d="122880" r="6"/>
-          <S t="1559818982400" d="70656"/>
-          <S t="1559819053056" d="52224"/>
-          <S t="1559819105280" d="122880" r="2"/>
-          <S t="1559819473920" d="82944"/>
-          <S t="1559819556864" d="39936"/>
-          <S t="1559819596800" d="122880" r="6"/>
-          <S t="1559820456960" d="34816"/>
-          <S t="1559820491776" d="88064"/>
-          <S t="1559820579840" d="122880" r="10"/>
-          <S t="1559821931520" d="23552"/>
-          <S t="1559821955072" d="99328"/>
-          <S t="1559822054400" d="122880" r="10"/>
-          <S t="1559823406080" d="11264"/>
-          <S t="1559823417344" d="111616"/>
-          <S t="1559823528960" d="122880" r="2"/>
-          <S t="1559823897600" d="23552"/>
-          <S t="1559823921152" d="99328"/>
-          <S t="1559824020480" d="122880" r="2"/>
-          <S t="1559824389120" d="34816"/>
-          <S t="1559824423936" d="88064"/>
-          <S t="1559824512000" d="122880" r="2"/>
-          <S t="1559824880640" d="46080"/>
-          <S t="1559824926720" d="76800"/>
-          <S t="1559825003520" d="122880" r="4"/>
-          <S t="1559825617920" d="52224"/>
-          <S t="1559825670144" d="70656"/>
-          <S t="1559825740800" d="122880"/>
-          <S t="1559825863680" d="116736"/>
-          <S t="1559825980416" d="6144"/>
-          <S t="1559825986560" d="122880" r="4"/>
-          <S t="1559826600960" d="26624"/>
-          <S t="1559826627584" d="96256"/>
-          <S t="1559826723840" d="122880" r="1"/>
-          <S t="1559826969600" d="65536"/>
-          <S t="1559827035136" d="57344"/>
-          <S t="1559827092480" d="122880" r="6"/>
-          <S t="1559827952640" d="65536"/>
-          <S t="1559828018176" d="57344"/>
-          <S t="1559828075520" d="122880" r="4"/>
-          <S t="1559828689920" d="70656"/>
-          <S t="1559828760576" d="52224"/>
-          <S t="1559828812800" d="122880" r="4"/>
-          <S t="1559829427200" d="76800"/>
-          <S t="1559829504000" d="46080"/>
-          <S t="1559829550080" d="122880" r="6"/>
-          <S t="1559830410240" d="76800"/>
-          <S t="1559830487040" d="46080"/>
-          <S t="1559830533120" d="122880" r="6"/>
-          <S t="1559831393280" d="76800"/>
-          <S t="1559831470080" d="46080"/>
-          <S t="1559831516160" d="122880" r="10"/>
-          <S t="1559832867840" d="17408"/>
-          <S t="1559832885248" d="105472"/>
-          <S t="1559832990720" d="122880" r="10"/>
-          <S t="1559834342400" d="6144"/>
-          <S t="1559834348544" d="116736"/>
-          <S t="1559834465280" d="122880" r="9"/>
-          <S t="1559835694080" d="94208"/>
-          <S t="1559835788288" d="28672"/>
-          <S t="1559835816960" d="122880" r="1"/>
-          <S t="1559836062720" d="13312"/>
-          <S t="1559836076032" d="109568"/>
-          <S t="1559836185600" d="122880" r="36"/>
+          <S t="1560338887680" d="76800"/>
+          <S t="1560338964480" d="46080"/>
+          <S t="1560339010560" d="122880" r="22"/>
+          <S t="1560341836800" d="8192"/>
+          <S t="1560341844992" d="114688"/>
+          <S t="1560341959680" d="122880"/>
+          <S t="1560342082560" d="50176"/>
+          <S t="1560342132736" d="72704"/>
+          <S t="1560342205440" d="122880" r="2"/>
+          <S t="1560342574080" d="61440" r="1"/>
+          <S t="1560342696960" d="122880" r="10"/>
+          <S t="1560344048640" d="50176"/>
+          <S t="1560344098816" d="72704"/>
+          <S t="1560344171520" d="122880" r="4"/>
+          <S t="1560344785920" d="55296"/>
+          <S t="1560344841216" d="67584"/>
+          <S t="1560344908800" d="122880" r="6"/>
+          <S t="1560345768960" d="55296"/>
+          <S t="1560345824256" d="67584"/>
+          <S t="1560345891840" d="122880" r="10"/>
+          <S t="1560347243520" d="44032"/>
+          <S t="1560347287552" d="78848"/>
+          <S t="1560347366400" d="122880" r="2"/>
+          <S t="1560347735040" d="55296"/>
+          <S t="1560347790336" d="67584"/>
+          <S t="1560347857920" d="122880" r="4"/>
+          <S t="1560348472320" d="61440" r="1"/>
+          <S t="1560348595200" d="122880" r="2"/>
+          <S t="1560348963840" d="120832"/>
+          <S t="1560349084672" d="124928"/>
+          <S t="1560349209600" d="122880" r="5"/>
+          <S t="1560349946880" d="120832"/>
+          <S t="1560350067712" d="124928"/>
+          <S t="1560350192640" d="122880" r="4"/>
+          <S t="1560350807040" d="4096"/>
+          <S t="1560350811136" d="118784"/>
+          <S t="1560350929920" d="122880" r="9"/>
+          <S t="1560352158720" d="115712"/>
+          <S t="1560352274432" d="7168"/>
+          <S t="1560352281600" d="122880" r="6"/>
+          <S t="1560353141760" d="115712"/>
+          <S t="1560353257472" d="7168"/>
+          <S t="1560353264640" d="122880" r="6"/>
+          <S t="1560354124800" d="92160"/>
+          <S t="1560354216960" d="30720"/>
+          <S t="1560354247680" d="122880" r="1"/>
+          <S t="1560354493440" d="11264"/>
+          <S t="1560354504704" d="111616"/>
+          <S t="1560354616320" d="122880" r="105"/>
         </SegmentTimeline>
       </SegmentTemplate>
       <Representation id="13" bandwidth="97386" audioSamplingRate="48000" codecs="mp4a.40.2">
@@ -185,83 +133,57 @@
     </AdaptationSet>
     <AdaptationSet id="1221548769" mimeType="audio/mp4" segmentAlignment="true" startWithSAP="1" lang="qaa" bitstreamSwitching="true">
       <Label>OV</Label>
-      <SegmentTemplate timescale="48000" media="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_$Number$.mp4?m=1721047965" initialization="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_init.mp4?m=1721047965" startNumber="13200970">
+      <SegmentTemplate timescale="48000" media="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_$Number$.mp4?m=1721047965" initialization="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_init.mp4?m=1721047965" startNumber="13205493">
         <SegmentTimeline>
-          <S t="1559811978240" d="44032"/>
-          <S t="1559812022272" d="78848"/>
-          <S t="1559812101120" d="122880" r="21"/>
-          <S t="1559814804480" d="98304"/>
-          <S t="1559814902784" d="24576"/>
-          <S t="1559814927360" d="122880" r="22"/>
-          <S t="1559817753600" d="28672"/>
-          <S t="1559817782272" d="94208"/>
-          <S t="1559817876480" d="122880"/>
-          <S t="1559817999360" d="70656"/>
-          <S t="1559818070016" d="52224"/>
-          <S t="1559818122240" d="122880" r="6"/>
-          <S t="1559818982400" d="70656"/>
-          <S t="1559819053056" d="52224"/>
-          <S t="1559819105280" d="122880" r="2"/>
-          <S t="1559819473920" d="82944"/>
-          <S t="1559819556864" d="39936"/>
-          <S t="1559819596800" d="122880" r="6"/>
-          <S t="1559820456960" d="34816"/>
-          <S t="1559820491776" d="88064"/>
-          <S t="1559820579840" d="122880" r="10"/>
-          <S t="1559821931520" d="23552"/>
-          <S t="1559821955072" d="99328"/>
-          <S t="1559822054400" d="122880" r="10"/>
-          <S t="1559823406080" d="11264"/>
-          <S t="1559823417344" d="111616"/>
-          <S t="1559823528960" d="122880" r="2"/>
-          <S t="1559823897600" d="23552"/>
-          <S t="1559823921152" d="99328"/>
-          <S t="1559824020480" d="122880" r="2"/>
-          <S t="1559824389120" d="34816"/>
-          <S t="1559824423936" d="88064"/>
-          <S t="1559824512000" d="122880" r="2"/>
-          <S t="1559824880640" d="46080"/>
-          <S t="1559824926720" d="76800"/>
-          <S t="1559825003520" d="122880" r="4"/>
-          <S t="1559825617920" d="52224"/>
-          <S t="1559825670144" d="70656"/>
-          <S t="1559825740800" d="122880"/>
-          <S t="1559825863680" d="116736"/>
-          <S t="1559825980416" d="6144"/>
-          <S t="1559825986560" d="122880" r="4"/>
-          <S t="1559826600960" d="26624"/>
-          <S t="1559826627584" d="96256"/>
-          <S t="1559826723840" d="122880" r="1"/>
-          <S t="1559826969600" d="65536"/>
-          <S t="1559827035136" d="57344"/>
-          <S t="1559827092480" d="122880" r="6"/>
-          <S t="1559827952640" d="65536"/>
-          <S t="1559828018176" d="57344"/>
-          <S t="1559828075520" d="122880" r="4"/>
-          <S t="1559828689920" d="70656"/>
-          <S t="1559828760576" d="52224"/>
-          <S t="1559828812800" d="122880" r="4"/>
-          <S t="1559829427200" d="76800"/>
-          <S t="1559829504000" d="46080"/>
-          <S t="1559829550080" d="122880" r="6"/>
-          <S t="1559830410240" d="76800"/>
-          <S t="1559830487040" d="46080"/>
-          <S t="1559830533120" d="122880" r="6"/>
-          <S t="1559831393280" d="76800"/>
-          <S t="1559831470080" d="46080"/>
-          <S t="1559831516160" d="122880" r="10"/>
-          <S t="1559832867840" d="17408"/>
-          <S t="1559832885248" d="105472"/>
-          <S t="1559832990720" d="122880" r="10"/>
-          <S t="1559834342400" d="6144"/>
-          <S t="1559834348544" d="116736"/>
-          <S t="1559834465280" d="122880" r="9"/>
-          <S t="1559835694080" d="94208"/>
-          <S t="1559835788288" d="28672"/>
-          <S t="1559835816960" d="122880" r="1"/>
-          <S t="1559836062720" d="13312"/>
-          <S t="1559836076032" d="109568"/>
-          <S t="1559836185600" d="122880" r="36"/>
+          <S t="1560338887680" d="76800"/>
+          <S t="1560338964480" d="46080"/>
+          <S t="1560339010560" d="122880" r="22"/>
+          <S t="1560341836800" d="8192"/>
+          <S t="1560341844992" d="114688"/>
+          <S t="1560341959680" d="122880"/>
+          <S t="1560342082560" d="50176"/>
+          <S t="1560342132736" d="72704"/>
+          <S t="1560342205440" d="122880" r="2"/>
+          <S t="1560342574080" d="61440" r="1"/>
+          <S t="1560342696960" d="122880" r="10"/>
+          <S t="1560344048640" d="50176"/>
+          <S t="1560344098816" d="72704"/>
+          <S t="1560344171520" d="122880" r="4"/>
+          <S t="1560344785920" d="55296"/>
+          <S t="1560344841216" d="67584"/>
+          <S t="1560344908800" d="122880" r="6"/>
+          <S t="1560345768960" d="55296"/>
+          <S t="1560345824256" d="67584"/>
+          <S t="1560345891840" d="122880" r="10"/>
+          <S t="1560347243520" d="44032"/>
+          <S t="1560347287552" d="78848"/>
+          <S t="1560347366400" d="122880" r="2"/>
+          <S t="1560347735040" d="55296"/>
+          <S t="1560347790336" d="67584"/>
+          <S t="1560347857920" d="122880" r="4"/>
+          <S t="1560348472320" d="61440" r="1"/>
+          <S t="1560348595200" d="122880" r="2"/>
+          <S t="1560348963840" d="120832"/>
+          <S t="1560349084672" d="124928"/>
+          <S t="1560349209600" d="122880" r="5"/>
+          <S t="1560349946880" d="120832"/>
+          <S t="1560350067712" d="124928"/>
+          <S t="1560350192640" d="122880" r="4"/>
+          <S t="1560350807040" d="4096"/>
+          <S t="1560350811136" d="118784"/>
+          <S t="1560350929920" d="122880" r="9"/>
+          <S t="1560352158720" d="115712"/>
+          <S t="1560352274432" d="7168"/>
+          <S t="1560352281600" d="122880" r="6"/>
+          <S t="1560353141760" d="115712"/>
+          <S t="1560353257472" d="7168"/>
+          <S t="1560353264640" d="122880" r="6"/>
+          <S t="1560354124800" d="92160"/>
+          <S t="1560354216960" d="30720"/>
+          <S t="1560354247680" d="122880" r="1"/>
+          <S t="1560354493440" d="11264"/>
+          <S t="1560354504704" d="111616"/>
+          <S t="1560354616320" d="122880" r="105"/>
         </SegmentTimeline>
       </SegmentTemplate>
       <Representation id="14" bandwidth="97349" audioSamplingRate="48000" codecs="mp4a.40.2">
@@ -272,83 +194,57 @@
       <Role schemeIdUri="urn:mpeg:dash:role:2011" value="alternate"/>
       <Accessibility schemeIdUri="urn:mpeg:dash:role:2011" value="description"/>
       <Label>AD</Label>
-      <SegmentTemplate timescale="48000" media="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_$Number$.mp4?m=1721047965" initialization="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_init.mp4?m=1721047965" startNumber="13200970">
+      <SegmentTemplate timescale="48000" media="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_$Number$.mp4?m=1721047965" initialization="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_audio_$RepresentationID$_0_init.mp4?m=1721047965" startNumber="13205493">
         <SegmentTimeline>
-          <S t="1559811978240" d="44032"/>
-          <S t="1559812022272" d="78848"/>
-          <S t="1559812101120" d="122880" r="21"/>
-          <S t="1559814804480" d="98304"/>
-          <S t="1559814902784" d="24576"/>
-          <S t="1559814927360" d="122880" r="22"/>
-          <S t="1559817753600" d="28672"/>
-          <S t="1559817782272" d="94208"/>
-          <S t="1559817876480" d="122880"/>
-          <S t="1559817999360" d="70656"/>
-          <S t="1559818070016" d="52224"/>
-          <S t="1559818122240" d="122880" r="6"/>
-          <S t="1559818982400" d="70656"/>
-          <S t="1559819053056" d="52224"/>
-          <S t="1559819105280" d="122880" r="2"/>
-          <S t="1559819473920" d="82944"/>
-          <S t="1559819556864" d="39936"/>
-          <S t="1559819596800" d="122880" r="6"/>
-          <S t="1559820456960" d="34816"/>
-          <S t="1559820491776" d="88064"/>
-          <S t="1559820579840" d="122880" r="10"/>
-          <S t="1559821931520" d="23552"/>
-          <S t="1559821955072" d="99328"/>
-          <S t="1559822054400" d="122880" r="10"/>
-          <S t="1559823406080" d="11264"/>
-          <S t="1559823417344" d="111616"/>
-          <S t="1559823528960" d="122880" r="2"/>
-          <S t="1559823897600" d="23552"/>
-          <S t="1559823921152" d="99328"/>
-          <S t="1559824020480" d="122880" r="2"/>
-          <S t="1559824389120" d="34816"/>
-          <S t="1559824423936" d="88064"/>
-          <S t="1559824512000" d="122880" r="2"/>
-          <S t="1559824880640" d="46080"/>
-          <S t="1559824926720" d="76800"/>
-          <S t="1559825003520" d="122880" r="4"/>
-          <S t="1559825617920" d="52224"/>
-          <S t="1559825670144" d="70656"/>
-          <S t="1559825740800" d="122880"/>
-          <S t="1559825863680" d="116736"/>
-          <S t="1559825980416" d="6144"/>
-          <S t="1559825986560" d="122880" r="4"/>
-          <S t="1559826600960" d="26624"/>
-          <S t="1559826627584" d="96256"/>
-          <S t="1559826723840" d="122880" r="1"/>
-          <S t="1559826969600" d="65536"/>
-          <S t="1559827035136" d="57344"/>
-          <S t="1559827092480" d="122880" r="6"/>
-          <S t="1559827952640" d="65536"/>
-          <S t="1559828018176" d="57344"/>
-          <S t="1559828075520" d="122880" r="4"/>
-          <S t="1559828689920" d="70656"/>
-          <S t="1559828760576" d="52224"/>
-          <S t="1559828812800" d="122880" r="4"/>
-          <S t="1559829427200" d="76800"/>
-          <S t="1559829504000" d="46080"/>
-          <S t="1559829550080" d="122880" r="6"/>
-          <S t="1559830410240" d="76800"/>
-          <S t="1559830487040" d="46080"/>
-          <S t="1559830533120" d="122880" r="6"/>
-          <S t="1559831393280" d="76800"/>
-          <S t="1559831470080" d="46080"/>
-          <S t="1559831516160" d="122880" r="10"/>
-          <S t="1559832867840" d="17408"/>
-          <S t="1559832885248" d="105472"/>
-          <S t="1559832990720" d="122880" r="10"/>
-          <S t="1559834342400" d="6144"/>
-          <S t="1559834348544" d="116736"/>
-          <S t="1559834465280" d="122880" r="9"/>
-          <S t="1559835694080" d="94208"/>
-          <S t="1559835788288" d="28672"/>
-          <S t="1559835816960" d="122880" r="1"/>
-          <S t="1559836062720" d="13312"/>
-          <S t="1559836076032" d="109568"/>
-          <S t="1559836185600" d="122880" r="36"/>
+          <S t="1560338887680" d="76800"/>
+          <S t="1560338964480" d="46080"/>
+          <S t="1560339010560" d="122880" r="22"/>
+          <S t="1560341836800" d="8192"/>
+          <S t="1560341844992" d="114688"/>
+          <S t="1560341959680" d="122880"/>
+          <S t="1560342082560" d="50176"/>
+          <S t="1560342132736" d="72704"/>
+          <S t="1560342205440" d="122880" r="2"/>
+          <S t="1560342574080" d="61440" r="1"/>
+          <S t="1560342696960" d="122880" r="10"/>
+          <S t="1560344048640" d="50176"/>
+          <S t="1560344098816" d="72704"/>
+          <S t="1560344171520" d="122880" r="4"/>
+          <S t="1560344785920" d="55296"/>
+          <S t="1560344841216" d="67584"/>
+          <S t="1560344908800" d="122880" r="6"/>
+          <S t="1560345768960" d="55296"/>
+          <S t="1560345824256" d="67584"/>
+          <S t="1560345891840" d="122880" r="10"/>
+          <S t="1560347243520" d="44032"/>
+          <S t="1560347287552" d="78848"/>
+          <S t="1560347366400" d="122880" r="2"/>
+          <S t="1560347735040" d="55296"/>
+          <S t="1560347790336" d="67584"/>
+          <S t="1560347857920" d="122880" r="4"/>
+          <S t="1560348472320" d="61440" r="1"/>
+          <S t="1560348595200" d="122880" r="2"/>
+          <S t="1560348963840" d="120832"/>
+          <S t="1560349084672" d="124928"/>
+          <S t="1560349209600" d="122880" r="5"/>
+          <S t="1560349946880" d="120832"/>
+          <S t="1560350067712" d="124928"/>
+          <S t="1560350192640" d="122880" r="4"/>
+          <S t="1560350807040" d="4096"/>
+          <S t="1560350811136" d="118784"/>
+          <S t="1560350929920" d="122880" r="9"/>
+          <S t="1560352158720" d="115712"/>
+          <S t="1560352274432" d="7168"/>
+          <S t="1560352281600" d="122880" r="6"/>
+          <S t="1560353141760" d="115712"/>
+          <S t="1560353257472" d="7168"/>
+          <S t="1560353264640" d="122880" r="6"/>
+          <S t="1560354124800" d="92160"/>
+          <S t="1560354216960" d="30720"/>
+          <S t="1560354247680" d="122880" r="1"/>
+          <S t="1560354493440" d="11264"/>
+          <S t="1560354504704" d="111616"/>
+          <S t="1560354616320" d="122880" r="105"/>
         </SegmentTimeline>
       </SegmentTemplate>
       <Representation id="2" bandwidth="96697" audioSamplingRate="48000" codecs="mp4a.40.2">
@@ -358,83 +254,57 @@
     <AdaptationSet id="153006254" mimeType="application/mp4" codecs="stpp" segmentAlignment="true" startWithSAP="1" bitstreamSwitching="true" lang="fra" subsegmentAlignment="true" subsegmentStartsWithSAP="1">
       <Label>fra</Label>
       <Role schemeIdUri="urn:mpeg:dash:role:2011" value="subtitle"/>
-      <SegmentTemplate timescale="90000" media="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_subtitles_$RepresentationID$_0_$Number$.mp4?m=1721047965" initialization="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_subtitles_$RepresentationID$_0_init.mp4?m=1721047965" startNumber="13200970">
+      <SegmentTemplate timescale="90000" media="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_subtitles_$RepresentationID$_0_$Number$.mp4?m=1721047965" initialization="https://s2.callofliberty.fr/colproxy/HLS-AES/https://origin-caf900c010ea8046.live.6cloud.fr/out/v1/29c7a579af3348b48230f76cd75699a5/dash_short_cenc10_6ter_hd_index_subtitles_$RepresentationID$_0_init.mp4?m=1721047965" startNumber="13205493">
         <SegmentTimeline>
-          <S t="2924647458360" d="82800"/>
-          <S t="2924647541160" d="147600"/>
-          <S t="2924647688760" d="230400" r="21"/>
-          <S t="2924652757560" d="183600"/>
-          <S t="2924652941160" d="46800"/>
-          <S t="2924652987960" d="230400" r="22"/>
-          <S t="2924658287160" d="54000"/>
-          <S t="2924658341160" d="176400"/>
-          <S t="2924658517560" d="230400"/>
-          <S t="2924658747960" d="133200"/>
-          <S t="2924658881160" d="97200"/>
-          <S t="2924658978360" d="230400" r="6"/>
-          <S t="2924660591160" d="133200"/>
-          <S t="2924660724360" d="97200"/>
-          <S t="2924660821560" d="230400" r="2"/>
-          <S t="2924661512760" d="154800"/>
-          <S t="2924661667560" d="75600"/>
-          <S t="2924661743160" d="230400" r="6"/>
-          <S t="2924663355960" d="64800"/>
-          <S t="2924663420760" d="165600"/>
-          <S t="2924663586360" d="230400" r="10"/>
-          <S t="2924666120760" d="43200"/>
-          <S t="2924666163960" d="187200"/>
-          <S t="2924666351160" d="230400" r="10"/>
-          <S t="2924668885560" d="21600"/>
-          <S t="2924668907160" d="208800"/>
-          <S t="2924669115960" d="230400" r="2"/>
-          <S t="2924669807160" d="43200"/>
-          <S t="2924669850360" d="187200"/>
-          <S t="2924670037560" d="230400" r="2"/>
-          <S t="2924670728760" d="64800"/>
-          <S t="2924670793560" d="165600"/>
-          <S t="2924670959160" d="230400" r="2"/>
-          <S t="2924671650360" d="86400"/>
-          <S t="2924671736760" d="144000"/>
-          <S t="2924671880760" d="230400" r="4"/>
-          <S t="2924673032760" d="97200"/>
-          <S t="2924673129960" d="133200"/>
-          <S t="2924673263160" d="230400"/>
-          <S t="2924673493560" d="219600"/>
-          <S t="2924673713160" d="10800"/>
-          <S t="2924673723960" d="230400" r="4"/>
-          <S t="2924674875960" d="50400"/>
-          <S t="2924674926360" d="180000"/>
-          <S t="2924675106360" d="230400" r="1"/>
-          <S t="2924675567160" d="122400"/>
-          <S t="2924675689560" d="108000"/>
-          <S t="2924675797560" d="230400" r="6"/>
-          <S t="2924677410360" d="122400"/>
-          <S t="2924677532760" d="108000"/>
-          <S t="2924677640760" d="230400" r="4"/>
-          <S t="2924678792760" d="133200"/>
-          <S t="2924678925960" d="97200"/>
-          <S t="2924679023160" d="230400" r="4"/>
-          <S t="2924680175160" d="144000"/>
-          <S t="2924680319160" d="86400"/>
-          <S t="2924680405560" d="230400" r="6"/>
-          <S t="2924682018360" d="144000"/>
-          <S t="2924682162360" d="86400"/>
-          <S t="2924682248760" d="230400" r="6"/>
-          <S t="2924683861560" d="144000"/>
-          <S t="2924684005560" d="86400"/>
-          <S t="2924684091960" d="230400" r="10"/>
-          <S t="2924686626360" d="32400"/>
-          <S t="2924686658760" d="198000"/>
-          <S t="2924686856760" d="230400" r="10"/>
-          <S t="2924689391160" d="10800"/>
-          <S t="2924689401960" d="219600"/>
-          <S t="2924689621560" d="230400" r="9"/>
-          <S t="2924691925560" d="176400"/>
-          <S t="2924692101960" d="54000"/>
-          <S t="2924692155960" d="230400" r="1"/>
-          <S t="2924692616760" d="25200"/>
-          <S t="2924692641960" d="205200"/>
-          <S t="2924692847160" d="230400" r="36"/>
+          <S t="2925635413560" d="144000"/>
+          <S t="2925635557560" d="86400"/>
+          <S t="2925635643960" d="230400" r="22"/>
+          <S t="2925640943160" d="14400"/>
+          <S t="2925640957560" d="216000"/>
+          <S t="2925641173560" d="230400"/>
+          <S t="2925641403960" d="93600"/>
+          <S t="2925641497560" d="136800"/>
+          <S t="2925641634360" d="230400" r="2"/>
+          <S t="2925642325560" d="115200" r="1"/>
+          <S t="2925642555960" d="230400" r="10"/>
+          <S t="2925645090360" d="93600"/>
+          <S t="2925645183960" d="136800"/>
+          <S t="2925645320760" d="230400" r="4"/>
+          <S t="2925646472760" d="104400"/>
+          <S t="2925646577160" d="126000"/>
+          <S t="2925646703160" d="230400" r="6"/>
+          <S t="2925648315960" d="104400"/>
+          <S t="2925648420360" d="126000"/>
+          <S t="2925648546360" d="230400" r="10"/>
+          <S t="2925651080760" d="82800"/>
+          <S t="2925651163560" d="147600"/>
+          <S t="2925651311160" d="230400" r="2"/>
+          <S t="2925652002360" d="104400"/>
+          <S t="2925652106760" d="126000"/>
+          <S t="2925652232760" d="230400" r="4"/>
+          <S t="2925653384760" d="115200" r="1"/>
+          <S t="2925653615160" d="230400" r="2"/>
+          <S t="2925654306360" d="226800"/>
+          <S t="2925654533160" d="234000"/>
+          <S t="2925654767160" d="230400" r="5"/>
+          <S t="2925656149560" d="226800"/>
+          <S t="2925656376360" d="234000"/>
+          <S t="2925656610360" d="230400" r="4"/>
+          <S t="2925657762360" d="7200"/>
+          <S t="2925657769560" d="223200"/>
+          <S t="2925657992760" d="230400" r="9"/>
+          <S t="2925660296760" d="216000"/>
+          <S t="2925660512760" d="14400"/>
+          <S t="2925660527160" d="230400" r="6"/>
+          <S t="2925662139960" d="216000"/>
+          <S t="2925662355960" d="14400"/>
+          <S t="2925662370360" d="230400" r="6"/>
+          <S t="2925663983160" d="172800"/>
+          <S t="2925664155960" d="57600"/>
+          <S t="2925664213560" d="230400" r="1"/>
+          <S t="2925664674360" d="21600"/>
+          <S t="2925664695960" d="208800"/>
+          <S t="2925664904760" d="230400" r="105"/>
         </SegmentTimeline>
       </SegmentTemplate>
       <Representation id="15" bandwidth="2000"/>
