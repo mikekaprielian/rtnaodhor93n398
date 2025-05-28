@@ -1,6 +1,12 @@
 name: Run Script Every 6 Hours FR
 
 on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   schedule:
     - cron: '0 */3 * * *'  # Run every 3 hours
   workflow_dispatch:      # Enable manual triggering
