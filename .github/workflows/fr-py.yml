@@ -95,8 +95,8 @@ jobs:
          curl_output3=$(echo "$curl_output2" | sed 's|tracks-|https://livetvde.net/cstar/tracks-|g')
          echo "$curl_output3" > fr/videocstar.m3u8  # Use single > to overwrite existing content
 
-      - name: Pull changes from remote
-        run: git pull origin main         
+     #- name: Pull changes from remote
+     #   run: git pull origin main         
 
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v4
