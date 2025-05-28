@@ -103,8 +103,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}  # Use the stored PAT secret
         run: |
-          git config --local user.email "mikekaprielian@vif.com"
-          git config --local user.name "Mikekaprielian"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add ar/rotanaclip.m3u ar/rotanacinema.m3u ar/rotanaclassic.m3u ar/rotanacomedy.m3u ar/rotanadrama.m3u ar/rotanalbc.m3u ar/rotanacinemamasr.m3u ar/rotanakhaleejiya.m3u
     
           if git diff --cached --quiet; then
