@@ -1,0 +1,102 @@
+name: VideoTVA
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'  # Run every 6 hours
+  workflow_dispatch:      # Enable manual triggering
+
+
+jobs:
+  generate_m3u8:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Create txt Folder
+        run: mkdir -p txt            
+
+      #- name: Run Python Script videotva m3u8
+      #  run: python py/videotvam3u8.py > fr/videotva.m3u8
+
+      - name: Run Python Script videotva
+        run: |
+         python_output=$(python py/videotva.py)
+         echo "#EXTM3U" > fr/videotva.m3u
+         echo "#EXTINF:-1, TVA" >> fr/videotva.m3u
+         echo "$python_output" >> fr/videotva.m3u
+         echo "$python_output" > txt/videotva.txt
+
+      - name: Run Python Script videoqub
+        run: |
+         python_output=$(python py/videoqub.py)
+         echo "#EXTM3U" > fr/videoqub.m3u
+         echo "#EXTINF:-1, QUB" >> fr/videoqub.m3u
+         echo "$python_output" >> fr/videoqub.m3u        
+
+      - name: Run Python Script videolci
+        run: |
+         python_output=$(python py/videolci.py)
+         echo "#EXTM3U" > fr/videolci.m3u
+         echo "#EXTINF:-1, LCI" >> fr/videolci.m3u
+         echo "$python_output" >> fr/videolci.m3u  
+
+      - name: Run Python Script videoM6
+        run: |
+         python_output=$(python py/videom6.py)
+         curl_output2=$(curl -s -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" "$python_output")
+         curl_output3=$(echo "$curl_output2" | sed 's|tracks-|https://livetvde.net/m6/tracks-|g')
+         echo "$curl_output3" > fr/videom6.m3u8  # Use single > to overwrite existing content
+
+      - name: Run Python Script videoW9
+        run: |
+         python_output=$(python py/videow9.py)
+         curl_output2=$(curl -s -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" "$python_output")
+         curl_output3=$(echo "$curl_output2" | sed 's|tracks-|https://livetvde.net/w9/tracks-|g')
+         echo "$curl_output3" > fr/videow9.m3u8  # Use single > to overwrite existing content         
+
+      - name: Run Python Script video6ter
+        run: |
+         python_output=$(python py/video6ter.py)
+         curl_output2=$(curl -s -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" "$python_output")
+         curl_output3=$(echo "$curl_output2" | sed 's|tracks-|https://livetvde.net/6ter/tracks-|g')
+         echo "$curl_output3" > fr/video6ter.m3u8  # Use single > to overwrite existing content
+
+      - name: Run Python Script videoartvfr
+        run: |
+         python_output=$(python py/videoartvfr.py)
+         curl_output2=$(curl -s -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" "$python_output")
+         curl_output3=$(echo "$curl_output2" | sed 's|tracks-|https://livetvde.net/artvfr/tracks-|g')
+         echo "$curl_output3" > fr/videoartvfr.m3u8  # Use single > to overwrite existing content
+
+      - name: Run Python Script videocstar
+        run: |
+         python_output=$(python py/videocstar.py)
+         curl_output2=$(curl -s -e "https://www.livehdtv.net" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36" "$python_output")
+         curl_output3=$(echo "$curl_output2" | sed 's|tracks-|https://livetvde.net/cstar/tracks-|g')
+         echo "$curl_output3" > fr/videocstar.m3u8  # Use single > to overwrite existing content
+
+      - name: Pull changes from remote
+        run: git pull origin main         
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update token"
+          branch: main
+          files: |
+            fr/videotva.m3u fr/videotva.m3u8 fr/videoqub.m3u fr/videolci.m3u fr/videom6.m3u8 fr/videow9.m3u8 fr/video6ter.m3u8 fr/videocstar.m3u8 fr/videoartvfr.m3u8 txt/videotva.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}
