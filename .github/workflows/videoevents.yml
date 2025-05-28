@@ -1,0 +1,79 @@
+name: VideoEvents and VideoLive M3u
+
+on:
+  schedule:
+    - cron: '45 3,7,11,15,19,23 * * *'  # Run every 6 hours
+  workflow_dispatch:      # Enable manual triggering
+
+jobs:
+  generate_m3u:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Create en Folder
+        run: mkdir -p en     
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install necessary packages
+        run: |
+          sudo apt-get update    
+          sudo apt-get install -y unzip wget
+          sudo apt-get install -y libgconf-2-4 
+          #sudo apt-get install -y chromium-browser
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          rm google-chrome-stable_current_amd64.deb
+          #wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_123.0.6312.122-1_amd64.deb && sudo apt install -y /tmp/chrome.deb && sudo rm /tmp/chrome.deb
+          sudo apt install libnss-wrapper libgconf-2-4 gconf2-common libxcb-xinerama0
+          
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pandas webdriver-manager selenium selenium_stealth pytz
+
+      - name: Run Python Script videoevents
+        run: |
+          python_output=$(python py/videoevents.py)
+          echo "$python_output" > en/videoevents.m3u
+          echo "$python_output" > en/videoall.m3u
+
+      #- name: Run Python Script videolivetv
+        #run: |
+          #python_output=$(python py/videolivetv.py)
+          #echo "$python_output" > en/videolivetv.m3u
+          #echo "$python_output" >> en/videoall.m3u
+
+      - name: Run Python Script videolivetv
+        run: |
+          python py/videolivetv.py | sed '/#EXTM3U/d' >> en/videoall.m3u          
+
+      # Extract the token from one of the other links
+      - name: Extract Token and Update ESPN Links
+        run: |
+          # Extract the token from the first channel in videoall.m3u
+          token=$(grep -oP '(?<=token=)[^"]*' en/videoall.m3u | tail -1)
+
+          # Update the ESPN and ESPN2 links with the extracted token
+          sed -i "/tvg-name=\"ESPN\"/{n;s|https://github.com/mikekaprielian/rtnaodhor93n398/raw/main/en/offline.mp4|https://v6.thetvapp.to/hls/ESPN/index.m3u8?token=$token|g}" en/videoall.m3u
+          sed -i "/tvg-name=\"ESPN2\"/{n;s|https://github.com/mikekaprielian/rtnaodhor93n398/raw/main/en/offline.mp4|https://v6.thetvapp.to/hls/ESPN2/index.m3u8?token=$token|g}" en/videoall.m3u
+
+
+      - name: Pull changes from remote
+        run: git pull origin main
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update token"
+          branch: main
+          files: |
+            en/videoevents.m3u en/videolivetv.m3u en/videoall.m3u
+        env:
+          GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}
