@@ -1,6 +1,12 @@
 name: VideoTVA
 
 on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   schedule:
     - cron: '0 */3 * * *'  # Run every 6 hours
   workflow_dispatch:      # Enable manual triggering
