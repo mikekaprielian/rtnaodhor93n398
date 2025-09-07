@@ -1,4 +1,6 @@
 import requests
+import time
+import random
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import pytz
@@ -275,6 +277,9 @@ def scrape_tv_programming(channel_id, date):
         "cisession": "d86212bfc9056dc4f9b43c43e4139a5f11f2f719"
     }
     response = requests.get(url, headers=headers, cookies=cookies)
+
+    # Sleep randomly between 2 and 5 seconds
+    time.sleep(random.uniform(3, 5))
     
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
