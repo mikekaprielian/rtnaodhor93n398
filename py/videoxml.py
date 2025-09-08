@@ -274,13 +274,11 @@ def scrape_tv_programming(channel_id, date):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
     }
     cookies = {
-        "cisession": "d86212bfc9056dc4f9b43c43e4139a5f11f2f719"
+        "cisession": "3320ecf9ac9ab5cde8de442b7285758e65018a37"
     }
     response = requests.get(url, headers=headers, cookies=cookies)
 
-    # Sleep randomly between 2 and 5 seconds
-    time.sleep(random.uniform(3, 5))
-    
+   
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
         programming_items = soup.select(".station-listings .list-group-item")
