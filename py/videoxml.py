@@ -268,6 +268,15 @@ channel_names = {
     # Add more channel IDs and names as needed
 }
 
+def fetch_with_retry(url, retries=3, delay=3):
+    for attempt in range(retries):
+        try:
+            return requests.get(url, headers=headers, cookies=cookies, timeout=15)
+        except Exception as e:
+            print(f"Request failed ({attempt+1}/{retries}): {e}")
+            time.sleep(delay)
+    return None
+
 def scrape_tv_programming(channel_id, date):
     url = f"https://www.tvpassport.com/tv-listings/stations/{channel_id}/{date}"
     headers = {
@@ -276,8 +285,12 @@ def scrape_tv_programming(channel_id, date):
     cookies = {
         "cisession": "3320ecf9ac9ab5cde8de442b7285758e65018a37"
     }
-    response = requests.get(url, headers=headers, cookies=cookies)
+     # ✅ use fetch_with_retry instead of requests.get
+    response = fetch_with_retry(url, retries=3, delay=3)
 
+    if response is None:
+    print(f"[{channel_id}] ❌ All retries failed")
+    return []
    
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
