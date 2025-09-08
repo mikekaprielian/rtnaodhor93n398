@@ -285,12 +285,12 @@ def scrape_tv_programming(channel_id, date):
     cookies = {
         "cisession": "3320ecf9ac9ab5cde8de442b7285758e65018a37"
     }
-     # ✅ use fetch_with_retry instead of requests.get
+    # ✅ use fetch_with_retry instead of requests.get
     response = fetch_with_retry(url, retries=3, delay=3)
 
     if response is None:
-    print(f"[{channel_id}] ❌ All retries failed")
-    return []
+        print(f"[{channel_id}] ❌ All retries failed")
+        return []
    
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
