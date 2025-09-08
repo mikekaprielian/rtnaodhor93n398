@@ -1,6 +1,4 @@
 import requests
-import time
-import random
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import pytz
@@ -268,31 +266,31 @@ channel_names = {
     # Add more channel IDs and names as needed
 }
 
-def fetch_with_retry(url, headers=None, cookies=None, retries=3, delay=3):
-    for attempt in range(retries):
-        try:
-            response = requests.get(url, headers=headers, cookies=cookies, timeout=15)
-            return response  # return immediately if successful
-        except Exception as e:
-            print(f"Request failed ({attempt+1}/{retries}): {e}")
-            time.sleep(delay)
+def get_cisession():
+    url = "https://www.tvpassport.com/"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    }
+    session = requests.Session()
+    session.get(url, headers=headers)
+    
+    # Extract cisession from cookies
+    if "cisession" in session.cookies:
+        return session.cookies["cisession"]
     return None
 
 def scrape_tv_programming(channel_id, date):
     url = f"https://www.tvpassport.com/tv-listings/stations/{channel_id}/{date}"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
     }
-    cookies = {
-        "cisession": "3320ecf9ac9ab5cde8de442b7285758e65018a37"
-    }
-    # ✅ use fetch_with_retry instead of requests.get
-    response = fetch_with_retry(url, headers=headers, cookies=cookies, retries=3, delay=3)
 
-    if response is None:
-        print(f"[{channel_id}] ❌ All retries failed")
-        return []
-   
+    # get a fresh cisession
+    cisession = get_cisession()
+    cookies = {"cisession": cisession} if cisession else {}
+
+    response = requests.get(url, headers=headers, cookies=cookies)
+    
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
         programming_items = soup.select(".station-listings .list-group-item")
@@ -437,10 +435,13 @@ def create_xml(programs):
     # Apply indentation
     prettify(root)
     
-    # Convert tree to XML string
-    xml_string = ET.tostring(root, encoding="utf-8", xml_declaration=True).decode()
-    
-    return xml_string
+    # ✅ Use ElementTree.write() instead of tostring()
+    import io
+    tree = ET.ElementTree(root)
+    buf = io.BytesIO()
+    tree.write(buf, encoding="utf-8", xml_declaration=True)
+    return buf.getvalue().decode("utf-8")
+
 
 
 # Example usage
