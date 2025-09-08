@@ -1,4 +1,6 @@
 import requests
+import time
+import random
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import pytz
@@ -266,6 +268,23 @@ channel_names = {
     # Add more channel IDs and names as needed
 }
 
+def fetch_with_retry(url, headers, cookies, retries=5, delay=2):
+    """
+    Fetch a URL and retry if the response status is not 200 or on exceptions.
+    """
+    for attempt in range(1, retries + 1):
+        try:
+            response = requests.get(url, headers=headers, cookies=cookies, timeout=15)
+            if response.status_code == 200:
+                return response
+            else:
+                print(f"Attempt {attempt}/{retries} failed: Status {response.status_code} - {url}")
+        except Exception as e:
+            print(f"Attempt {attempt}/{retries} exception: {e} - {url}")
+        # random sleep to avoid hammering the server
+        time.sleep(delay + random.uniform(2, 3))
+    return None
+
 def get_cisession():
     url = "https://www.tvpassport.com/"
     headers = {
@@ -289,7 +308,12 @@ def scrape_tv_programming(channel_id, date):
     cisession = get_cisession()
     cookies = {"cisession": cisession} if cisession else {}
 
-    response = requests.get(url, headers=headers, cookies=cookies)
+    # use the retry function
+    response = fetch_with_retry(url, headers, cookies, retries=5, delay=2)
+    
+    if response is None:
+        print(f"[{channel_id}] ❌ All retries failed for date {date}")
+        return []
     
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
@@ -323,14 +347,13 @@ def scrape_tv_programming(channel_id, date):
                 "director": director,
                 "start_time": start_time.strftime("%Y-%m-%d %H:%M:%S"),
                 "end_time": end_time.strftime("%Y-%m-%d %H:%M:%S"),
-                "channel_id": channel_id  # Add channel_id to the dictionary
+                "channel_id": channel_id
             })
 
         return programming_data
     else:
-        print("Failed to retrieve programming data. Status code:", response.status_code)
+        print(f"[{channel_id}] ❌ Failed to retrieve programming data. Status code:", response.status_code)
         return None
-
 
 def parse_description(item):
     return item.get("data-description")
