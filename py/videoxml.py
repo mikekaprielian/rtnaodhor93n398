@@ -277,10 +277,11 @@ def fetch_with_retry(url, headers, cookies, retries=10, delay=2):
             response = requests.get(url, headers=headers, cookies=cookies, timeout=15)
             if response.status_code == 200:
                 return response
-            #else:
-            #    print(f"Attempt {attempt}/{retries} failed: Status {response.status_code} - {url}")
+            # else:
+            #     print(f"Attempt {attempt}/{retries} failed: Status {response.status_code} - {url}")
         except Exception as e:
-            #print(f"Attempt {attempt}/{retries} exception: {e} - {url}")
+            # print(f"Attempt {attempt}/{retries} exception: {e} - {url}")
+            pass  # <--- add this line so Python has a statement in the except block
         # random sleep to avoid hammering the server
         time.sleep(delay + random.uniform(2, 4))
     return None
