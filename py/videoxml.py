@@ -268,7 +268,7 @@ channel_names = {
     # Add more channel IDs and names as needed
 }
 
-def fetch_with_retry(url, headers, cookies, retries=5, delay=2):
+def fetch_with_retry(url, headers, cookies, retries=10, delay=2):
     """
     Fetch a URL and retry if the response status is not 200 or on exceptions.
     """
@@ -277,12 +277,12 @@ def fetch_with_retry(url, headers, cookies, retries=5, delay=2):
             response = requests.get(url, headers=headers, cookies=cookies, timeout=15)
             if response.status_code == 200:
                 return response
-            else:
-                print(f"Attempt {attempt}/{retries} failed: Status {response.status_code} - {url}")
+            #else:
+            #    print(f"Attempt {attempt}/{retries} failed: Status {response.status_code} - {url}")
         except Exception as e:
-            print(f"Attempt {attempt}/{retries} exception: {e} - {url}")
+            #print(f"Attempt {attempt}/{retries} exception: {e} - {url}")
         # random sleep to avoid hammering the server
-        time.sleep(delay + random.uniform(2, 3))
+        time.sleep(delay + random.uniform(2, 4))
     return None
 
 def get_cisession():
@@ -309,10 +309,10 @@ def scrape_tv_programming(channel_id, date):
     cookies = {"cisession": cisession} if cisession else {}
 
     # use the retry function
-    response = fetch_with_retry(url, headers, cookies, retries=5, delay=2)
+    response = fetch_with_retry(url, headers, cookies, retries=10, delay=2)
     
     if response is None:
-        print(f"[{channel_id}] ❌ All retries failed for date {date}")
+        #print(f"[{channel_id}] ❌ All retries failed for date {date}")
         return []
     
     if response.status_code == 200:
@@ -352,7 +352,7 @@ def scrape_tv_programming(channel_id, date):
 
         return programming_data
     else:
-        print(f"[{channel_id}] ❌ Failed to retrieve programming data. Status code:", response.status_code)
+        #print(f"[{channel_id}] ❌ Failed to retrieve programming data. Status code:", response.status_code)
         return None
 
 def parse_description(item):
