@@ -286,34 +286,45 @@ def fetch_with_retry(url, headers, cookies, retries=10, delay=2):
         time.sleep(delay + random.uniform(2, 4))
     return None
 
-def get_cisession_with_timezone(tz="America/New_York"):
+def get_cisession_with_timezone(tz="America/New_York", retries=5, delay=3):
+    """
+    Create a session with TVPassport and set the timezone.
+    Retries until status_code == 200 or retries are exhausted.
+    """
     session = requests.Session()
+    session.get("https://www.tvpassport.com/", headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    })
 
-    # Initial visit to establish cookies/session
-    session.get("https://www.tvpassport.com/", headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36"})
-
-    # Now set timezone
     payload = {"timezone": tz}
     headers = {
         "User-Agent": "Mozilla/5.0",
         "Referer": "https://www.tvpassport.com/my-passport/dashboard"
     }
-    response = session.post(
-        "https://www.tvpassport.com/my-passport/dashboard/save_timezone",
-        data=payload,
-        headers=headers
-    )
 
-    if response.status_code == 200:
-        print(f"Timezone set to {tz}")
-    else:
-        print(f"Failed to set timezone: {response.status_code}")
+    for attempt in range(1, retries + 1):
+        try:
+            response = session.post(
+                "https://www.tvpassport.com/my-passport/dashboard/save_timezone",
+                data=payload,
+                headers=headers,
+                timeout=10
+            )
 
-    # Extract cisession cookie
-    if "cisession" in session.cookies:
-        return session, session.cookies["cisession"]
+            if response.status_code == 200 and "cisession" in session.cookies:
+                return session, session.cookies["cisession"]
 
-    return session, None
+        except requests.exceptions.RequestException:
+            pass
+
+        time.sleep(delay)
+
+    return None, None
+
+
+# 🔹 Get cisession once here (outside function)
+session, cisession = get_cisession_with_timezone("America/New_York")
+
 
 def scrape_tv_programming(channel_id, date):
     url = f"https://www.tvpassport.com/tv-listings/stations/{channel_id}/{date}"
@@ -321,15 +332,13 @@ def scrape_tv_programming(channel_id, date):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
     }
 
-    # get a fresh cisession
-    session, cisession = get_cisession_with_timezone("America/New_York")
+    # use the cisession cookie we got above
     cookies = {"cisession": cisession} if cisession else {}
 
     # use the retry function
     response = fetch_with_retry(url, headers, cookies, retries=10, delay=2)
     
     if response is None:
-        #print(f"[{channel_id}] ❌ All retries failed for date {date}")
         return []
     
     if response.status_code == 200:
@@ -369,7 +378,6 @@ def scrape_tv_programming(channel_id, date):
 
         return programming_data
     else:
-        #print(f"[{channel_id}] ❌ Failed to retrieve programming data. Status code:", response.status_code)
         return None
 
 def parse_description(item):
