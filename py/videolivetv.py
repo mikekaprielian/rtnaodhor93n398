@@ -96,6 +96,7 @@ channel_logos = {
     "Lifetime": "https://cdn.tvpassport.com/image/station/240x135/v2/s10918_h15_ac.png",
     "LMN": "https://cdn.tvpassport.com/image/station/240x135/v2/s55887_h15_ag.png",
     "Logo": "https://cdn.tvpassport.com/image/station/240x135/v2/s46762_h15_aa.png",
+    "MeTV Toons":"https://cdn.tvpassport.com/image/station/240x135/v2/s159817_h15_aa.png",
     "MLB Network": "https://cdn.tvpassport.com/image/station/240x135/v2/s62079_h15_aa.png",
     "MoreMAX": "https://cdn.tvpassport.com/image/station/240x135/v2/s59373_h15_ad.png",
     "MotorTrend HD": "https://cdn.tvpassport.com/image/station/240x135/v2/s31046_h15_ab.png",
