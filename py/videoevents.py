@@ -11,6 +11,7 @@ import time
 import json
 import pytz
 import re
+import urllib.parse
 from datetime import datetime
 
 # Function to convert UTC/EDT time to Eastern Time Zone (EST)
@@ -66,7 +67,7 @@ def extract_datetime(input_str):
             return match.group(0)
     
     # If no matching date format found, raise an error
-    raise ValueError(f"Date and time not found in string: {input_str}")
+    return input_str
 
 
 
@@ -160,16 +161,16 @@ print("#EXTM3U")
 for group, name, link in all_links:
     # Navigate to the link URL
     driver.get(link)
-
     try:
         # Wait for the button to be clickable
         wait = WebDriverWait(driver, 5)
         try:
-            # Try to find loadVideoBtnOne first
+            # Try to find loadVideoBtn first
             video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtn')))
         except:
-            # If loadVideoBtnOne is not found, look for loadVideoBtnTwo
+            # If loadVideoBtn is not found, look for loadVideoBtnTwo
             video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtnTwo')))
+        
         video_button.click()
 
         # Wait for a brief period to allow the page to load and network requests to be made
@@ -177,18 +178,38 @@ for group, name, link in all_links:
 
         # Get all network requests
         network_requests = driver.execute_script("return JSON.stringify(performance.getEntries());")
-
+        
         # Convert the string back to a list of dictionaries in Python
         network_requests = json.loads(network_requests)
 
         # Filter out only the URLs containing ".m3u8"
-        m3u8_urls = [request["name"] for request in network_requests if "index.m3u8?token=" in request["name"]]
+        m3u8_urls = [
+        request["name"]
+        for request in network_requests
+        if ".m3u8" in request["name"]
+        ]
 
-        # Print the collected m3u8 URLs
+        cleaned_m3u8_urls = []
+        for url in m3u8_urls:
+            if "ping.gif" in url and "mu=" in url:
+                # Extract mu= value
+                parsed = urllib.parse.urlparse(url)
+                query_params = urllib.parse.parse_qs(parsed.query)
+                if "mu" in query_params:
+                    # Decode the real .m3u8 URL
+                    real_url = urllib.parse.unquote(query_params["mu"][0])
+                    cleaned_m3u8_urls.append(real_url)
+            else:
+                cleaned_m3u8_urls.append(url)
+
+        m3u8_urls = cleaned_m3u8_urls
+
+        # Use the first collected m3u8 URL, or fallback if not found
         if m3u8_urls:
             m3u8_url = m3u8_urls[0]
         else:
             m3u8_url = "https://github.com/mikekaprielian/rtnaodhor93n398/raw/main/en/offline.mp4"
+
     except Exception as e:
         # If an exception occurs (e.g., button not found), use the default link
         m3u8_url = "https://github.com/mikekaprielian/rtnaodhor93n398/raw/main/en/offline.mp4"
@@ -199,9 +220,11 @@ for group, name, link in all_links:
     name_parts = name_fixed.split(' - ')
     title = name_parts[0]
     rest_of_title = ' - '.join(name_parts[1:])
+
     try:
         # Extract the date and time portion from the rest_of_title
         date_time_part = extract_datetime(rest_of_title)
+
         # Convert to EST
         est_time_str = utc_to_est(date_time_part)
     except ValueError as e:
@@ -212,6 +235,7 @@ for group, name, link in all_links:
     # Print the channel information in the M3U format
     print(f"#EXTINF:-1 group-title=\"{group}\",{est_time_str} = {title}")
     print(m3u8_url)  # Print only the first m3u8 URL
+
 
 # Close the WebDriver
 driver.quit()
