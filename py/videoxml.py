@@ -286,18 +286,34 @@ def fetch_with_retry(url, headers, cookies, retries=10, delay=2):
         time.sleep(delay + random.uniform(2, 4))
     return None
 
-def get_cisession():
-    url = "https://www.tvpassport.com/"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    }
+def get_cisession_with_timezone(tz="America/New_York"):
     session = requests.Session()
-    session.get(url, headers=headers)
-    
-    # Extract cisession from cookies
+
+    # Initial visit to establish cookies/session
+    session.get("https://www.tvpassport.com/", headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36"})
+
+    # Now set timezone
+    payload = {"timezone": tz}
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Referer": "https://www.tvpassport.com/my-passport/dashboard"
+    }
+    response = session.post(
+        "https://www.tvpassport.com/my-passport/dashboard/save_timezone",
+        data=payload,
+        headers=headers
+    )
+
+    if response.status_code == 200:
+        print(f"Timezone set to {tz}")
+    else:
+        print(f"Failed to set timezone: {response.status_code}")
+
+    # Extract cisession cookie
     if "cisession" in session.cookies:
-        return session.cookies["cisession"]
-    return None
+        return session, session.cookies["cisession"]
+
+    return session, None
 
 def scrape_tv_programming(channel_id, date):
     url = f"https://www.tvpassport.com/tv-listings/stations/{channel_id}/{date}"
@@ -306,7 +322,7 @@ def scrape_tv_programming(channel_id, date):
     }
 
     # get a fresh cisession
-    cisession = get_cisession()
+    session, cisession = get_cisession_with_timezone("America/New_York")
     cookies = {"cisession": cisession} if cisession else {}
 
     # use the retry function
