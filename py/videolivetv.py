@@ -9,7 +9,7 @@ from webdriver_manager.core.os_manager import ChromeType
 import random
 import time
 import json
-
+import urllib.parse
 
 user_agents = [
     #add your list of user agents here
@@ -243,6 +243,21 @@ for name, link in live_tv_links:
 
         # Filter out only the URLs containing ".m3u8"
         m3u8_urls = [request["name"] for request in network_requests if ".m3u8" in request["name"]]
+
+        cleaned_m3u8_urls = []
+        for url in m3u8_urls:
+            if "ping.gif" in url and "mu=" in url:
+                # Extract mu= value
+                parsed = urllib.parse.urlparse(url)
+                query_params = urllib.parse.parse_qs(parsed.query)
+                if "mu" in query_params:
+                    # Decode the real .m3u8 URL
+                    real_url = urllib.parse.unquote(query_params["mu"][0])
+                    cleaned_m3u8_urls.append(real_url)
+            else:
+                cleaned_m3u8_urls.append(url)
+                
+        m3u8_urls = cleaned_m3u8_urls
 
         # Print the collected m3u8 URLs
         if m3u8_urls:
