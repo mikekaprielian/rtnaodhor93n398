@@ -245,18 +245,26 @@ for name, link in live_tv_links:
         m3u8_urls = [request["name"] for request in network_requests if ".m3u8" in request["name"]]
 
         cleaned_m3u8_urls = []
+
         for url in m3u8_urls:
             if "ping.gif" in url and "mu=" in url:
-                # Extract mu= value
-                parsed = urllib.parse.urlparse(url)
-                query_params = urllib.parse.parse_qs(parsed.query)
-                if "mu" in query_params:
-                    # Decode the real .m3u8 URL
-                    real_url = urllib.parse.unquote(query_params["mu"][0])
-                    cleaned_m3u8_urls.append(real_url)
+                try:
+                    parsed = urllib.parse.urlparse(url)
+                    query_params = urllib.parse.parse_qs(parsed.query)
+                    if "mu" in query_params:
+                        real_url = urllib.parse.unquote(query_params["mu"][0])
+                        cleaned_m3u8_urls.append(real_url)
+                    else:
+                        # If "mu" not found, just keep the original
+                        cleaned_m3u8_urls.append(url)
+                except Exception as e:
+                    print(f"Error decoding URL: {url} -> {e}")
+                    cleaned_m3u8_urls.append(url)
             else:
+                # Not ping.gif, just keep the original
                 cleaned_m3u8_urls.append(url)
-                
+
+        # Use the cleaned list (which includes all original URLs if they didn't need cleaning)
         m3u8_urls = cleaned_m3u8_urls
 
         # Print the collected m3u8 URLs
