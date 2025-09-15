@@ -183,13 +183,10 @@ for group, name, link in all_links:
         network_requests = json.loads(network_requests)
 
         # Filter out only the URLs containing ".m3u8"
-        m3u8_urls = [
-        request["name"]
-        for request in network_requests
-        if ".m3u8" in request["name"]
-        ]
+        m3u8_urls = [request["name"] for request in network_requests if ".m3u8" in request["name"]]
 
         cleaned_m3u8_urls = []
+        
         for url in m3u8_urls:
             if "ping.gif" in url and "mu=" in url:
                 # Extract mu= value
