@@ -164,14 +164,14 @@ for group, name, link in all_links:
     try:
         # Wait for the button to be clickable
         wait = WebDriverWait(driver, 5)
-        try:
+        #try:
             # Try to find loadVideoBtn first
-            video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtn')))
-        except:
+        #    video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtn')))
+        #except:
             # If loadVideoBtn is not found, look for loadVideoBtnTwo
-            video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtn')))
+        #    video_button = wait.until(EC.element_to_be_clickable((By.ID, 'loadVideoBtn')))
         
-        video_button.click()
+        #video_button.click()
 
         # Wait for a brief period to allow the page to load and network requests to be made
         time.sleep(10)
