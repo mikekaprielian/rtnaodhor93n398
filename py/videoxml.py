@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 channel_names = {
     "ae-canada/4311": "A&E",
     "acc-network/33964": "ACC Network",
-    "amc-eastern-feed-hd/6219",
+    "amc-eastern-feed-hd/6219": "AMC",
     "american-heroes-channel/2035": "American Heroes Channel",
     "animal-planet-us-east/645": "Animal Planet",
     "bbc-america-east/615": "BBC America",
