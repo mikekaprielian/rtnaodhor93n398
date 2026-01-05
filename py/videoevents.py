@@ -135,24 +135,28 @@ rows = driver.find_elements(By.CLASS_NAME, "row")
 # Initialize a list to store the links
 all_links = []
 
-# Iterate over each row
-for row in rows:
-    # Find the group name (e.g., MLB)
-    group_name = row.find_element(By.TAG_NAME, "h3").text
-    
-    # Check if it's not Live TV Channels
-    if group_name != "Live TV Channels":
-        # Find all links in the row
-        links = row.find_elements(By.TAG_NAME, "a")
-        
-        # Iterate over each link
-        for link in links:
-            # Get the channel name
-            channel_name = link.text.strip()
-            
-            # Get the link URL and add it to the list
-            link_url = link.get_attribute("href")
-            all_links.append((group_name, channel_name, link_url))
+# Find all group headers
+groups = driver.find_elements(By.TAG_NAME, "h3")
+
+for h3 in groups:
+    group_name = h3.text.strip()
+
+    if group_name == "Live TV Channels":
+        continue
+
+    # The list is the next <ol> following the h3
+    container = h3.find_element(By.XPATH, "following-sibling::div//ol")
+
+    links = container.find_elements(By.TAG_NAME, "a")
+
+    for link in links:
+        channel_name = link.text.strip()
+        link_url = link.get_attribute("href")
+
+        all_links.append((group_name, channel_name, link_url))
+
+        # print(f"Found link - Group: {group_name}, Name: {channel_name}, URL: {link_url}")
+
 
 # Print the M3U header
 print("#EXTM3U")
