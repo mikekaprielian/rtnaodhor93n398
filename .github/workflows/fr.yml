@@ -48,7 +48,7 @@ jobs:
 
       - name: Run Script and Generate M3U8 for VideoCP
         run: |
-          curl_output=$(curl -k -s -H "User-Agent: Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.6533.103 Mobile Safari/537.36" https://callofliberty.fr/tv/75-CANALPLUS/75-CANALPLUS.php | grep -oP "source:\s*'\K[^']+(?=',)")
+          curl_output=$(curl -k -s -H "User-Agent: Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.6533.103 Mobile Safari/537.36" https://callofliberty.fr/tv/76-CANALPLUS/76-CANALPLUS.php | grep -oP "source:\s*'\K[^']+(?=',)")
           curl_output2=$(curl -k -e "https://callofliberty.fr/" -A "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.6533.103 Mobile Safari/537.36" -H "Origin: https://callofliberty.fr" $curl_output)
           echo "$curl_output2" > fr/videocp.m3u8  # Use single > to overwrite existing content 
 
