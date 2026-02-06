@@ -1,0 +1,46 @@
+
+name: VideoXML
+
+on:
+  schedule:
+    - cron: '15 8 */2 * *'  # Run at 3am every 48 hours
+  workflow_dispatch:
+
+jobs:
+  scrape_and_generate_epg:
+    name: Scrape TV Programming and Generate EPG
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+         ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pytz
+
+      - name: Run EPG Script
+        run: |
+          python py/videocanada.py > en/videoall.xml
+        env:
+          TZ: America/New_York  # Set the timezone
+          
+      - name: Pull changes from remote
+        run: git pull origin main 
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update token"
+          branch: main
+          files: |
+            en/videoxml.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.ROTANA_TOKEN }}
