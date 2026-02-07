@@ -93,7 +93,7 @@ channel_names = {
     "super-ecran-3/410": "Super Ecran 3",
     "super-ecran-4/411": "Super Ecran 4",
     "stingray-naturescape-hd/16122": "Stingray Naturescape",
-    "telequebec-civm-montreal/1140": "Télé-Quebec",
+    "telequebec-civm-montreal/1140": "Télé-Québec",
     "weather-network/419": "The Weather Network",
     "treehouse/163": "Treehouse",
     "tsn1/11": "TSN 1",
