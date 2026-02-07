@@ -41,7 +41,7 @@ channel_names = {
     "ctv-cfto-toronto-on/39": "CTV Toronto",
     "ctv-wild-canada/472": "CTV Wild",
     "ctv2-barrie-on-ckvr/14229": "CTV2 Barrie",
-    "ctv2-london-on/139": "CTV London",
+    "ctv2-london-on/139": "CTV2 London",
     "ctv2-chrodt43-ottawa-on/13791": "CTV2 Ottawa",
     "destination-america/2074": "Destination America",
     "discovery-channel-canada-rogers/38127": "Discovery",
