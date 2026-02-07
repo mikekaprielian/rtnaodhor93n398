@@ -67,7 +67,7 @@ channel_names = {
     "independent-film-channel-us/1966": "IFC",
     "investigation/11344": "Investigation",
     "investigation-discovery-canada-rogers/38128": "Investigation Discovery",
-    "magnolia-network-canada/2034": "Magnolia",
+    "magnolia-network-canada/2034": "Magnolia Network",
     "much-music/73": "Much",
     "motor-trend-hd/12597": "MotorTrend HD",
     "msnbc-usa/655": "MSNBC",
