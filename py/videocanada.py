@@ -398,7 +398,7 @@ channel_ids = [
     "investigation/11344",
     "investigation-discovery-canada-rogers/38128",
     "lifetime-tv-canada/1148",
-    "magnolia-network-canada/2034",
+    "magnolia-network-canada-rogers/38129",
     "much-music/73",
     "motor-trend-hd/12597",
     "msnbc-usa/655",
