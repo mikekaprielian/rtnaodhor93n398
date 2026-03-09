@@ -237,7 +237,10 @@ def parse_icon(item):
 def parse_title(item):
     show_name = item.get("data-showname")
     episode_title = item.get("data-episodetitle")
+
     if show_name == "Movie":
+        return episode_title
+    elif show_name == "Cinéma":
         return episode_title
     else:
         return show_name
