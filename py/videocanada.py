@@ -229,6 +229,11 @@ def scrape_tv_programming(channel_id, date):
         return None
 
 def parse_description(item):
+    p_tags = item.find_all("p")
+    if len(p_tags) >= 2:
+        return p_tags[1].get_text(strip=True)
+    elif len(p_tags) == 1:
+        return p_tags[0].get_text(strip=True)
     return item.get("data-description")
 
 def parse_icon(item):
