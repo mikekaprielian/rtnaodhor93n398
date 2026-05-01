@@ -81,7 +81,6 @@ channel_names = {
     "hbo-2-eastern-feed-hd/6313": "HBO 2 East",
     "hbo-comedy-east/629": "HBO Comedy HD",
     "hbo-eastern-feed/614": "HBO East",
-    "hbo-family-eastern-feed/628": "HBO Family East",
     "hbo-signature-hbo-3-eastern-hd/7099": "HBO Signature",
     "hbo-zone-hd-east/7102": "HBO Zone HD",
     "hgtv-usa-eastern-feed/623": "HGTV",
@@ -381,6 +380,11 @@ def scrape_tv_programming(channel_id, date):
         return None
 
 def parse_description(item):
+    p_tags = item.find_all("p")
+    if len(p_tags) >= 2:
+        return p_tags[1].get_text(strip=True)
+    elif len(p_tags) == 1:
+        return p_tags[0].get_text(strip=True)
     return item.get("data-description")
 
 def parse_icon(item):
@@ -567,7 +571,6 @@ channel_ids = [
     "hbo-2-eastern-feed-hd/6313",
     "hbo-comedy-east/629",
     "hbo-eastern-feed/614",
-    "hbo-family-eastern-feed/628",
     "hbo-signature-hbo-3-eastern-hd/7099",
     "hbo-zone-hd-east/7102",
     "hgtv-usa-eastern-feed/623",
