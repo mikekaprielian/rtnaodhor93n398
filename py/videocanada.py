@@ -108,7 +108,7 @@ channel_names = {
     "stingray-naturescape-hd/16122": "Stingray Naturescape",
     "telequebec-civm-montreal/1140": "Télé-Québec",
     "weather-network/419": "The Weather Network",
-    "telemag/569": "Telemag",
+    "telemag/569": "Télémag",
     "treehouse/163": "Treehouse",
     "tsn1/11": "TSN 1",
     "tsn2/4294": "TSN 2",
