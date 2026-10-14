@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ET
 channel_names = {
     "ae-canada/4311": "A&E",
     "abc-wabc-new-york-ny/1769": "ABC (WABC)",
+    "abc-wsvn2-miami-fl/14677": "ABC (WSVN)",
     "addik-tv/2033": "Addik",
     "adult-swim-east/607": "Adult Swim",
     "amc-eastern-feed-hd/6219": "AMC",
@@ -23,6 +24,7 @@ channel_names = {
     "cbc-cbmt-montreal-qc-hd/4022": "CBC",
     "cbc-news-network/74": "CBC News Network",
     "cbs-wbz-boston-ma/134": "CBS (WBZ)",
+    "cbs-wcbs-new-york-ny/1766": "CBS (WCBS)",
     "chch-hamilton-on/43": "CHCH",
     "cinepop/2325": "Cinepop",
     "city-montreal-qc/1171": "Citytv Montreal",
@@ -360,6 +362,7 @@ def create_xml(programs):
 channel_ids = [
     "ae-canada/4311",
     "abc-wabc-new-york-ny/1769",
+    "abc-wsvn2-miami-fl/14677",
     "addik-tv/2033",
     "adult-swim-east/607",
     "amc-eastern-feed-hd/6219",
@@ -372,6 +375,7 @@ channel_ids = [
     "cartoon-network-canada-east/162",
     "cbc-cbmt-montreal-qc-hd/4022",
     "cbc-news-network/74",
+    "cbs-wcbs-new-york-ny/1766",
     "cbs-wbz-boston-ma/134",
     "chch-hamilton-on/43",
     "cinepop/2325",
