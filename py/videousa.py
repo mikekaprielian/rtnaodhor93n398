@@ -15,6 +15,7 @@ channel_names = {
     "cinemax-action-eastern-hd/7094": "Cinemax Action",
     "cinemax-classics-eastern/636": "Cinemax Classics",
     "cinemax-hits-eastern-hd/7097": "Cinemax Hits",
+    "cnn-international-north-america/3008": "CNN International",
     "comet-tv/16811": "Comet",
     "court-tv-network/33650": "Court TV",
     "discovery-turbo-usa/2143": "Discovery Turbo",
@@ -42,8 +43,12 @@ channel_names = {
     "screenpix-westerns/34661": "Screenpix Westerns",
     "scripps-news/5999": "Scripps News",
     "sundancetv-usa-east-hd/8264": "Sundance TV",
+    "tbs-east/61": "TBS",
     "the-nest/14118": "The Nest",
-    "telemundo-wneu-manchester-ma-hd/9350": "Telemundo (WNEU)"
+    "telemundo-wneu-manchester-ma-hd/9350": "Telemundo (WNEU)",
+    "tnt-eastern-feed/347": "TNT",
+    "trutv-usa-eastern/333": "TruTV",
+    "turner-classic-movies-canada/2847": "Turner Classic Movies"
 
     # Add more channel IDs and names as needed
 }
@@ -291,6 +296,7 @@ channel_ids = [
     "cinemax-hits-eastern-hd/7097",
     "comet-tv/16811",
     "court-tv-network/33650",
+    "cnn-international-north-america/3008",
     "discovery-turbo-usa/2143",
     "hbo-hd-eastern-feed/627",
     "hbo-comedy-hd-east/7105",
@@ -316,8 +322,12 @@ channel_ids = [
     "screenpix-westerns/34661",
     "scripps-news/5999",
     "sundancetv-usa-east-hd/8264",
+    "tbs-east/61",
     "the-nest/14118",
-    "telemundo-wneu-manchester-ma-hd/9350"
+    "telemundo-wneu-manchester-ma-hd/9350",
+    "tnt-eastern-feed/347",
+    "trutv-usa-eastern/333",
+    "turner-classic-movies-canada/2847"
 ]
 
 
